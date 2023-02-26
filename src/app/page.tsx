@@ -1,4 +1,3 @@
-import { Roboto } from 'next/font/google'
 import styles from './page.module.css'
 import Image from 'next/image'
 import image01 from '../assets/01.jpeg'
@@ -49,7 +48,7 @@ export default function Home() {
   <main className={styles.main}>  
       <div className={styles.content}>
         <section className={styles.top}>
-          <h2>Blocos recomendados</h2>
+          <h2>Experimentos recomendados</h2>
           <div className={styles.view}>
             <button className={styles['btn-primary']}>Lista</button>
             <button className={styles['btn-secondary']}>Mapa</button>
