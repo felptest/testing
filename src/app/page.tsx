@@ -1,91 +1,167 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import styles from './page.module.css'
+import Image from 'next/image'
+import image01 from '../assets/01.jpeg'
+import image02 from '../assets/02.jpeg'
+import image03 from '../assets/03.jpeg'
 
-const inter = Inter({ subsets: ['latin'] })
+
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <>
+     <header className={styles.header}>
+    <div className={styles.content}>
+      <div className={styles.top}>
+        <p>find your experiment</p>
+        <h1>Encontre os <span>melhores experimentos</span> de ciências</h1>
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
+      <form className={styles.search}>
+        <div className={styles['search-field']}>
+          <label className={styles['sr-only']} htmlFor="name">Pesquise por nome</label>
+          <i className={styles['ph-caret-down-light']}></i>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Pesquise por nome"
+            className={styles.input}
+          />
         </div>
-      </div>
+        <div className={styles['search-field']}>
+          <label className={styles['sr-only']} htmlFor="city">Selecione uma cidade</label>
+          <i className={styles['ph-caret-down-light']}></i>
+          <select className={styles.select} name="city" id="city">
+            <option value="0" selected>Selecione sua cidade</option>
+            <option value="sao-paulo">São Paulo</option>
+            <option value="rio-de-janeiro">Rio de Janeiro</option>
+            <option value="salvador">Salvador</option>
+          </select>
+          <i className="ph-caret-down-light"></i>
+        </div>
+        <button className={styles['btn-primary']}>Buscar agora</button>
+      </form>
+    </div>
+  </header>
 
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
+  <main className={styles.main}>  
+      <div className={styles.content}>
+        <section className={styles.top}>
+          <h2>Blocos recomendados</h2>
+          <div className={styles.view}>
+            <button className={styles['btn-primary']}>Lista</button>
+            <button className={styles['btn-secondary']}>Mapa</button>
+          </div>
+        </section>
+        <section className={styles.cards}>
+          <div className={styles.card}>
+            <Image src={image01} alt="1" />
+            <div className={styles.content}>
+              <h3>O Python do vovô não sobe mais</h3>
+              <p>
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet sint.
+              </p>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+              <div className={styles.location}>
+                <i className={styles['ph-caret-down-light']}></i>
+                São Paulo - SP
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.card}>
+          <Image src={image02} alt="2" />
+            <div className={styles.content}>
+              <h3>Todo mundo null</h3>
+              <p>
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet sint.
+              </p>
+
+              <div className={styles.location}>
+                <i className={styles['ph-caret-down-light']}></i>
+                Salvador - BA
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.card}>
+          <Image src={image03} alt="3" />
+
+            <div className={styles.content}>
+              <h3>Hoje dou exception</h3>
+              <p>
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet sint.
+              </p>
+
+              <div className={styles.location}>
+                <i className={styles['ph-caret-down-light']}></i>
+                Rio de Janeiro - RJ
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.card}>
+            <Image src={image01} alt="1" />
+
+
+            <div className={styles.content}>
+              <h3>O Python do vovô não sobe mais</h3>
+              <p>
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet sint.
+              </p>
+
+              <div className={styles.location}>
+                <i className={styles['ph-caret-down-light']}></i>
+                São Paulo - SP
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.card}>
+            <Image src={image02} alt="2" />
+
+            <div className={styles.content}>
+              <h3>Todo mundo null</h3>
+              <p>
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet sint.
+              </p>
+
+              <div className={styles.location}>
+                <i className={styles['ph-caret-down-light']}></i>
+                Salvador - BA
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.card}>
+            <Image src={image03} alt="3" />
+
+            <div className={styles.content}>
+              <h3>Hoje dou exception</h3>
+              <p>
+                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
+                amet sint.
+              </p>
+
+              <div className={styles.location}>
+                <i className={styles['ph-caret-down-light']}></i>
+                Rio de Janeiro - RJ
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
+    </>
+   
+
+  
   )
 }
