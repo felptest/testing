@@ -3,6 +3,7 @@ import Image from 'next/image'
 import image01 from '../assets/01.jpeg'
 import image02 from '../assets/02.jpeg'
 import image03 from '../assets/03.jpeg'
+import Link from 'next/link'
 
 
 
@@ -68,7 +69,7 @@ export default function Home() {
           </div>
         </div>
        
-        <button className={styles['btn-primary']}>Buscar agora</button>
+        <button className={styles['btn-header']}>Buscar agora</button>
       </form>
     </div>
   </header>
@@ -97,6 +98,10 @@ export default function Home() {
                 <i className={styles['ph-caret-down-light']}></i>
                 São Paulo - SP
               </div>
+
+              <div>
+                <Link className={styles.link} href="/">Acessar</Link>
+              </div>
             </div>
           </div>
 
@@ -114,7 +119,11 @@ export default function Home() {
                 Salvador - BA
               </div>
             </div>
-          </div>
+
+            <div>
+                <Link className={styles.link} href="/">Acessar</Link>
+              </div>
+            </div>
 
           <div className={styles.card}>
           <Image src={image03} alt="3" />
@@ -130,6 +139,11 @@ export default function Home() {
                 <i className={styles['ph-caret-down-light']}></i>
                 Rio de Janeiro - RJ
               </div>
+
+              <div>
+                <Link className={styles.link} href="/">Acessar</Link>
+              </div>
+
             </div>
           </div>
 
@@ -148,6 +162,11 @@ export default function Home() {
                 <i className={styles['ph-caret-down-light']}></i>
                 São Paulo - SP
               </div>
+
+              <div>
+                <Link className={styles.link} href="/">Acessar</Link>
+              </div>
+
             </div>
           </div>
 
@@ -165,6 +184,11 @@ export default function Home() {
                 <i className={styles['ph-caret-down-light']}></i>
                 Salvador - BA
               </div>
+
+              <div>
+                <Link className={styles.link} href="/">Acessar</Link>
+              </div>
+
             </div>
           </div>
 
@@ -182,6 +206,11 @@ export default function Home() {
                 <i className={styles['ph-caret-down-light']}></i>
                 Rio de Janeiro - RJ
               </div>
+
+              <div>
+                <Link className={styles.link} href="/">Acessar</Link>
+              </div>
+
             </div>
           </div>
         </section>
