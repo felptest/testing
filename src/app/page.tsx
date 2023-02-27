@@ -17,28 +17,57 @@ export default function Home() {
       </div>
 
       <form className={styles.search}>
-        <div className={styles['search-field']}>
-          <label className={styles['sr-only']} htmlFor="name">Pesquise por nome</label>
-          <i className={styles['ph-caret-down-light']}></i>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Pesquise por nome"
-            className={styles.input}
-          />
+
+        <div>
+          <div className={styles['search-field']}>
+            <label className={styles['sr-only']} htmlFor="name">Pesquise por nome</label>
+            <i className={styles['ph-caret-down-light']}></i>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Pesquise por nome"
+              className={styles.input}
+            />
+          </div>
+          <div className={styles['search-field']}>
+            <label className={styles['sr-only']} htmlFor="city">Pesquise por tema da BNCC</label>
+            <i className={styles['ph-caret-down-light']}></i>
+            <select className={styles.select} name="city" id="city">
+              <option value="0" selected>Pesquise por tema da BNCC</option>
+              <option value="sao-paulo">Células</option>
+              <option value="rio-de-janeiro">Fenõmenos elétricos</option>
+              <option value="salvador">Ecologia</option>
+            </select>
+            <i className="ph-caret-down-light"></i>
+          </div>
         </div>
+
+        <div>
         <div className={styles['search-field']}>
-          <label className={styles['sr-only']} htmlFor="city">Selecione uma cidade</label>
-          <i className={styles['ph-caret-down-light']}></i>
-          <select className={styles.select} name="city" id="city">
-            <option value="0" selected>Selecione sua cidade</option>
-            <option value="sao-paulo">São Paulo</option>
-            <option value="rio-de-janeiro">Rio de Janeiro</option>
-            <option value="salvador">Salvador</option>
-          </select>
-          <i className="ph-caret-down-light"></i>
+            <label className={styles['sr-only']} htmlFor="city">Pesquise por um tema especifico</label>
+            <i className={styles['ph-caret-down-light']}></i>
+            <select className={styles.select} name="city" id="city">
+              <option value="0" selected>Pesquise por um tema especifico</option>
+              <option value="sao-paulo">Células</option>
+              <option value="rio-de-janeiro">Fenõmenos elétricos</option>
+              <option value="salvador">Ecologia</option>
+            </select>
+            <i className="ph-caret-down-light"></i>
+          </div>
+          <div className={styles['search-field']}>
+            <label className={styles['sr-only']} htmlFor="city">Pesquise por um tipo</label>
+            <i className={styles['ph-caret-down-light']}></i>
+            <select className={styles.select} name="city" id="city">
+              <option value="0" selected>Pesquise por um tipo</option>
+              <option value="sao-paulo">Células</option>
+              <option value="rio-de-janeiro">Fenõmenos elétricos</option>
+              <option value="salvador">Ecologia</option>
+            </select>
+            <i className="ph-caret-down-light"></i>
+          </div>
         </div>
+       
         <button className={styles['btn-primary']}>Buscar agora</button>
       </form>
     </div>

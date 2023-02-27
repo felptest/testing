@@ -150,7 +150,7 @@
 
   display: flex;
   padding: 4rem;
-  gap: 2.4rem;
+  gap: 0;
 
   background: #ffffff;
   border: 0.1rem solid #eaeaea;
@@ -161,7 +161,9 @@
   display: flex;
   align-items: center;
   gap: 1.2rem;
-
+  margin: 1rem;
+/*   margin-bottom: 2rem;
+ */
   background: #f4f4ff;
   border-radius: 0.5rem;
   padding: 1.2rem 0.8rem 1.2rem 1.4rem;
@@ -275,6 +277,11 @@ section.cards {
     background-size: 30vw;
     background-repeat: no-repeat;
   }
+
+.search-field {
+ margin-bottom: 0;
+}
+
 }
 
 @media (max-width: 870px) {
