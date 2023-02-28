@@ -263,7 +263,9 @@ section.cards {
 }
 
 .card .content {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   gap: 1.6rem;
 
   padding: 1.6rem;
@@ -304,13 +306,15 @@ section.cards {
   justify-content: center;
   text-decoration: none;
   color: gray;
-  border: 1px solid gray;
-  border-radius: 16px;
+  border: 0.1rem solid #eaeaea;
   padding: 1rem;
+  background: #6246ea;
+  color: #ffffff;
+  transition: background 200ms;
 }
 
 .link:hover {
-  background: gray;
+  background: #523dbe;
   color: white;
 }
 

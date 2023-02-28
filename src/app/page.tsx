@@ -99,9 +99,10 @@ export default function Home() {
                 São Paulo - SP
               </div>
 
-              <div>
-                <Link className={styles.link} href="/">Acessar</Link>
-              </div>
+            </div>
+
+            <div>
+              <Link className={styles.link} href="/">Acessar</Link>
             </div>
           </div>
 
@@ -120,7 +121,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div>
+              <div>
                 <Link className={styles.link} href="/">Acessar</Link>
               </div>
             </div>
@@ -140,11 +141,12 @@ export default function Home() {
                 Rio de Janeiro - RJ
               </div>
 
-              <div>
-                <Link className={styles.link} href="/">Acessar</Link>
-              </div>
-
             </div>
+
+            <div>
+                <Link className={styles.link} href="/">Acessar</Link>
+            </div>
+              
           </div>
 
           <div className={styles.card}>
@@ -163,10 +165,10 @@ export default function Home() {
                 São Paulo - SP
               </div>
 
-              <div>
-                <Link className={styles.link} href="/">Acessar</Link>
-              </div>
+            </div>
 
+            <div>
+                <Link className={styles.link} href="/">Acessar</Link>
             </div>
           </div>
 
@@ -185,10 +187,10 @@ export default function Home() {
                 Salvador - BA
               </div>
 
-              <div>
-                <Link className={styles.link} href="/">Acessar</Link>
-              </div>
+            </div>
 
+            <div>
+                <Link className={styles.link} href="/">Acessar</Link>
             </div>
           </div>
 
@@ -207,12 +209,13 @@ export default function Home() {
                 Rio de Janeiro - RJ
               </div>
 
-              <div>
-                <Link className={styles.link} href="/">Acessar</Link>
-              </div>
+            </div>
 
+            <div>
+                <Link className={styles.link} href="/">Acessar</Link>
             </div>
           </div>
+          
         </section>
       </div>
     </main>
