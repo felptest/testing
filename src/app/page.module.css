@@ -29,6 +29,8 @@
 
   color: #ffffff;
   transition: background 200ms;
+
+  margin-left: 2rem;
 }
 
 .btn-header:hover {
@@ -373,6 +375,10 @@ section.cards {
 
 @media (max-width: 870px) {
 
+  .btn-header {
+    margin-left: 0rem;
+  }
+
   .search {
     align-items: inherit;
   }
@@ -393,6 +399,10 @@ section.cards {
 }
 
 @media (max-width: 500px) {
+
+  .footerContainer {
+    flex-direction: column;
+  } 
   section.cards {
     grid-template-columns: 1fr;
   }

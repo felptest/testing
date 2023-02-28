@@ -32,10 +32,10 @@ export default function Home() {
             />
           </div>
           <div className={styles['search-field']}>
-            <label className={styles['sr-only']} htmlFor="city">Pesquise por tema da BNCC</label>
+            <label className={styles['sr-only']} htmlFor="city">Pesquise por eixo da BNCC</label>
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
-              <option value="0" selected>Pesquise por tema da BNCC</option>
+              <option value="0" selected>Pesquise por eixo da BNCC</option>
               <option value="sao-paulo">Células</option>
               <option value="rio-de-janeiro">Fenõmenos elétricos</option>
               <option value="salvador">Ecologia</option>
@@ -46,10 +46,10 @@ export default function Home() {
 
         <div>
         <div className={styles['search-field']}>
-            <label className={styles['sr-only']} htmlFor="city">Pesquise por um tema especifico</label>
+            <label className={styles['sr-only']} htmlFor="city">Pesquise por um tema geral</label>
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
-              <option value="0" selected>Pesquise por um tema especifico</option>
+              <option value="0" selected>Pesquise por um tema geral</option>
               <option value="sao-paulo">Células</option>
               <option value="rio-de-janeiro">Fenõmenos elétricos</option>
               <option value="salvador">Ecologia</option>
@@ -57,10 +57,10 @@ export default function Home() {
             <i className="ph-caret-down-light"></i>
           </div>
           <div className={styles['search-field']}>
-            <label className={styles['sr-only']} htmlFor="city">Pesquise por um tipo</label>
+            <label className={styles['sr-only']} htmlFor="city">Pesquise por um tema especifico</label>
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
-              <option value="0" selected>Pesquise por um tipo</option>
+              <option value="0" selected>Pesquise por um tema especifico</option>
               <option value="sao-paulo">Células</option>
               <option value="rio-de-janeiro">Fenõmenos elétricos</option>
               <option value="salvador">Ecologia</option>
