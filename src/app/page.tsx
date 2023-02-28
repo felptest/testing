@@ -10,7 +10,7 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <>
-     <header className={styles.header}>
+      <header className={styles.header}>
     <div className={styles.content}>
       <div className={styles.top}>
         <p>find your experiment</p>
@@ -72,10 +72,9 @@ export default function Home() {
         <button className={styles['btn-header']}>Buscar agora</button>
       </form>
     </div>
-  </header>
+      </header>
 
-
-  <main className={styles.main}>  
+      <main className={styles.main}>  
       <div className={styles.content}>
         <section className={styles.top}>
           <h2>Experimentos recomendados</h2>
@@ -102,7 +101,7 @@ export default function Home() {
             </div>
 
             <div>
-              <Link className={styles.link} href="/">Acessar</Link>
+              <Link className={styles.link} href="/">Ver mais</Link>
             </div>
           </div>
 
@@ -122,7 +121,7 @@ export default function Home() {
             </div>
 
               <div>
-                <Link className={styles.link} href="/">Acessar</Link>
+                <Link className={styles.link} href="/">Ver mais</Link>
               </div>
             </div>
 
@@ -144,7 +143,7 @@ export default function Home() {
             </div>
 
             <div>
-                <Link className={styles.link} href="/">Acessar</Link>
+                <Link className={styles.link} href="/">Ver mais</Link>
             </div>
               
           </div>
@@ -168,7 +167,7 @@ export default function Home() {
             </div>
 
             <div>
-                <Link className={styles.link} href="/">Acessar</Link>
+                <Link className={styles.link} href="/">Ver mais</Link>
             </div>
           </div>
 
@@ -190,7 +189,7 @@ export default function Home() {
             </div>
 
             <div>
-                <Link className={styles.link} href="/">Acessar</Link>
+                <Link className={styles.link} href="/">Ver mais</Link>
             </div>
           </div>
 
@@ -212,13 +211,44 @@ export default function Home() {
             </div>
 
             <div>
-                <Link className={styles.link} href="/">Acessar</Link>
+                <Link className={styles.link} href="/">Ver mais</Link>
             </div>
           </div>
           
         </section>
       </div>
-    </main>
+      </main>
+
+      <footer className={styles.footer}>
+        <div className={styles.footerContainer}>
+          <div className={styles.footerBlock}>
+            <ul>
+              <li>item 1</li>
+              <li>item 2</li>
+              <li>item 3</li>
+              <li>item 4</li>
+            </ul>
+          </div>
+
+          <div className={styles.footerBlock}>
+            <ul>
+              <li>Contato</li>
+              <li>Saiba sobre o projeto</li>
+              <li>Mande um feedback</li>
+              <li>item 4</li>
+            </ul>
+          </div>
+
+          <div className={styles.footerBlock}>
+            <ul>
+              <li>Sobre a plataforma</li>
+              <li>Saiba sobre o projeto</li>
+              <li>Mande um feedback</li>
+              <li>item 4</li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </>
    
 

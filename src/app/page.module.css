@@ -22,7 +22,7 @@
   text-transform: uppercase;
   cursor: pointer;
 
-  padding: 0.4rem 2.4rem;
+  padding: 1.4rem 2.4rem;
   border-radius: 0.5rem;
 
   background: #6246ea;
@@ -260,6 +260,8 @@ section.cards {
   border-radius: 1rem;
   max-width: 38.4rem;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .card .content {
@@ -318,6 +320,33 @@ section.cards {
   color: white;
 }
 
+
+/* Footer */
+.footer {
+  background: #6246ea;
+  color: white;
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem;
+}
+
+.footerBlock {
+  display: flex;
+}
+
+.footerBlock ul {
+  list-style: none;
+}
+
+.footerBlock ul li:first-of-type {
+  font-size: 1.6rem;
+  font-weight: bolder;
+}
+
+
 @media (max-width: 1024px) {
 
   .header::before {
@@ -328,7 +357,6 @@ section.cards {
   .search-field {
     margin-bottom: 0;
     gap: 0;
-    margin: 1rem 0rem;;
   }
 
   .btn-header {
