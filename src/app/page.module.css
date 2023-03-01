@@ -50,7 +50,7 @@
   text-transform: uppercase;
   cursor: pointer;
 
-  padding: 0.4rem 2.4rem;
+  padding: 0.4rem 1.4rem;
   border-radius: 0.5rem;
 
   background: #6246ea;
@@ -77,7 +77,7 @@
   text-transform: uppercase;
   cursor: pointer;
 
-  padding: 0.4rem 2.4rem;
+  padding: 0.4rem 1.4rem;
   border-radius: 0.5rem;
 
   color: #6246ea;
@@ -197,7 +197,7 @@
  */
   background: #eaeaea73;
   border: 1px solid #8587936e;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   padding: 1.2rem 0.8rem 1.2rem 1.4rem;
 
 }
@@ -260,6 +260,21 @@ section.cards {
   display: grid;
   gap: 3.2rem;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+section.bottom {
+  display: flex;
+  background-color: rgb(42, 18, 157);
+  color: rgb(232, 230, 227);
+  margin: 4rem 0rem;
+  border-radius: 0.6rem;
+}
+
+section.bottom h3{
+  padding: 1rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
 }
 
 .card {
@@ -356,6 +371,11 @@ section.cards {
   font-weight: bolder;
 }
 
+.iconSvg {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-left: 0.5rem;
+}
 
 @media (max-width: 1024px) {
 
@@ -416,6 +436,7 @@ section.cards {
 
   .card img {
     width: 100%;
+    height: auto;
   }
   
   .card {

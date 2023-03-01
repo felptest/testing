@@ -5,6 +5,8 @@ import image02 from '../assets/02.jpeg'
 import image03 from '../assets/03.jpeg'
 import Link from 'next/link'
 
+import { BiSearchAlt } from "react-icons/bi";
+
 
 
 export default function Home() {
@@ -69,7 +71,7 @@ export default function Home() {
           </div>
         </div>
        
-        <button className={styles['btn-header']}>Buscar agora</button>
+        <button className={styles['btn-header']}>Buscar agora <BiSearchAlt className={styles.iconSvg}/></button>
       </form>
     </div>
       </header>
@@ -93,11 +95,6 @@ export default function Home() {
                 amet sint.
               </p>
 
-              <div className={styles.location}>
-                <i className={styles['ph-caret-down-light']}></i>
-                São Paulo - SP
-              </div>
-
             </div>
 
             <div>
@@ -114,10 +111,6 @@ export default function Home() {
                 amet sint.
               </p>
 
-              <div className={styles.location}>
-                <i className={styles['ph-caret-down-light']}></i>
-                Salvador - BA
-              </div>
             </div>
 
               <div>
@@ -134,11 +127,6 @@ export default function Home() {
                 Amet minim mollit non deserunt ullamco est sit aliqua dolor do
                 amet sint.
               </p>
-
-              <div className={styles.location}>
-                <i className={styles['ph-caret-down-light']}></i>
-                Rio de Janeiro - RJ
-              </div>
 
             </div>
 
@@ -159,11 +147,6 @@ export default function Home() {
                 amet sint.
               </p>
 
-              <div className={styles.location}>
-                <i className={styles['ph-caret-down-light']}></i>
-                São Paulo - SP
-              </div>
-
             </div>
 
             <div>
@@ -180,11 +163,6 @@ export default function Home() {
                 Amet minim mollit non deserunt ullamco est sit aliqua dolor do
                 amet sint.
               </p>
-
-              <div className={styles.location}>
-                <i className={styles['ph-caret-down-light']}></i>
-                Salvador - BA
-              </div>
 
             </div>
 
@@ -203,11 +181,6 @@ export default function Home() {
                 amet sint.
               </p>
 
-              <div className={styles.location}>
-                <i className={styles['ph-caret-down-light']}></i>
-                Rio de Janeiro - RJ
-              </div>
-
             </div>
 
             <div>
@@ -215,6 +188,9 @@ export default function Home() {
             </div>
           </div>
           
+        </section>
+        <section className={styles.bottom}>
+          <h3>Carregar mais</h3>
         </section>
       </div>
       </main>
