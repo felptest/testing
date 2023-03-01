@@ -35,7 +35,7 @@ export default function Home() {
             <label className={styles['sr-only']} htmlFor="city">Pesquise por eixo da BNCC</label>
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
-              <option value="0" selected>Pesquise por eixo da BNCC</option>
+              <option value="0" selected disabled>Pesquise por eixo da BNCC</option>
               <option value="sao-paulo">Células</option>
               <option value="rio-de-janeiro">Fenõmenos elétricos</option>
               <option value="salvador">Ecologia</option>
@@ -49,7 +49,7 @@ export default function Home() {
             <label className={styles['sr-only']} htmlFor="city">Pesquise por um tema geral</label>
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
-              <option value="0" selected>Pesquise por um tema geral</option>
+              <option value="0" selected disabled>Pesquise por um tema geral</option>
               <option value="sao-paulo">Células</option>
               <option value="rio-de-janeiro">Fenõmenos elétricos</option>
               <option value="salvador">Ecologia</option>
@@ -60,7 +60,7 @@ export default function Home() {
             <label className={styles['sr-only']} htmlFor="city">Pesquise por um tema especifico</label>
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
-              <option value="0" selected>Pesquise por um tema especifico</option>
+              <option value="0" selected disabled>Pesquise por um tema especifico</option>
               <option value="sao-paulo">Células</option>
               <option value="rio-de-janeiro">Fenõmenos elétricos</option>
               <option value="salvador">Ecologia</option>
@@ -223,28 +223,22 @@ export default function Home() {
         <div className={styles.footerContainer}>
           <div className={styles.footerBlock}>
             <ul>
-              <li>item 1</li>
-              <li>item 2</li>
-              <li>item 3</li>
-              <li>item 4</li>
+              <li>Titulo 1 1</li>
+              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
             </ul>
           </div>
 
           <div className={styles.footerBlock}>
             <ul>
-              <li>Contato</li>
-              <li>Saiba sobre o projeto</li>
-              <li>Mande um feedback</li>
-              <li>item 4</li>
+              <li>Titulo 2</li>
+              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
             </ul>
           </div>
 
           <div className={styles.footerBlock}>
             <ul>
-              <li>Sobre a plataforma</li>
-              <li>Saiba sobre o projeto</li>
-              <li>Mande um feedback</li>
-              <li>item 4</li>
+              <li>Titulo 3</li>
+              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
             </ul>
           </div>
         </div>

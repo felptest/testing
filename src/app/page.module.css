@@ -195,7 +195,7 @@
   margin: 1rem;
 /*   margin-bottom: 2rem;
  */
-  background: #ffffff;
+  background: #eaeaea73;
   border: 1px solid #8587936e;
   border-radius: 1rem;
   padding: 1.2rem 0.8rem 1.2rem 1.4rem;
@@ -343,6 +343,8 @@ section.cards {
 
 .footerBlock {
   display: flex;
+  width: calc(100%/3);
+  padding: 0.5rem;
 }
 
 .footerBlock ul {
@@ -396,6 +398,11 @@ section.cards {
   .section.cards {
     grid-template-columns: 1fr 1fr;
   }
+
+  .footerBlock {
+    width: 100%;
+  }
+  
 }
 
 @media (max-width: 500px) {
