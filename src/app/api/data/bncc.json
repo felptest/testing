@@ -1,5 +1,4 @@
-const bncc = {
-    "result": [
+[
         {
             "id": "1",
             "title": "Nome 1"
@@ -12,5 +11,4 @@ const bncc = {
             "id": "2",
             "title": "Nome 3"
         }
-    ]
-}
+]

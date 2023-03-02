@@ -4,6 +4,7 @@ import image01 from '../assets/01.jpeg'
 import image02 from '../assets/02.jpeg'
 import image03 from '../assets/03.jpeg'
 import Link from 'next/link'
+import bncc from "../app/api/data/bncc.json"
 
 import { BiSearchAlt } from "react-icons/bi";
 
