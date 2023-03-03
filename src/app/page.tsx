@@ -1,16 +1,22 @@
+"use client";
 import styles from './page.module.css'
 import Image from 'next/image'
 import image01 from '../assets/01.jpeg'
 import image02 from '../assets/02.jpeg'
 import image03 from '../assets/03.jpeg'
 import Link from 'next/link'
+
 import bncc from "../app/api/data/bncc.json"
 
 import { BiSearchAlt } from "react-icons/bi";
+import { useState } from 'react'
 
 
 
 export default function Home() {
+
+  const [experienceList, setexperienceList] = useState(bncc)
+
   return (
     <>
       <header className={styles.header}>
@@ -39,9 +45,17 @@ export default function Home() {
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
               <option value="0" selected disabled>Pesquise por eixo da BNCC</option>
-              <option value="sao-paulo">Células</option>
+
+              {experienceList !== undefined && 
+                experienceList.map((experienceLists: any) => (
+                  <option value={experienceLists.id} key={experienceLists.id}>{experienceLists.title}</option>
+                ))
+              }
+            
+
+             {/*  <option value="sao-paulo">Células</option>
               <option value="rio-de-janeiro">Fenõmenos elétricos</option>
-              <option value="salvador">Ecologia</option>
+              <option value="salvador">Ecologia</option> */}
             </select>
             <i className="ph-caret-down-light"></i>
           </div>
