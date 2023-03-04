@@ -7,6 +7,7 @@ import image03 from '../assets/03.jpeg'
 import Link from 'next/link'
 
 import bncc from "../app/api/data/bncc.json"
+import materias from "../app/api/data/materias.json"
 
 import { BiSearchAlt } from "react-icons/bi";
 import { useState } from 'react'
@@ -16,6 +17,7 @@ import { useState } from 'react'
 export default function Home() {
 
   const [experienceList, setexperienceList] = useState(bncc)
+  const [materiasList, setmateriasList] = useState(materias)
 
   return (
     <>
@@ -28,7 +30,7 @@ export default function Home() {
 
       <form className={styles.search}>
 
-        <div>
+        <div className={styles.formContent}>
           <div className={styles['search-field']}>
             <label className={styles['sr-only']} htmlFor="name">Pesquise por nome</label>
             <i className={styles['ph-caret-down-light']}></i>
@@ -41,10 +43,10 @@ export default function Home() {
             />
           </div>
           <div className={styles['search-field']}>
-            <label className={styles['sr-only']} htmlFor="city">Pesquise por eixo da BNCC</label>
+            <label className={styles['sr-only']} htmlFor="city">Pesquise por unidades temáticas e objetos de conhecimentos da BNCC</label>
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
-              <option value="0" selected disabled>Pesquise por eixo da BNCC</option>
+              <option value="0" selected disabled>Pesquise por unidades temáticas e objetos de conhecimentos da BNCC</option>
 
               {experienceList !== undefined && 
                 experienceList.map((experienceLists: any) => (
@@ -61,15 +63,17 @@ export default function Home() {
           </div>
         </div>
 
-        <div>
+        <div className={styles.formContent}>
         <div className={styles['search-field']}>
             <label className={styles['sr-only']} htmlFor="city">Pesquise por um tema geral</label>
             <i className={styles['ph-caret-down-light']}></i>
             <select className={styles.select} name="city" id="city">
               <option value="0" selected disabled>Pesquise por um tema geral</option>
-              <option value="sao-paulo">Células</option>
-              <option value="rio-de-janeiro">Fenõmenos elétricos</option>
-              <option value="salvador">Ecologia</option>
+              {materiasList !== undefined && 
+                materiasList.map((materiasLists: any) => (
+                  <option value={materiasLists.id} key={materiasLists.id}>{materiasLists.title}</option>
+                ))
+              }
             </select>
             <i className="ph-caret-down-light"></i>
           </div>

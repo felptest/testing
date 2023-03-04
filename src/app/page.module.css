@@ -188,6 +188,10 @@
 /*   box-shadow: rgb(0 0 0 / 6%) 2px 1px 10px 10px, rgb(0 0 0 / 10%) 0px 1px 0px 0px;
  */}
 
+.formContent {
+  max-width: 37rem;
+}
+
 .search-field {
   display: flex;
   align-items: center;
