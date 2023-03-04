@@ -331,3 +331,70 @@ Gravitação
 Astronomia
 Cosmologia
 Teoria da relatividade
+
+
+
+
+
+{
+"1": {
+"id": "1",
+"title": "Experimento de densidade",
+"slug": "experimento-densidade",
+"description": "Este experimento consiste em medir a densidade de diferentes materiais, como madeira, metal e plástico. Para isso, você pode pesar um cubo de cada material e medir seus lados para calcular sua densidade.",
+"materiais": ["madeira", "metal", "plástico"],
+"metodos": ["pesagem", "medição de lados"],
+"image": "https://i.imgur.com/2UBns7b.jpg"
+},
+"2": {
+"id": "2",
+"title": "Experimento de combustão",
+"slug": "experimento-combustao",
+"description": "Este experimento consiste em queimar diferentes materiais, como papel, madeira e plástico, para observar as diferentes características da combustão em cada material. Para isso, você pode usar um isqueiro para queimar pequenos pedaços de cada material e observar a cor da chama e a quantidade de fumaça produzida.",
+"materiais": ["papel", "madeira", "plástico"],
+"metodos": ["queima", "observação"],
+"image": "https://i.imgur.com/vRYx7Th.jpg"
+},
+"3": {
+"id": "3",
+"title": "Experimento de elasticidade",
+"slug": "experimento-elasticidade",
+"description": "Este experimento consiste em testar a elasticidade de diferentes materiais, como borracha, metal e madeira. Para isso, você pode usar um dinamômetro para aplicar uma força sobre cada material e medir a quantidade de deformação que ocorre.",
+"materiais": ["borracha", "metal", "madeira"],
+"metodos": ["teste de força", "medição de deformação"],
+"image": "https://i.imgur.com/RJxbtug.jpg"
+},
+"4": {
+"id": "4",
+"title": "Experimento de solubilidade",
+"slug": "experimento-solubilidade",
+"description": "Este experimento consiste em testar a solubilidade de diferentes materiais em água, como sal, açúcar e areia. Para isso, você pode colocar pequenas quantidades de cada material em recipientes com água e observar a quantidade de material que se dissolve e a quantidade que permanece no fundo do recipiente.",
+"materiais": ["sal", "açúcar", "areia"],
+"metodos": ["adicionamento em água", "observação"],
+"image": "https://i.imgur.com/Z31lX1l.jpg"
+}
+}
+
+
+
+
+
+sobre experimentos, temos o tema da bncc Matéria e energia - Características dos materiais, me liste em json 2 experimentos com campo id, começando do 1, title, slug do title, imagePreview, com campo em branco "",materiais, com a lista de materiais utilizados, e metodos com o passo a passo do experimento
+[
+{
+"id": "1",
+"title": "Experimento de densidade",
+"slug": "experimento-densidade",
+"imagePreview": "",
+"materiais": ["Madeira", "Metal", "Plástico"],
+"metodos": ["1. Corte cubos dos materiais com o mesmo tamanho", "2. Pese cada cubo em uma balança", "3. Meça os lados de cada cubo", "4. Calcule a densidade de cada material dividindo a massa pelo volume"],
+},
+{
+"id": "2",
+"title": "Experimento de solubilidade",
+"slug": "experimento-solubilidade",
+"imagePreview": "",
+"materiais": ["Sal", "Açúcar", "Areia", "Água", "Recipientes de vidro"],
+"metodos": ["1. Coloque uma pequena quantidade de cada material em recipientes de vidro separados", "2. Adicione água aos recipientes e mexa até que o material se dissolva completamente ou não dissolva mais", "3. Observe e compare os resultados"],
+}
+]
