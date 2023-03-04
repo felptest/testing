@@ -1,0 +1,44 @@
+.main {
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    background: red;
+    width: 120rem;
+}
+
+.mainHeader {
+    display: flex;
+    align-items: center;
+}
+
+
+.mainHeaderProfileImageContainer {
+    max-width: 6rem;
+
+}
+
+.mainHeaderProfileImageContainer img {
+    width: 100%;
+    border-radius: 999px;
+}
+
+.mainHeaderProfileNameContainer {
+    font-weight: 600;
+}
+
+
+.ContentPost {
+    display: flex;
+    justify-content:flex-start ;
+    padding: 2rem;
+}
+
+.ContentPost h2 {
+    
+}
