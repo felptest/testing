@@ -2,6 +2,7 @@
 import { Header } from '@/components/header';
  import styles from './page.module.css'
  
+ import { BsFilePdf } from "react-icons/bs";
 
 
 export default function Experiment() {
@@ -21,12 +22,15 @@ export default function Experiment() {
                 <img src="https://4maos.com.br/wp-content/uploads/2022/07/f2582064395492d2a0f0d0f2baded609.jpg" alt="" />
               </div>
               <span className={styles.mainHeaderProfileNameContainer}><p>Felippe Matheus</p></span>
+              <p>Postado em: </p>
+              <span><p>04 de março de 2023</p></span>
         
             </div>
             
             <div className={styles.mainHeaderContentRight}>
-              <p>Postado em: </p>
-              <span><p>04 de março de 2023</p></span>
+              <p>Download em PDF</p>
+              
+              <BsFilePdf />
               
             </div>
           </div>
