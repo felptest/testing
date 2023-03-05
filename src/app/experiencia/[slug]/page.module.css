@@ -15,6 +15,8 @@
 .mainHeader {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
 }
 
 
@@ -35,6 +37,7 @@
 
 .ContentPost {
     display: flex;
+    flex-direction: column;
     justify-content:flex-start ;
     padding: 2rem;
 }
@@ -42,3 +45,29 @@
 .ContentPost h2 {
     
 }
+
+
+  .parallax {
+    /* Coloque a imagem a ser usada como background */
+    background-image: url("https://4maos.com.br/wp-content/uploads/2022/07/f2582064395492d2a0f0d0f2baded609.jpg");
+     
+    /* Defina uma altura para a visão que o usuário terá da imagem */
+    min-height: 200px;
+     
+    /* defina o background como fixo e posicione a imagem */
+    background-attachment: fixed;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+
+    .mainHeaderContentLeft {
+        display: flex;
+        align-items: center;
+    }
+
+    .mainHeaderContentRight {
+        display: flex;
+        align-items: center;
+    }
