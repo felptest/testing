@@ -28,7 +28,7 @@
 
 
 .mainHeaderProfileImageContainer {
-    max-width: 6rem;
+    max-width: 4rem;
 
 }
 
@@ -56,7 +56,7 @@
 
   .parallax {
     /* Coloque a imagem a ser usada como background */
-    background-image: url("https://4maos.com.br/wp-content/uploads/2022/07/f2582064395492d2a0f0d0f2baded609.jpg");
+    background-image: url("https://i.pinimg.com/originals/d3/9d/6d/d39d6d1b0d2785969c8cde858c94c43b.jpg");
      
     /* Defina uma altura para a visão que o usuário terá da imagem */
     min-height: 200px;
@@ -77,4 +77,9 @@
     .mainHeaderContentRight {
         display: flex;
         align-items: center;
+        cursor: pointer;
+    }
+
+    .mainHeaderContentRight svg{
+        color: red;
     }
