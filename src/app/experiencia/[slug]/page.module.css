@@ -1,15 +1,22 @@
-.main {
+.mainWrapper {
+    min-height: 100vh;
     display: flex;
-    width: 100%;
-    height: auto;
-    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    background-color: rgba(221,235,241,.3);
+    padding: 2rem;
 }
 
 .mainContent {
     display: flex;
     flex-direction: column;
-    background: red;
-    width: 120rem;
+    max-width: 900px;
+    background-color: rgb(255 255 255/1);
+    border-radius: 1.5rem;
+    border: 1px solid #E5E7EB;
+
 }
 
 .mainHeader {

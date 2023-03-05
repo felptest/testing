@@ -11,7 +11,7 @@ export default function Experiment() {
           <div>header</div>
       </header>
 
-      <main  className={styles.main} >  
+      <main  className={styles.mainWrapper} >  
         <div className={styles.mainContent}>
 
         <div className={styles.conteudoTuto}>
@@ -65,6 +65,7 @@ export default function Experiment() {
 
         </div>
       </main>
+
 
 
 
