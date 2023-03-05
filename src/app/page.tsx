@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <>
-      <header className={styles.header}>
+      <div className={styles.header}>
     <div className={styles.content}>
       <div className={styles.top}>
         <p>find your experiment</p>
@@ -93,7 +93,7 @@ export default function Home() {
         <button className={styles['btn-header']}>Buscar agora <BiSearchAlt className={styles.iconSvg}/></button>
       </form>
     </div>
-      </header>
+      </div>
 
       <main className={styles.main}>  
       <div className={styles.content}>
@@ -214,30 +214,6 @@ export default function Home() {
       </div>
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerContainer}>
-          <div className={styles.footerBlock}>
-            <ul>
-              <li>Titulo 1 1</li>
-              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
-            </ul>
-          </div>
-
-          <div className={styles.footerBlock}>
-            <ul>
-              <li>Titulo 2</li>
-              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
-            </ul>
-          </div>
-
-          <div className={styles.footerBlock}>
-            <ul>
-              <li>Titulo 3</li>
-              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
-            </ul>
-          </div>
-        </div>
-      </footer>
     </>
    
 

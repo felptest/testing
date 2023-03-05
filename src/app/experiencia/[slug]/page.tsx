@@ -1,4 +1,5 @@
 "use client";
+import { Header } from '@/components/header';
  import styles from './page.module.css'
  
 
@@ -7,10 +8,6 @@ export default function Experiment() {
 
   return (
     <>
-      <header /* className={styles.header} */>
-          <div>header</div>
-      </header>
-
       <main  className={styles.mainWrapper} >  
         <div className={styles.mainContent}>
 
@@ -50,12 +47,15 @@ export default function Experiment() {
             </ul>
 
             <h3>Instruções</h3>
-            <ul>
+            <ol>
               <li>Nós devemos fazerNós devemos fazerNós devemos fazerNós devemos fazer</li>
               <li>Nós devemos fazerNós devemos fazerNós devemos fazerNós devemos fazerevemos fazerNós devemos fazerNós devemos fazerNós devemos fazerevemos fazerNós devemos fazerNós devemos fazerNós devemos fazerevemos fazerNós devemos fazerNós devemos fazerNós devemos fazer</li>
               <li>Nós devemos fazerNós devemos fazerNós devemos fazerNós devemos fazer</li>
               <li>Nós devevemos fazerNós devemos fazerNós devemos fazerNós devemos fazerevemos fazerNós devemos fazerNós devemos fazerNós devemos fazerevemos fazerNós devemos fazerNós devemos fazerNós devemos fazeremos fazerNós devemos fazerNós devemos fazerNós devemos fazer</li>
-            </ul>
+            </ol>
+
+            <h3>O que deve acontecer?</h3>
+            <p>Conforme for fazendo deve ocorrer deConforme for fazendo deve ocorrer deConforme for fazendo deve ocorrer deConforme for fazendo deve ocorrer deConforme for fazendo deve ocorrer deConforme for fazendo deve ocorrer deConforme for fazendo deve ocorrer deConforme for fazendo deve ocorrer deConforme for fazendo deve ocorrer de</p>
 
             <h3>Explicação ciêntifica da experiência</h3>
             <p>A explicação é issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjssé issso e issos jfjfhfgdjss</p>
@@ -65,14 +65,6 @@ export default function Experiment() {
 
         </div>
       </main>
-
-
-
-
-
-      <footer /* className={styles.footer} */>
-        <div>footer</div>
-      </footer>
     </>
   
   )

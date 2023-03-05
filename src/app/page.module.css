@@ -352,34 +352,6 @@ opacity: 0.5;
   color: white;
 }
 
-
-/* Footer */
-.footer {
-  background: #6246ea;
-  color: white;
-}
-
-.footerContainer {
-  display: flex;
-  justify-content: space-between;
-  padding: 3rem;
-}
-
-.footerBlock {
-  display: flex;
-  width: calc(100%/3);
-  padding: 0.5rem;
-}
-
-.footerBlock ul {
-  list-style: none;
-}
-
-.footerBlock ul li:first-of-type {
-  font-size: 1.6rem;
-  font-weight: bolder;
-}
-
 .iconSvg {
   width: 1.8rem;
   height: 1.8rem;
