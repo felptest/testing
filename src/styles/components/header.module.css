@@ -1,9 +1,11 @@
 .headerContainer {
-    background: #6246ea;
-    color: white;
+/*     background: #6246ea;
+    color: white; */
     display: flex;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
+    border: 1px solid #E5E7EB;
+
 }
 
 .headerContent {
@@ -24,4 +26,22 @@
 .headerContentRight ul li {
     display: flex;
     list-style: none;
+    margin: 1rem;
+    margin-left: 1rem;
+    padding: 1rem;
+}
+
+.headerContentRight ul li:last-of-type {
+    background: #F1F2F4;
+}
+
+.headerContentRight ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+.headerContentLeft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
