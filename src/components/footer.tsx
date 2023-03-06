@@ -6,22 +6,24 @@ export const Footer = () => {
         <div className={styles.footerContainer}>
           <div className={styles.footerBlock}>
             <ul>
-              <li>Titulo 1 1</li>
-              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
+              <li>Sobre</li>
+              <li>Projetado e desenvolvido por Fellippe Matheus</li>
+              <li>
+Copyright 2023 - Direitos reservados</li>
             </ul>
           </div>
 
           <div className={styles.footerBlock}>
             <ul>
-              <li>Titulo 2</li>
-              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
+              <li>Contato</li>
+              <li>mande um email para email@gmail.com</li>
             </ul>
           </div>
 
           <div className={styles.footerBlock}>
             <ul>
-              <li>Titulo 3</li>
-              <li>Saiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projetoSaiba sobre o projeto</li>
+              <li>Projeto</li>
+              <li>O projeto pretende juntar todos os experimentos possiveis de ciências encontrados em livros, revistas, pdfs e sites, com os devidos créditos, para facilitar o compartilhamento entre professores e alunos e fazer com que seja mais facil encontrar uma gama de experimentos para realizar nas escolas pelo Brasil.</li>
             </ul>
           </div>
         </div>

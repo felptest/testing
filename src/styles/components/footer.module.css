@@ -27,8 +27,12 @@
   .footerBlock ul li:first-of-type {
     font-size: 1.6rem;
     font-weight: bolder;
+    margin-bottom: 2rem;
   }
 
+  .footerBlock ul li {
+    font-size: 11.8px;
+  }
   
 @media (max-width: 660px) {
 
