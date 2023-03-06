@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "../styles/components/header.module.css";
 
 export const Header = () => {
@@ -9,7 +10,11 @@ export const Header = () => {
                 </div>
 
                 <div className={styles.headerContentRight}>
-                    <p>item dirieta</p>
+                    <ul>
+                        <li><Link href="/">Home</Link></li>
+                        <li><Link href="/">Sobre nós</Link></li>
+                        <li><Link href="/">Contato</Link></li>
+                    </ul>
                 </div>
             </div>
         </header>

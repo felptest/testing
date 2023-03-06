@@ -12,3 +12,16 @@
     max-width: 121.6rem;
     justify-content: space-between;
 }
+
+.headerContentRight {
+    display: flex;
+}
+
+.headerContentRight ul {
+    display: flex;
+}
+
+.headerContentRight ul li {
+    display: flex;
+    list-style: none;
+}
