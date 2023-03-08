@@ -421,3 +421,63 @@ Vale lembrar que a estrutura de um experimento pode variar dependendo do tipo de
 
 
 
+
+
+{
+  "id": "1",
+  "title": "Experimento de densidade",
+  "slug": "experimento-densidade",
+  "imagePreview": "",
+  "description": "",
+  "literature": "O volume é a quantidade de espaço que um objeto ocupa. Ele pode ser medido em unidades como centímetros cúbicos (cm³) ou litros (L). No experimento de densidade, o volume dos cubos de cada material é medido para calcular a densidade de cada um. Massa": "A massa é a quantidade de matéria que um objeto contém. Ela é medida em unidades como gramas (g) ou quilogramas (kg). No experimento de densidade, a massa de cada cubo é medida em uma balança para calcular a densidade de cada material.",
+  "materials": ["Madeira", "Metal", "Plástico"],
+  "methods": [
+    "1. Corte cubos dos materiais com o mesmo tamanho",
+    "2. Pese cada cubo em uma balança",
+    "3. Meça os lados de cada cubo",
+    "4. Calcule a densidade de cada material dividindo a massa pelo volume"
+  ],
+  "objectives": [
+    "Medir a massa dos cubos de cada material",
+    "Medir o volume dos cubos de cada material",
+    "Calcular a densidade de cada material"
+  ],
+  "results": "Espera-se que os cubos de metal tenham a maior densidade, seguidos pelos cubos de madeira e plástico, respectivamente. O resultado final deve mostrar a diferença de densidade entre os materiais testados.",
+  "scientific-explanation": "A densidade é uma propriedade física dos materiais que se relaciona com a sua massa e volume. Quanto mais denso um material, mais massa ele possui em um determinado volume. O cálculo da densidade envolve a medição da massa e do volume do material, e a divisão da massa pelo volume.",
+  "references": [
+    "https://www.sofisica.com.br/conteudos/Fluidos/Densidade/densidade.php",
+    "https://www.todamateria.com.br/densidade/",
+    "https://brasilescola.uol.com.br/fisica/densidade.htm"
+  ]
+}
+
+
+
+
+{
+"id": "1",
+"title": "Experimento de densidade",
+"slug": "experimento-densidade",
+"imagePreview": "",
+"description": "Neste experimento, serão cortados cubos de madeira, metal e plástico com o mesmo tamanho, e medidos seus lados, massa e volume. Com essas informações, será possível calcular a densidade de cada material.",
+"literature": "O volume é a quantidade de espaço que um objeto ocupa. Ele pode ser medido em unidades como centímetros cúbicos (cm³) ou litros (L). No experimento de densidade, o volume dos cubos de cada material é medido para calcular a densidade de cada um. Massa: A massa é a quantidade de matéria que um objeto contém. Ela é medida em unidades como gramas (g) ou quilogramas (kg). No experimento de densidade, a massa de cada cubo é medida em uma balança para calcular a densidade de cada material.",
+"objectives": [
+"Medir a massa dos cubos de cada material",
+"Medir o volume dos cubos de cada material",
+"Calcular a densidade de cada material"
+],
+"materials": ["Madeira", "Metal", "Plástico"],
+"methods": [
+"Corte cubos dos materiais com o mesmo tamanho",
+"Pese cada cubo em uma balança",
+"Meça os lados de cada cubo",
+"Calcule a densidade de cada material dividindo a massa pelo volume"
+],
+"results": "Espera-se que os cubos de metal tenham a maior densidade, seguidos pelos cubos de madeira e plástico, respectivamente. O resultado final deve mostrar a diferença de densidade entre os materiais testados.",
+"scientific-explanation": "A densidade é uma propriedade física dos materiais que se relaciona com a sua massa e volume. Quanto mais denso um material, mais massa ele possui em um determinado volume. O cálculo da densidade envolve a medição da massa e do volume do material, e a divisão da massa pelo volume.",
+"references": [
+"https://www.sofisica.com.br/conteudos/Fluidos/Densidade/densidade.php",
+"https://www.todamateria.com.br/densidade/",
+"https://brasilescola.uol.com.br/fisica/densidade.htm"
+]
+}
