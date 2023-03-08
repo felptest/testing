@@ -72,8 +72,7 @@
 }
 
   .parallax {
-    /* Coloque a imagem a ser usada como background */
-    background-image: url("https://i.pinimg.com/originals/d3/9d/6d/d39d6d1b0d2785969c8cde858c94c43b.jpg");
+
      
     /* Defina uma altura para a visão que o usuário terá da imagem */
     min-height: 200px;
@@ -102,4 +101,11 @@
 
     .mainHeaderContentRight svg{
         color: red;
+    }
+
+    .blockListReference {
+        margin-left: 0!important;
+    }
+    .listReference {
+        list-style: none;
     }

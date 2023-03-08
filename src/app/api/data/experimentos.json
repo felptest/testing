@@ -6,7 +6,7 @@
         "postDate": "08 de março de 2023",
         "title": "Experimento de densidade",
         "slug": "experimento-densidade",
-        "imagePreview": "",
+        "imagePreview": "https://i.pinimg.com/originals/d3/9d/6d/d39d6d1b0d2785969c8cde858c94c43b.jpg",
         "description": "Neste experimento, serão cortados cubos de madeira, metal e plástico com o mesmo tamanho, e medidos seus lados, massa e volume. Com essas informações, será possível calcular a densidade de cada material.",
         "literature": "Volume é a quantidade de espaço ocupada por um objeto tridimensional. Ele pode ser medido em unidades como metros cúbicos (m³), centímetros cúbicos (cm³) ou litros (L). Em outras palavras, volume é a quantidade de espaço que um objeto ocupa. Massa é uma propriedade física de um objeto que mede a quantidade de matéria que ele contém. É uma medida da inércia do objeto, ou seja, sua resistência à aceleração. A massa é uma grandeza escalar e é medida em unidades como gramas (g) ou quilogramas (kg). A massa é uma grandeza conservativa, o que significa que ela não é afetada pela posição ou pelo movimento do objeto no espaço. densidade é uma medida da quantidade de massa contida em uma determinada unidade de volume. É uma propriedade física importante para identificar e caracterizar diferentes materiais, substâncias e objetos. A densidade é geralmente expressa em unidades de massa por unidade de volume, como gramas por centímetro cúbico (g/cm³) ou quilogramas por metro cúbico (kg/m³). É calculada dividindo-se a massa de um objeto pela sua volume.Uma substância com uma densidade maior terá uma quantidade maior de massa em um volume menor do que uma substância com densidade menor. Por exemplo, o ferro é mais denso que a água, o que significa que uma quantidade menor de ferro tem mais massa do que uma quantidade maior de água com o mesmo volume.",
         "objectives": [
@@ -22,9 +22,9 @@
         "results": "Espera-se que os cubos de metal tenham a maior densidade, seguidos pelos cubos de madeira e plástico, respectivamente. O resultado final deve mostrar a diferença de densidade entre os materiais testados.",
         "scientificExplanation": "A densidade é uma propriedade física dos materiais que se relaciona com a sua massa e volume. Quanto mais denso um material, mais massa ele possui em um determinado volume. O cálculo da densidade envolve a medição da massa e do volume do material, e a divisão da massa pelo volume.",
         "references": [
-        "https://www.sofisica.com.br/conteudos/Fluidos/Densidade/densidade.php",
-        "https://www.todamateria.com.br/densidade/",
-        "https://brasilescola.uol.com.br/fisica/densidade.htm"
+        "SOFísica. Densidade. Disponível em: https://www.sofisica.com.br/conteudos/Fluidos/Densidade/densidade.php. Acesso em: 8 mar. 2023.",
+        "Toda Matéria. Densidade. Disponível em: https://www.todamateria.com.br/densidade/. Acesso em: 8 mar. 2023.",
+        "Brasil Escola. Densidade. Disponível em: https://brasilescola.uol.com.br/fisica/densidade.htm. Acesso em: 8 mar. 2023."
         ]
     }
 ]

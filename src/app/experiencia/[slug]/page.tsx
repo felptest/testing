@@ -28,7 +28,7 @@ export default function Experiment({ params }: {
          <div className={styles.mainContent}>
 
          <div className={styles.conteudoTuto}>
-             <div className={styles.parallax}></div>
+             <div style={{backgroundImage: "url" + "(" + experimentInfo.imagePreview + ")" }} className={styles.parallax}></div>
          </div>
           
            <div className={styles.mainHeader}>
@@ -63,21 +63,19 @@ export default function Experiment({ params }: {
  
              <h3>Materiais utilizados</h3>
              <ul>
-              {experimentInfo.materials[0] && <li>{experimentInfo.materials[0]}</li>}
-              {experimentInfo.materials[1] && <li>{experimentInfo.materials[1]}</li>}
-              {experimentInfo.materials[2] && <li>{experimentInfo.materials[2]}</li>}
+              {experimentInfo.materials.map((material, index) => (
+                material && <li key={index}>{material}</li>
+              ))}
+            </ul>
 
-             </ul>
- 
              <h3>Instruções</h3>
+
              <ol>
-              <li>{experimentInfo.methods}</li>
-               <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt esse voluptates perferendis aliquid, ullam quo labore aut ut voluptatibus distinctio est ea magni eos dolore itaque reiciendis culpa, alias praesentium.</li>
-               <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla laboriosam similique ducimus quidem velit incidunt quas cumque facere alias, optio unde ipsa dicta possimus commodi minima aperiam iure nisi natus.</li>
-               <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur sequi iste explicabo vero quisquam ad! Magni tenetur odit, illum fuga et totam neque vel, voluptas voluptates cupiditate porro quidem blanditiis!</li>
-               <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi dolorum vitae maxime esse architecto assumenda sit nam facere laborum commodi sequi placeat perspiciatis corrupti, magnam doloremque eius ex, beatae sunt.</li>
-             </ol>
- 
+              {experimentInfo.methods.map((method, index) => (
+                method && <li key={index}>{method}</li>
+              ))}
+            </ol>
+
              <h3>Resultado esperado</h3>
              <p>{experimentInfo.results}</p>
  
@@ -86,15 +84,13 @@ export default function Experiment({ params }: {
              <p>{experimentInfo.scientificExplanation}</p>
  
              <h3>Referências</h3>
-             <ul>
-              <li>{experimentInfo.references}</li>
-               <li><a href="/">link de site numero 1</a></li>
-               <li><a href="/">link de site numero 2</a></li>
-               <li><a href="/">link de site numero 3</a></li>
-               <li><a href="/">link de site numero 4</a></li>
-               <li><a href="/">link de site numero 5</a></li>
-             </ul>
-           
+
+             <ul className={styles.blockListReference}>
+              {experimentInfo.references.map((reference, index) => (
+                reference && <li className={styles.listReference} key={index}>{reference}</li>
+              ))}
+            </ul>
+
            </div>
  
          </div>
