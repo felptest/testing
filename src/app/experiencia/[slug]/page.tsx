@@ -54,6 +54,11 @@ export default function Experiment({ params }: {
  
              <h2>{experimentInfo.title}</h2>
              <p>{experimentInfo.description}</p>
+
+             <h3>Assuntos abordados</h3>
+             <p><span>Tópico geral:</span>{experimentInfo.topicGeneral}</p>
+             <p><span>Tópico específico:</span>{experimentInfo.topicSpecific}</p>
+             <p><span>Unidade temática e objeto de conhecimento da BNCC:</span>{experimentInfo.topicBncc}</p>
            
              <h3>Literatura</h3>
              <p>{experimentInfo.literature}</p>

@@ -1,6 +1,9 @@
 [
     {
         "id": "1",
+        "topicGeneral": "Física",
+        "topicSpecific": "Termodinâmica",
+        "topicBncc": "Matéria e energia - Propriedades físicas dos materiais",
         "profileImage": "https://hips.hearstapps.com/hmg-prod/images/street-portrait-of-a-young-man-using-mobile-phone-royalty-free-image-1018047498-1564431457.jpg?crop=0.668xw:1.00xh;0.226xw,0&resize=1200:*",
         "profileName": "Fellippe Matheus",
         "postDate": "08 de março de 2023",
