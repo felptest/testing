@@ -1,6 +1,9 @@
 [
     {
         "id": "1",
+        "profileImage": "",
+        "profileName": "",
+        "postDate": "",
         "title": "Experimento de densidade",
         "slug": "experimento-densidade",
         "imagePreview": "",
@@ -19,7 +22,7 @@
         "Calcule a densidade de cada material dividindo a massa pelo volume"
         ],
         "results": "Espera-se que os cubos de metal tenham a maior densidade, seguidos pelos cubos de madeira e plástico, respectivamente. O resultado final deve mostrar a diferença de densidade entre os materiais testados.",
-        "scientific-explanation": "A densidade é uma propriedade física dos materiais que se relaciona com a sua massa e volume. Quanto mais denso um material, mais massa ele possui em um determinado volume. O cálculo da densidade envolve a medição da massa e do volume do material, e a divisão da massa pelo volume.",
+        "scientificExplanation": "A densidade é uma propriedade física dos materiais que se relaciona com a sua massa e volume. Quanto mais denso um material, mais massa ele possui em um determinado volume. O cálculo da densidade envolve a medição da massa e do volume do material, e a divisão da massa pelo volume.",
         "references": [
         "https://www.sofisica.com.br/conteudos/Fluidos/Densidade/densidade.php",
         "https://www.todamateria.com.br/densidade/",
