@@ -1,13 +1,22 @@
 "use client";
 import { Header } from '@/components/header';
  import styles from './page.module.css'
- 
  import { BsFilePdf } from "react-icons/bs";
+ import type { Metadata } from 'next'
 
 
-export default function Experiment() {
+
+export default function Experiment({ params }: {
+  params: { slug: string };
+}) {
+
+  const searchExperience = params.slug
+  //Falta pegar slug e achar o article e criar um map
+  console.log(searchExperience)
 
   return (
+
+
     <>
       <main  className={styles.mainWrapper} >  
         <div className={styles.mainContent}>
