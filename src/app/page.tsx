@@ -1,9 +1,6 @@
 "use client";
 import styles from './page.module.css'
 import Image from 'next/image'
-import image01 from '../assets/01.jpeg'
-import image02 from '../assets/02.jpeg'
-import image03 from '../assets/03.jpeg'
 import Link from 'next/link'
 
 import bncc from "../app/api/data/bncc.json"
@@ -22,9 +19,35 @@ export default function Home() {
 
   const [numToShow, setNumToShow] = useState(6);
 
+  const [recentClicked, setRecentClicked] = useState(true);
+  const [latestClicked, setLatestClicked] = useState(false);
+
   const handleClick = () => {
     setNumToShow(numToShow + 6);
   }
+
+  const sortedExperiments = recentClicked
+  ? experimentInfo.slice().reverse()
+  : experimentInfo; 
+
+  const handleRecentClick = () => {
+    if (!recentClicked) {
+      setRecentClicked(true);
+      setLatestClicked(false);
+      setNumToShow(6);
+      // Lógica para exibir experiências recentes
+    }
+  };
+  
+  const handleLatestClick = () => {
+    if (!latestClicked) {
+      setLatestClicked(true);
+      setRecentClicked(false);
+      setNumToShow(6);
+      // Lógica para exibir experiências mais recentes
+    }
+  };
+  
 
   return (
     <>
@@ -61,10 +84,6 @@ export default function Home() {
                 ))
               }
             
-
-             {/*  <option value="sao-paulo">Células</option>
-              <option value="rio-de-janeiro">Fenõmenos elétricos</option>
-              <option value="salvador">Ecologia</option> */}
             </select>
             <i className="ph-caret-down-light"></i>
           </div>
@@ -102,51 +121,57 @@ export default function Home() {
     </div>
       </div>
 
-      <main className={styles.main}>  
+      <main className={styles.main}>
       <div className={styles.content}>
         <section className={styles.top}>
           <h2>Experimentos recomendados</h2>
           <div className={styles.view}>
-            <button className={styles['btn-primary']}>Lista</button>
-            <button className={styles['btn-secondary']}>Mapa</button>
+
+          <button className={recentClicked ? styles["btn-primary-active"] : styles["btn-primary"]} onClick={handleRecentClick}>
+            Últimos
+          </button>
+          <button className={latestClicked ? styles["btn-secondary-active"] : styles["btn-secondary"]} onClick={handleLatestClick}>
+            Recentes
+          </button>
+
           </div>
         </section>
         <section className={styles.cards}>
+          {sortedExperiments === undefined && (
+            <div>
+              <h2>Experimentos não encontrados</h2>
+            </div>
+          )}
 
-        {experimentInfo === undefined && 
-        <div><h2>Experimentos não encontrados</h2></div>
-        }
-
-
-          
-
-            {experimentInfo !== undefined && 
-          experimentInfo
-            .slice(0, numToShow)
-            .map((experimentInfos: any) => (
-              <div key={experimentInfos.id} className={styles.card}>
-                <Image fill src={experimentInfos.imagePreview} alt="1" />
-                <div className={styles.content}>
-                  <h3>{experimentInfos.title}</h3>
-                  <p>{experimentInfos.description}</p>
+          {sortedExperiments !== undefined &&
+            sortedExperiments
+              .slice(0, numToShow)
+              .map((experimentInfos: any) => (
+                <div key={experimentInfos.id} className={styles.card}>
+                  <Image fill src={experimentInfos.imagePreview} alt="1" />
+                  <div className={styles.content}>
+                    <h3>{experimentInfos.title}</h3>
+                    <p>{experimentInfos.description}</p>
+                  </div>
+                  <div>
+                    <Link
+                      className={styles.link}
+                      href={"/experiencia/" + experimentInfos.slug}
+                    >
+                      Ver mais
+                    </Link>
+                  </div>
                 </div>
-                <div>
-                  <Link className={styles.link} href={"/experiencia/" + experimentInfos.slug}>Ver mais</Link>
-                </div>
-              </div>
-            ))
-        }
+              ))}
         </section>
 
         <section className={styles.bottom}>
-          {numToShow < experimentInfo.length && (
+          {numToShow < sortedExperiments.length && (
             <button onClick={handleClick}>Carregar mais</button>
           )}
         </section>
-
-
       </div>
-      </main>
+    </main>
 
     </>
    
