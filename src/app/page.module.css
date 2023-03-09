@@ -242,6 +242,10 @@ form button.btn {
 main > .content {
   max-width: 121.6rem;
   margin: 10rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 section.top {
@@ -276,6 +280,17 @@ section.bottom {
   border-radius: 0.6rem;
 }
 
+section.bottom {
+  width: 100%;
+}
+
+section.bottom button{
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 2rem;
+}
+
 section.bottom h3{
   padding: 1rem;
   width: 100%;
@@ -295,6 +310,12 @@ opacity: 0.5;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.card img {
+  position: relative !important;
+  width: 100% !important;
+  max-height: 22rem;
 }
 
 .card .content {
@@ -360,6 +381,10 @@ opacity: 0.5;
 
 @media (max-width: 1024px) {
 
+  .cards {
+    grid-template-columns: 2fr 2fr !important;
+  }
+
   .header::before {
     background-size: 30vw;
     background-repeat: no-repeat;
@@ -402,9 +427,6 @@ opacity: 0.5;
 }
 
 @media (max-width: 660px) {
-  .section.cards {
-    grid-template-columns: 1fr 1fr;
-  }
 
   .footerBlock {
     width: 100%;
@@ -418,7 +440,7 @@ opacity: 0.5;
     flex-direction: column;
   } 
   section.cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 
   .card img {

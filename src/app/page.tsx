@@ -8,16 +8,23 @@ import Link from 'next/link'
 
 import bncc from "../app/api/data/bncc.json"
 import materias from "../app/api/data/materias.json"
+import experimentData from "../app/api/data/experimentos.json"
 
 import { BiSearchAlt } from "react-icons/bi";
 import { useState } from 'react'
 
 
-
 export default function Home() {
 
-  const [experienceList, setexperienceList] = useState(bncc)
-  const [materiasList, setmateriasList] = useState(materias)
+  const [experienceList] = useState(bncc)
+  const [materiasList] = useState(materias)
+  const [experimentInfo] = useState(experimentData)
+
+  const [numToShow, setNumToShow] = useState(6);
+
+  const handleClick = () => {
+    setNumToShow(numToShow + 6);
+  }
 
   return (
     <>
@@ -105,112 +112,39 @@ export default function Home() {
           </div>
         </section>
         <section className={styles.cards}>
-          <div className={styles.card}>
-            <Image src={image01} alt="1" />
-            <div className={styles.content}>
-              <h3>O Python do vovô não sobe mais</h3>
-              <p>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint.
-              </p>
 
-            </div>
-
-            <div>
-              <Link className={styles.link} href="/">Ver mais</Link>
-            </div>
-          </div>
-
-          <div className={styles.card}>
-          <Image src={image02} alt="2" />
-            <div className={styles.content}>
-              <h3>Todo mundo null</h3>
-              <p>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint.
-              </p>
-
-            </div>
-
-              <div>
-                <Link className={styles.link} href="/">Ver mais</Link>
-              </div>
-            </div>
-
-          <div className={styles.card}>
-          <Image src={image03} alt="3" />
-
-            <div className={styles.content}>
-              <h3>Hoje dou exception</h3>
-              <p>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint.
-              </p>
-
-            </div>
-
-            <div>
-                <Link className={styles.link} href="/">Ver mais</Link>
-            </div>
-              
-          </div>
-
-          <div className={styles.card}>
-            <Image src={image01} alt="1" />
+        {experimentInfo === undefined && 
+        <div><h2>Experimentos não encontrados</h2></div>
+        }
 
 
-            <div className={styles.content}>
-              <h3>O Python do vovô não sobe mais</h3>
-              <p>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint.
-              </p>
-
-            </div>
-
-            <div>
-                <Link className={styles.link} href="/">Ver mais</Link>
-            </div>
-          </div>
-
-          <div className={styles.card}>
-            <Image src={image02} alt="2" />
-
-            <div className={styles.content}>
-              <h3>Todo mundo null</h3>
-              <p>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint.
-              </p>
-
-            </div>
-
-            <div>
-                <Link className={styles.link} href="/">Ver mais</Link>
-            </div>
-          </div>
-
-          <div className={styles.card}>
-            <Image src={image03} alt="3" />
-
-            <div className={styles.content}>
-              <h3>Hoje dou exception</h3>
-              <p>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-                amet sint.
-              </p>
-
-            </div>
-
-            <div>
-                <Link className={styles.link} href="/">Ver mais</Link>
-            </div>
-          </div>
           
+
+            {experimentInfo !== undefined && 
+          experimentInfo
+            .slice(0, numToShow)
+            .map((experimentInfos: any) => (
+              <div key={experimentInfos.id} className={styles.card}>
+                <Image fill src={experimentInfos.imagePreview} alt="1" />
+                <div className={styles.content}>
+                  <h3>{experimentInfos.title}</h3>
+                  <p>{experimentInfos.description}</p>
+                </div>
+                <div>
+                  <Link className={styles.link} href={"/experiencia/" + experimentInfos.slug}>Ver mais</Link>
+                </div>
+              </div>
+            ))
+        }
         </section>
+
         <section className={styles.bottom}>
-          <h3>Carregar mais</h3>
+          {numToShow < experimentInfo.length && (
+            <button onClick={handleClick}>Carregar mais</button>
+          )}
         </section>
+
+
       </div>
       </main>
 
