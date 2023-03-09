@@ -15,8 +15,6 @@ export default function Experiment({ params }: {
 
   const experimentInfo = experimentList.find(element => element.slug === pageSlug);
   
-  console.log(experimentInfo?.materials.length)
-
   return (
 
 

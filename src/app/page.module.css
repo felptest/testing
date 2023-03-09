@@ -357,6 +357,7 @@ opacity: 0.5;
   position: relative !important;
   width: 100% !important;
   max-height: 22rem;
+  object-fit: cover;
 }
 
 .card .content {
