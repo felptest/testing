@@ -36,6 +36,7 @@
 .mainHeaderProfileImageContainer img {
     width: 100%;
     border-radius: 999px;
+    position: relative !important;
 }
 
 .mainHeaderProfileNameContainer {
@@ -71,10 +72,17 @@
     text-align: justify;
 }
 
+.ContentPost .themesParagraph {
+    margin-bottom: 1rem;
+}
+
+.ContentPost .themesParagraphLast {
+    margin-bottom: 3rem;
+}
+
 .ContentPost ul, .ContentPost ol {
     margin-left: 2rem;
 }
-
   .parallax {
 
      
@@ -88,6 +96,7 @@
     background-size: cover;
     }
 
+    
 
     .mainHeaderContentLeft {
         display: flex;
@@ -112,4 +121,16 @@
     }
     .listReference {
         list-style: none;
+    }
+
+    .methodImageContent {
+        max-width: 40rem;
+        margin: 2rem 0rem;
+    }
+
+    .methodImageContent img {
+        width: 40rem !important;
+        height: auto !important;
+        position: relative !important;
+
     }

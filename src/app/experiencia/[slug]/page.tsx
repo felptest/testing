@@ -3,6 +3,8 @@
  import { BsFilePdf } from "react-icons/bs";
 import experimentData from "../../api/data/experimentos.json"
 import { useState } from 'react';
+import React from 'react';
+import Image from 'next/image';
 
 
 export default function Experiment({ params }: {
@@ -30,11 +32,12 @@ export default function Experiment({ params }: {
          <div className={styles.conteudoTuto}>
              <div style={{backgroundImage: "url" + "(" + experimentInfo.imagePreview + ")" }} className={styles.parallax}></div>
          </div>
+         
           
            <div className={styles.mainHeader}>
              <div className={styles.mainHeaderContentLeft}>
                <div className={styles.mainHeaderProfileImageContainer}>
-                 <img src={experimentInfo.profileImage} alt="" />
+                  <Image fill alt='' src={experimentInfo.profileImage}></Image>
                </div>
                <span className={styles.mainHeaderProfileNameContainer}><p>{experimentInfo.profileName}</p></span>
                <p>Postado em: </p>
@@ -56,9 +59,9 @@ export default function Experiment({ params }: {
              <p>{experimentInfo.description}</p>
 
              <h3>Assuntos abordados</h3>
-             <p><span>Tópico geral:</span>{experimentInfo.topicGeneral}</p>
-             <p><span>Tópico específico:</span>{experimentInfo.topicSpecific}</p>
-             <p><span>Unidade temática e objeto de conhecimento da BNCC:</span>{experimentInfo.topicBncc}</p>
+             <p  className={styles.themesParagraph}><span>Tema geral:</span>{experimentInfo.topicGeneral}</p>
+             <p  className={styles.themesParagraph}><span>Tema específico:</span>{experimentInfo.topicSpecific}</p>
+             <p  className={styles.themesParagraphLast}><span>Unidade temática e objeto de conhecimento da BNCC:</span>{experimentInfo.topicBncc}</p>
            
              <h3>Literatura</h3>
              <p>{experimentInfo.literature}</p>
@@ -76,9 +79,20 @@ export default function Experiment({ params }: {
              <h3>Instruções</h3>
 
              <ol>
-              {experimentInfo.methods.map((method, index) => (
-                method && <li key={index}>{method}</li>
-              ))}
+              {experimentInfo.methods.map((method, index) => {
+                const methodImage = experimentInfo.methodsImages[index];
+                return (
+                  <React.Fragment key={index}>
+                    <li>{method}</li>
+                    {methodImage &&
+                    <div className={styles.methodImageContent}>
+                      <Image fill alt='' src={methodImage} />
+                    </div>
+                    
+                    }
+                  </React.Fragment>
+                );
+              })}
             </ol>
 
              <h3>Resultado esperado</h3>

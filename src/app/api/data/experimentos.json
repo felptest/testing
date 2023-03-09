@@ -4,12 +4,12 @@
         "topicGeneral": "Física",
         "topicSpecific": "Termodinâmica",
         "topicBncc": "Matéria e energia - Propriedades físicas dos materiais",
-        "profileImage": "https://hips.hearstapps.com/hmg-prod/images/street-portrait-of-a-young-man-using-mobile-phone-royalty-free-image-1018047498-1564431457.jpg?crop=0.668xw:1.00xh;0.226xw,0&resize=1200:*",
+        "profileImage": "https://avatars.githubusercontent.com/u/67835741?v=4",
         "profileName": "Fellippe Matheus",
         "postDate": "08 de março de 2023",
-        "title": "Experimento de densidade",
-        "slug": "experimento-densidade",
-        "imagePreview": "https://i.pinimg.com/originals/d3/9d/6d/d39d6d1b0d2785969c8cde858c94c43b.jpg",
+        "title": "Experimento de densidade de cubos",
+        "slug": "experimento-densidade-de-cubos",
+        "imagePreview": "/images/exp-1/img-0.jpg",
         "description": "Neste experimento, serão cortados cubos de madeira, metal e plástico com o mesmo tamanho, e medidos seus lados, massa e volume. Com essas informações, será possível calcular a densidade de cada material.",
         "literature": "Volume é a quantidade de espaço ocupada por um objeto tridimensional. Ele pode ser medido em unidades como metros cúbicos (m³), centímetros cúbicos (cm³) ou litros (L). Em outras palavras, volume é a quantidade de espaço que um objeto ocupa. Massa é uma propriedade física de um objeto que mede a quantidade de matéria que ele contém. É uma medida da inércia do objeto, ou seja, sua resistência à aceleração. A massa é uma grandeza escalar e é medida em unidades como gramas (g) ou quilogramas (kg). A massa é uma grandeza conservativa, o que significa que ela não é afetada pela posição ou pelo movimento do objeto no espaço. densidade é uma medida da quantidade de massa contida em uma determinada unidade de volume. É uma propriedade física importante para identificar e caracterizar diferentes materiais, substâncias e objetos. A densidade é geralmente expressa em unidades de massa por unidade de volume, como gramas por centímetro cúbico (g/cm³) ou quilogramas por metro cúbico (kg/m³). É calculada dividindo-se a massa de um objeto pela sua volume.Uma substância com uma densidade maior terá uma quantidade maior de massa em um volume menor do que uma substância com densidade menor. Por exemplo, o ferro é mais denso que a água, o que significa que uma quantidade menor de ferro tem mais massa do que uma quantidade maior de água com o mesmo volume.",
         "objectives": [
@@ -17,11 +17,18 @@
         ],
         "materials": ["Madeira", "Metal", "Plástico"],
         "methods": [
-        "Corte cubos dos materiais com o mesmo tamanho",
-        "Pese cada cubo em uma balança",
-        "Meça os lados de cada cubo",
-        "Calcule a densidade de cada material dividindo a massa pelo volume"
+            "Corte cubos dos materiais com o mesmo tamanho",
+            "Pese cada cubo em uma balança",
+            "Meça os lados de cada cubo",
+            "Calcule a densidade de cada material dividindo a massa pelo volume"
         ],
+        "methodsImages": [
+            "/images/exp-1/img-1.jpg",
+            "/images/exp-1/img-2.png",
+            "/images/exp-1/img-3.jpeg",
+            "/images/exp-1/img-4.jpg"
+        ],
+        
         "results": "Espera-se que os cubos de metal tenham a maior densidade, seguidos pelos cubos de madeira e plástico, respectivamente. O resultado final deve mostrar a diferença de densidade entre os materiais testados.",
         "scientificExplanation": "A densidade é uma propriedade física dos materiais que se relaciona com a sua massa e volume. Quanto mais denso um material, mais massa ele possui em um determinado volume. O cálculo da densidade envolve a medição da massa e do volume do material, e a divisão da massa pelo volume.",
         "references": [
