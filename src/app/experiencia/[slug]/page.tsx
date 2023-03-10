@@ -28,7 +28,7 @@ export default function Experiment({ params }: {
          <div className={styles.mainContent}>
 
          <div className={styles.conteudoTuto}>
-             <div style={{backgroundImage: "url" + "(" + experimentInfo.imagePreview + ")" }} className={styles.parallax}></div>
+              <Image quality={100} fill alt='' src={experimentInfo.imagePreview} className={styles.imagePreview} />
          </div>
          
           

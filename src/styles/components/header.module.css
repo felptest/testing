@@ -3,7 +3,7 @@
     color: white; */
     display: flex;
     justify-content: center;
-    border: 1px solid #E5E7EB;
+    border-bottom: 1px solid #E5E7EB;
 
 }
 
@@ -31,9 +31,28 @@
     padding: 1rem;
 }
 
-.headerContentRight ul li:last-of-type {
-    background: #F1F2F4;
+.headerContentRight ul li:hover {
+    border-radius: 0.5rem;
+    background: #6246ea;
+    color: #ffffff;
+    cursor: pointer;
 }
+
+.headerContentRight ul li:last-of-type {
+    border-radius: 0.5rem;
+    background: #6246ea;
+}
+
+.headerContentRight ul li:last-of-type a {
+    color: #ffffff;
+
+}
+
+.headerContentRight ul li:last-of-type:hover a{
+    background-color: rgb(66, 49, 152);
+    color: rgb(232, 230, 227);
+}
+
 
 .headerContentRight ul li a{
     text-decoration: none;

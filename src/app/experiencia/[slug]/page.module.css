@@ -27,6 +27,12 @@
     padding: 1rem;
 }
 
+.imagePreview {
+    position: relative !important;
+    width: 100% !important;
+    max-height: 22rem;
+    object-fit: cover;
+}
 
 .mainHeaderProfileImageContainer {
     max-width: 4rem;
