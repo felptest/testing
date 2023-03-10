@@ -28,7 +28,7 @@ export default function Experiment({ params }: {
          <div className={styles.mainContent}>
 
          <div className={styles.conteudoTuto}>
-              <Image quality={100} fill alt='' src={experimentInfo.imagePreview} className={styles.imagePreview} />
+              <Image fill alt='' src={experimentInfo.imagePreview} className={styles.imagePreview} />
          </div>
          
           
