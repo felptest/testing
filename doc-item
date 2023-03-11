@@ -484,3 +484,23 @@ Vale lembrar que a estrutura de um experimento pode variar dependendo do tipo de
 
 
 Preciso ver o melhor modo de colocar imagens: seguindo padrão de metodo + imagem, ou separar metodos em um topico e imagens em um carrosel!
+
+
+  {filteredData.length > 0 ? (
+          <ul>
+            {filteredData.map((experiment) => (
+              <li key={experiment.id}><h3>{experiment.title}</h3> <p>{experiment.description}</p></li>
+              
+            ))}
+          </ul>
+        ) : (
+          <h3>Experimentos não encontrados com os filtros 
+            {topicGeneral && <div><span>TópicGeneral</span><p>{topicGeneral}</p></div>}
+
+            {topicSpecific && <div><span>TópicSpecific</span><p>{topicSpecific}</p></div>}
+
+            {topicBncc && <div><span>TópicBncc</span><p>{topicBncc}</p></div>}
+
+
+            </h3>
+        )}

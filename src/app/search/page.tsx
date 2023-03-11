@@ -1,6 +1,6 @@
 "use client";
 import styles from './page.module.css'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 
 import {useRouter, useSearchParams } from "next/navigation"
@@ -20,19 +20,34 @@ export default function Experiment() {
   const [experimentSpecificData] = useState(topicSpecificData)
   
 
+
   const router = useRouter();
   const searchParams = useSearchParams();
-  const topicGeneral = searchParams.get('topicGeneral') || '';
-  const topicSpecific = searchParams.get('topicSpecific') || '';
-  const topicBncc = searchParams.get('topicBncc') || '';
-  
+
+
+  const [selectedValues, setSelectedValues] = useState({
+    topicGeneral: searchParams.get('topicGeneral') || '',
+    topicSpecific: searchParams.get('topicSpecific') || '',
+    topicBncc: searchParams.get('topicBncc') || '',
+  });
   
   const filteredData = experimentData.filter(
     (experiment) =>
-      (!topicGeneral || experiment.topicGeneral === topicGeneral) &&
-      (!topicSpecific || experiment.topicSpecific === topicSpecific) &&
-      (!topicBncc || experiment.topicBncc === topicBncc)
+      (!selectedValues.topicGeneral || experiment.topicGeneral === selectedValues.topicGeneral) &&
+      (!selectedValues.topicSpecific || experiment.topicSpecific === selectedValues.topicSpecific) &&
+      (!selectedValues.topicBncc || experiment.topicBncc === selectedValues.topicBncc)
   );
+
+  
+
+  const handleResetFilter = () => {
+    setSelectedValues({
+      topicGeneral: '',
+      topicSpecific: '',
+      topicBncc: '',
+    });
+    router.push('/search');
+  }
   
   return (
     <>
@@ -40,9 +55,13 @@ export default function Experiment() {
         <h1>Experiment data</h1>
 
         <select
-          value={topicGeneral ?? ''}
+          value={selectedValues.topicGeneral}
           onChange={(e) => {
             const newTopicGeneral = e.target.value;
+            setSelectedValues({
+              ...selectedValues,
+              topicGeneral: newTopicGeneral,
+            });
             router.push(`/search?topicGeneral=${newTopicGeneral}`);
           }}
         >
@@ -55,10 +74,14 @@ export default function Experiment() {
         </select>
 
         <select
-          value={topicSpecific  ?? ''}
+          value={selectedValues.topicSpecific}
           onChange={(e) => {
             const newTopicSpecific = e.target.value;
-            router.push(`/search?topicGeneral=${topicGeneral}&topicSpecific=${newTopicSpecific}`);
+            setSelectedValues({
+              ...selectedValues,
+              topicSpecific: newTopicSpecific,
+            });
+            router.push(`/search?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${newTopicSpecific}`);
           }}
         >
           <option value="">Select a specific topic</option>
@@ -69,11 +92,15 @@ export default function Experiment() {
           ))}
         </select>
 
-        <select
-          value={topicBncc  ?? ''}
+         <select
+          value={selectedValues.topicBncc}
           onChange={(e) => {
             const newTopicBncc = e.target.value;
-            router.push(`/search?topicGeneral=${topicGeneral}&topicSpecific=${topicSpecific}&topicBncc=${newTopicBncc}`);
+            setSelectedValues({
+              ...selectedValues,
+              topicBncc: newTopicBncc,
+            });
+            router.push(`/search?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${selectedValues.topicSpecific}&topicBncc=${newTopicBncc}`);
           }}
         >
           <option value="">Select a BNCC topic</option>
@@ -83,6 +110,8 @@ export default function Experiment() {
             </option>
           ))}
         </select>
+ 
+        <button onClick={handleResetFilter}>Reset Filter</button>
 
         {filteredData.length > 0 ? (
           <ul>
@@ -92,7 +121,15 @@ export default function Experiment() {
             ))}
           </ul>
         ) : (
-          <p>No experiments found with general topic {topicGeneral}, specific topic {topicSpecific}, and BNCC topic {topicBncc}</p>
+          <h3>Experimentos não encontrados com os filtros 
+            {/* {topicGeneral && <div><span>TópicGeneral</span><p>{topicGeneral}</p></div>}
+
+            {topicSpecific && <div><span>TópicSpecific</span><p>{topicSpecific}</p></div>}
+
+            {topicBncc && <div><span>TópicBncc</span><p>{topicBncc}</p></div>} */}
+
+
+            </h3>
         )}
       </div>
     </>
