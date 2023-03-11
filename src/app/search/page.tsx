@@ -62,7 +62,7 @@ export default function Experiment() {
               ...selectedValues,
               topicGeneral: newTopicGeneral,
             });
-            router.push(`/search?topicGeneral=${newTopicGeneral}`);
+            router.push(`/search?topicGeneral=${newTopicGeneral}&topicSpecific=${selectedValues.topicSpecific}&topicBncc=${selectedValues.topicBncc}`);
           }}
         >
           <option value="">Select a general topic</option>
@@ -81,7 +81,7 @@ export default function Experiment() {
               ...selectedValues,
               topicSpecific: newTopicSpecific,
             });
-            router.push(`/search?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${newTopicSpecific}`);
+            router.push(`/search?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${newTopicSpecific}&topicBncc=${selectedValues.topicBncc}`);
           }}
         >
           <option value="">Select a specific topic</option>
@@ -122,11 +122,11 @@ export default function Experiment() {
           </ul>
         ) : (
           <h3>Experimentos não encontrados com os filtros 
-            {/* {topicGeneral && <div><span>TópicGeneral</span><p>{topicGeneral}</p></div>}
+             {selectedValues.topicGeneral && <div><span>TópicGeneral</span><p>{selectedValues.topicGeneral}</p></div>}
 
-            {topicSpecific && <div><span>TópicSpecific</span><p>{topicSpecific}</p></div>}
+            {selectedValues.topicSpecific && <div><span>TópicSpecific</span><p>{selectedValues.topicSpecific}</p></div>}
 
-            {topicBncc && <div><span>TópicBncc</span><p>{topicBncc}</p></div>} */}
+            {selectedValues.topicBncc && <div><span>TópicBncc</span><p>{selectedValues.topicBncc}</p></div>}
 
 
             </h3>
