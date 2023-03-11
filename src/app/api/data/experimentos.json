@@ -41,9 +41,9 @@
 
     {
         "id": "2",
-        "topicGeneral": "Física",
-        "topicSpecific": "Termodinâmica",
-        "topicBncc": "Matéria e energia - Propriedades físicas dos materiais",
+        "topicGeneral": "Biologia",
+        "topicSpecific": "Células",
+        "topicBncc": "Vida e evolução - Célula como unidade da vida",
         "profileImage": "https://avatars.githubusercontent.com/u/67835741?v=4",
         "profileName": "Fellippe Matheus",
         "postDate": "08 de março de 2023",
@@ -80,9 +80,9 @@
 
     {
         "id": "3",
-        "topicGeneral": "Física",
-        "topicSpecific": "Termodinâmica",
-        "topicBncc": "Matéria e energia - Propriedades físicas dos materiais",
+        "topicGeneral": "Química",
+        "topicSpecific": "Misturas e soluções",
+        "topicBncc": "Terra e Universo - Observação do céu",
         "profileImage": "https://avatars.githubusercontent.com/u/67835741?v=4",
         "profileName": "Fellippe Matheus",
         "postDate": "08 de março de 2023",
