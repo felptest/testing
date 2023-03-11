@@ -1,18 +1,17 @@
 "use client";
- import styles from './page.module.css'
+import styles from './page.module.css'
 import React from 'react';
 import { useState } from 'react'
 
-import Link from 'next/link';
 import {useRouter, useSearchParams } from "next/navigation"
 
 import experimentData from "../../app/api/data/experimentos.json"
 
 import bnccData from "../../app/api/data/bncc.json"
-import topicGeneralData from "../../app/api/data/experimentos.json"
+import topicGeneralData from "../../app/api/data/experimentGeneralData.json"
 import topicSpecificData from "../../app/api/data/materias.json"
 
-
+//Preciso colocar essa logica no home!
 
 export default function Experiment() {
  
@@ -34,23 +33,6 @@ export default function Experiment() {
       (!topicSpecific || experiment.topicSpecific === topicSpecific) &&
       (!topicBncc || experiment.topicBncc === topicBncc)
   );
-
-// Função para obter valores únicos de um campo
-const getUniqueValues = <T extends Record<string, any>, K extends keyof T>(fieldName: K, data: T[]): T[K][] => {
-  const values: T[K][] = [];
-  data.forEach((experiment) => {
-    if (!values.includes(experiment[fieldName])) {
-      values.push(experiment[fieldName]);
-    }
-  });
-  return values;
-};
-
-const uniqueTopicGenerals = getUniqueValues('topicGeneral', experimentData);
-const uniqueTopicSpecifics = getUniqueValues('topicSpecific', experimentData);
-const uniqueTopicBnccs = getUniqueValues('topicBncc', experimentData);
-
-
   
   return (
     <>
@@ -65,9 +47,9 @@ const uniqueTopicBnccs = getUniqueValues('topicBncc', experimentData);
           }}
         >
           <option value="">Select a general topic</option>
-          {uniqueTopicGenerals.map((topic) => (
-            <option key={topic} value={topic}>
-              {topic}
+          {experimentGeneralData.map((topic) => (
+            <option key={topic.id} value={topic.title}>
+              {topic.title}
             </option>
           ))}
         </select>
@@ -80,7 +62,7 @@ const uniqueTopicBnccs = getUniqueValues('topicBncc', experimentData);
           }}
         >
           <option value="">Select a specific topic</option>
-          {topicSpecificData.map((topic) => (
+          {experimentSpecificData.map((topic) => (
             <option key={topic.id} value={topic.title}>
               {topic.title}
             </option>

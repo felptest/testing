@@ -1,0 +1,17 @@
+[
+    {
+    "id": 1,
+    "title": "Física",
+    "slug": "fisica"
+    },
+    {
+    "id": 2,
+    "title": "Biologia",
+    "slug": "biologia"
+    },
+    {
+    "id": 3,
+    "title": "Química",
+    "slug": "quimica"
+    }
+]
