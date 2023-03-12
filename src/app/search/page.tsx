@@ -1,137 +1,184 @@
 "use client";
-import styles from './page.module.css'
 import React, { useEffect } from 'react';
-import { useState } from 'react'
-
-import {useRouter, useSearchParams } from "next/navigation"
-
-import experimentData from "../../app/api/data/experimentos.json"
-
-import bnccData from "../../app/api/data/bncc.json"
-import topicGeneralData from "../../app/api/data/experimentGeneralData.json"
-import topicSpecificData from "../../app/api/data/materias.json"
+import { useState } from 'react';
 
 //Preciso colocar essa logica no home!
 
 export default function Experiment() {
  
-  const [experimentBnccData] = useState(bnccData)
-  const [experimentGeneralData] = useState(topicGeneralData)
-  const [experimentSpecificData] = useState(topicSpecificData)
-  
-
-
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-
-  const [selectedValues, setSelectedValues] = useState({
-    topicGeneral: searchParams.get('topicGeneral') || '',
-    topicSpecific: searchParams.get('topicSpecific') || '',
-    topicBncc: searchParams.get('topicBncc') || '',
+  const [experimentData, setExperimentData] = useState({
+    id: '',
+    topicGeneral: '',
+    topicSpecific: '',
+    topicBncc: '',
+    profileImage: '',
+    profileName: '',
+    postDate: '',
+    title: '',
+    slug: '',
+    imagePreview: '',
+    description: '',
+    literature: '',
+    objectives: [],
+    materials: [],
+    methods: [],
+    methodsImages: [],
+    results: '',
+    scientificExplanation: '',
+    references: [],
   });
-  
-  const filteredData = experimentData.filter(
-    (experiment) =>
-      (!selectedValues.topicGeneral || experiment.topicGeneral === selectedValues.topicGeneral) &&
-      (!selectedValues.topicSpecific || experiment.topicSpecific === selectedValues.topicSpecific) &&
-      (!selectedValues.topicBncc || experiment.topicBncc === selectedValues.topicBncc)
-  );
 
-  
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
 
-  const handleResetFilter = () => {
-    setSelectedValues({
-      topicGeneral: '',
-      topicSpecific: '',
-      topicBncc: '',
+    setExperimentData({
+      ...experimentData,
+      [name]: value,
     });
-    router.push('/search');
-  }
+  };
+
+  const handleArrayInputChange = (event) => {
+    const { name, value } = event.target;
+
+    setExperimentData({
+      ...experimentData,
+      [name]: value.split(',').map((item) => item.trim()),
+    });
+  };
+
+  const specialCharsMap = {
+    'á': 'a',
+    'à': 'a',
+    'ã': 'a',
+    'â': 'a',
+    'é': 'e',
+    'ê': 'e',
+    'í': 'i',
+    'ó': 'o',
+    'õ': 'o',
+    'ô': 'o',
+    'ú': 'u',
+    'ü': 'u',
+    'ç': 'c',
+  };
+  
+  const generateSlug = () => {
+    const titleWithoutSpecialChars = experimentData.title
+      .toLowerCase()
+      .replace(/[^\w\s]/gi, (match) => specialCharsMap[match] || '');
+  
+    return titleWithoutSpecialChars
+      .replace(/\s+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const experimentJson = JSON.stringify({
+      ...experimentData,
+    });
+    console.log(experimentJson);
+  };
+
+  const handleGenerateId = () => {
+    setExperimentData({
+      ...experimentData,
+      id: Date.now().toString(),
+    });
+  };
+
+  useEffect(() => {
+    setExperimentData({
+      ...experimentData,
+      slug: generateSlug(),
+    });
+  }, [experimentData.title]);
+
   
   return (
     <>
-     <div>
-        <h1>Experiment data</h1>
+    <form onSubmit={handleSubmit}>
+      <label>
+        ID:
+        <button onClick={handleGenerateId}>Generate ID</button>
+      </label>
+      <label>
+        General Topic:
+        <input type="text" name="topicGeneral" onChange={handleInputChange} />
+      </label>
+      <label>
+        Specific Topic:
+        <input type="text" name="topicSpecific" onChange={handleInputChange} />
+      </label>
+      <label>
+        BNCC Topic:
+        <input type="text" name="topicBncc" onChange={handleInputChange} />
+      </label>
+      <label>
+        Profile Image:
+        <input type="text" name="profileImage" onChange={handleInputChange} />
+      </label>
+      <label>
+        Profile Name:
+        <input type="text" name="profileName" onChange={handleInputChange} />
+      </label>
+      <label>
+        Post Date:
+        <input type="text" name="postDate" onChange={handleInputChange} />
+      </label>
+      <label>
+        Title:
+        <input type="text" name="title" onChange={handleInputChange} />
+      </label>
+      <label>
+        Slug:
+        <input type="text" name="slug" value={generateSlug()} onChange={handleInputChange} disabled />
+      </label>
+      <label>
+        Image Preview:
+        <input type="text" name="imagePreview" onChange={handleInputChange} />
+      </label>
+      <label>
+        Description:
+        <textarea name="description" onChange={handleInputChange} />
+      </label>
+      <label>
+        Literature:
+        <textarea name="literature" onChange={handleInputChange} />
+      </label>
+      <label>
+        Objectives:
+        <input type="text" name="objectives" onChange={handleArrayInputChange} />
+      </label>
+      <label>
+        Materials:
+        <input type="text" name="materials" onChange={handleArrayInputChange} />
+      </label>
+      <label>
+        Methods:
+        <input type="text" name="methods" onChange={handleArrayInputChange} />
+      </label>
+      <label>
+      MethodsImages:
+        <input type="text" name="methodsImages" onChange={handleArrayInputChange} />
+      </label>
+      <label>
+      Results:
+        <textarea name="results" onChange={handleInputChange} />
+      </label>
+      <label>
+      ScientificExplanation:
+        <textarea name="scientificExplanation" onChange={handleInputChange} />
+      </label>
+      <label>
+      References:
+        <input type="text" name="references" onChange={handleArrayInputChange} />
+      </label>
+    </form>
 
-        <select
-          value={selectedValues.topicGeneral}
-          onChange={(e) => {
-            const newTopicGeneral = e.target.value;
-            setSelectedValues({
-              ...selectedValues,
-              topicGeneral: newTopicGeneral,
-            });
-            router.push(`/search?topicGeneral=${newTopicGeneral}&topicSpecific=${selectedValues.topicSpecific}&topicBncc=${selectedValues.topicBncc}`);
-          }}
-        >
-          <option value="">Select a general topic</option>
-          {experimentGeneralData.map((topic) => (
-            <option key={topic.id} value={topic.title}>
-              {topic.title}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={selectedValues.topicSpecific}
-          onChange={(e) => {
-            const newTopicSpecific = e.target.value;
-            setSelectedValues({
-              ...selectedValues,
-              topicSpecific: newTopicSpecific,
-            });
-            router.push(`/search?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${newTopicSpecific}&topicBncc=${selectedValues.topicBncc}`);
-          }}
-        >
-          <option value="">Select a specific topic</option>
-          {experimentSpecificData.map((topic) => (
-            <option key={topic.id} value={topic.title}>
-              {topic.title}
-            </option>
-          ))}
-        </select>
-
-         <select
-          value={selectedValues.topicBncc}
-          onChange={(e) => {
-            const newTopicBncc = e.target.value;
-            setSelectedValues({
-              ...selectedValues,
-              topicBncc: newTopicBncc,
-            });
-            router.push(`/search?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${selectedValues.topicSpecific}&topicBncc=${newTopicBncc}`);
-          }}
-        >
-          <option value="">Select a BNCC topic</option>
-          {experimentBnccData.map((topic) => (
-            <option key={topic.id} value={topic.title}>
-              {topic.title}
-            </option>
-          ))}
-        </select>
- 
-        <button onClick={handleResetFilter}>Reset Filter</button>
-
-        {filteredData.length > 0 ? (
-          <ul>
-            {filteredData.map((experiment) => (
-              <li key={experiment.id}><h3>{experiment.title}</h3> <p>{experiment.description}</p></li>
-              
-            ))}
-          </ul>
-        ) : (
-          <h3>Experimentos não encontrados com os filtros 
-             {selectedValues.topicGeneral && <div><span>TópicGeneral</span><p>{selectedValues.topicGeneral}</p></div>}
-
-            {selectedValues.topicSpecific && <div><span>TópicSpecific</span><p>{selectedValues.topicSpecific}</p></div>}
-
-            {selectedValues.topicBncc && <div><span>TópicBncc</span><p>{selectedValues.topicBncc}</p></div>}
-
-
-            </h3>
-        )}
-      </div>
+      {Object.keys(experimentData).length > 0 && (
+        <pre>{JSON.stringify(experimentData, null, 2)}</pre>
+      )}
     </>
   
   )
