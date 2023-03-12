@@ -123,18 +123,27 @@ const handleCopy = () => {
   setTimeout(() => setCopied(false), 2000); // limpa o estado após 2 segundos
 };
 
+type FileType = "file" | "dir" | "symlink" | "submodule";
+
+interface FileContent {
+  type: FileType;
+  size: number;
+  name: string;
+  path: string;
+  content: string | null;
+  sha: string;
+  url: string;
+}
 
 
 async function handleSend() {
   const octokit = new Octokit({
-    auth: "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",
+    auth: "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",
   });
-  
-  const branchName = "my-new-branch";
-  const filePath = "public/my-file.json";
-  const fileContent = JSON.stringify(experimentData, null, 2);
 
-  
+  const branchName = "master";
+  const filePath = "src/app/api/data/experimentos.json";
+  const fileContent = JSON.stringify(experimentData, null, 2);
 
   const { data: branch } = await octokit.git.getRef({
     owner: "Fellippemfv",
@@ -142,35 +151,61 @@ async function handleSend() {
     ref: `heads/master`,
   });
 
+
   const sha = branch.object.sha;
 
-  await octokit.git.createRef({
+    if (!branch) {
+    // a branch não existe, então crie-a
+    const { data: newBranch } = await octokit.git.createRef({
+      owner: "Fellippemfv",
+      repo: "project-science-1",
+      ref: `heads/master`,
+      sha
+    });
+  } else {
+    // a branch já existe, então use sua referência
+    const sha = branch.object.sha;
+  }
+  
+
+  await octokit.git.updateRef({
     owner: "Fellippemfv",
     repo: "project-science-1",
-    ref: `refs/heads/${branchName}`,
+    ref: `heads/master`,
     sha,
-  }); 
+  });
 
-  const data = await octokit.repos.createOrUpdateFileContents({
-    
+  // busca o conteúdo atual do arquivo
+  const { data: fileInfo } = await octokit.repos.getContent({
     owner: "Fellippemfv",
     repo: "project-science-1",
     path: filePath,
-    message: "Add my-file.json",
-    content: Buffer.from(fileContent).toString("base64"),
-    branch: branchName,
+    ref: branchName,
   });
 
-  await octokit.pulls.create({
+  // decodifica o conteúdo atual para uma string
+  const currentContent = Buffer.from(fileInfo.content || '', 'base64').toString();
+
+  // combina o conteúdo atual com o novo conteúdo
+  const updatedContent = JSON.stringify({
+    ...JSON.parse(currentContent),
+    ...JSON.parse(fileContent),
+  }, null, 2);
+
+  // atualiza o conteúdo do arquivo
+  const data = await octokit.repos.createOrUpdateFileContents({
     owner: "Fellippemfv",
     repo: "project-science-1",
-    title: "My new pull request",
-    head: branchName,
-    base: "master",
-    body: "This is my new pull request",
+    path: filePath,
+    message: "Update my-file.json",
+    content: Buffer.from(updatedContent).toString("base64"),
+    branch: branchName,
+    sha: fileInfo.sha,
   });
-}
 
+
+
+}
 
 
 
