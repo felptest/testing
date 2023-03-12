@@ -1,6 +1,9 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useEffect } from 'react';
 import { useState } from 'react';
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
 
 //Preciso colocar essa logica no home!
 
@@ -28,71 +31,81 @@ export default function Experiment() {
     references: [],
   });
 
-  const handleInputChange = (event) => {
+  
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = event.target;
-
+  
     setExperimentData({
       ...experimentData,
       [name]: value,
     });
   };
 
-  const handleArrayInputChange = (event) => {
+  const handleArrayInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-
+  
     setExperimentData({
       ...experimentData,
       [name]: value.split(',').map((item) => item.trim()),
     });
   };
-
-  const specialCharsMap = {
-    'á': 'a',
-    'à': 'a',
-    'ã': 'a',
-    'â': 'a',
-    'é': 'e',
-    'ê': 'e',
-    'í': 'i',
-    'ó': 'o',
-    'õ': 'o',
-    'ô': 'o',
-    'ú': 'u',
-    'ü': 'u',
-    'ç': 'c',
-  };
   
-  const generateSlug = () => {
+
+  const generateSlug = useCallback(() => {
+    const specialCharsMap: {[key: string]: string} = {
+      á: 'a',
+      à: 'a',
+      ã: 'a',
+      â: 'a',
+      é: 'e',
+      ê: 'e',
+      í: 'i',
+      ó: 'o',
+      õ: 'o',
+      ô: 'o',
+      ú: 'u',
+      ü: 'u',
+      ç: 'c',
+    };
+  
     const titleWithoutSpecialChars = experimentData.title
       .toLowerCase()
-      .replace(/[^\w\s]/gi, (match) => specialCharsMap[match] || '');
+      .replace(/[^\w\s]/gi, (match: string) => {
+        const replacement = specialCharsMap[match];
+        return replacement ? replacement : '';
+      });
   
     return titleWithoutSpecialChars
       .replace(/\s+/g, '-')
       .replace(/^-+|-+$/g, '');
-  };
+  }, [experimentData.title]);
+  
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  const experimentJson = JSON.stringify({
+    ...experimentData,
+  });
+  console.log(experimentJson);
+};
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const experimentJson = JSON.stringify({
-      ...experimentData,
-    });
-    console.log(experimentJson);
-  };
 
   const handleGenerateId = () => {
+    const date = new Date();
+    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário de Brasília'", { locale: ptBR });
     setExperimentData({
       ...experimentData,
       id: Date.now().toString(),
+      postDate: formattedDate,
     });
   };
 
+
   useEffect(() => {
-    setExperimentData({
-      ...experimentData,
+    setExperimentData((prevData) => ({
+      ...prevData,
       slug: generateSlug(),
-    });
-  }, [experimentData.title]);
+    }));
+  }, [experimentData.title, generateSlug]);
 
   
   return (
@@ -124,7 +137,7 @@ export default function Experiment() {
       </label>
       <label>
         Post Date:
-        <input type="text" name="postDate" onChange={handleInputChange} />
+        <input type="text" name="postDate" value={experimentData.postDate} onChange={handleInputChange} disabled />
       </label>
       <label>
         Title:
