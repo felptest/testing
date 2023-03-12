@@ -4,6 +4,11 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { FaCopy } from "react-icons/fa";
 
 //Preciso colocar essa logica no home!
 
@@ -107,6 +112,14 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     }));
   }, [experimentData.title, generateSlug]);
 
+
+  const [copied, setCopied] = useState(false);
+
+const handleCopy = () => {
+  setCopied(true);
+  setTimeout(() => setCopied(false), 2000); // limpa o estado após 2 segundos
+};
+
   
   return (
     <>
@@ -189,9 +202,24 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       </label>
     </form>
 
-      {Object.keys(experimentData).length > 0 && (
-        <pre>{JSON.stringify(experimentData, null, 2)}</pre>
-      )}
+
+    {Object.keys(experimentData).length > 0 && (
+      <>
+        <div className="d-flex justify-content-end">
+          <CopyToClipboard text={JSON.stringify(experimentData, null, 2)}>
+            <button className="btn btn-outline-primary me-2" onClick={handleCopy}>
+              {copied ? "Copiado!" : "Copiar"}
+              <FaCopy className="ms-2" />
+            </button>
+          </CopyToClipboard>
+        </div>
+        <SyntaxHighlighter language="json" style={dracula}>
+          {JSON.stringify(experimentData, null, 2)}
+        </SyntaxHighlighter>
+      </>
+    )}
+
+    
     </>
   
   )
