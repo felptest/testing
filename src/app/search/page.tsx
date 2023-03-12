@@ -10,9 +10,12 @@ import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaCopy } from "react-icons/fa";
 
+import { Octokit } from "@octokit/rest";
+
+
 //Preciso colocar essa logica no home!
 
-export default function Experiment() {
+export default function Experiment() {  
  
   const [experimentData, setExperimentData] = useState({
     id: '',
@@ -120,6 +123,57 @@ const handleCopy = () => {
   setTimeout(() => setCopied(false), 2000); // limpa o estado após 2 segundos
 };
 
+
+
+async function handleSend() {
+  const octokit = new Octokit({
+    auth: "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",
+  });
+  
+  const branchName = "my-new-branch";
+  const filePath = "public/my-file.json";
+  const fileContent = JSON.stringify(experimentData, null, 2);
+
+  
+
+  const { data: branch } = await octokit.git.getRef({
+    owner: "Fellippemfv",
+    repo: "project-science-1",
+    ref: `heads/master`,
+  });
+
+  const sha = branch.object.sha;
+
+  await octokit.git.createRef({
+    owner: "Fellippemfv",
+    repo: "project-science-1",
+    ref: `refs/heads/${branchName}`,
+    sha,
+  }); 
+
+  const data = await octokit.repos.createOrUpdateFileContents({
+    
+    owner: "Fellippemfv",
+    repo: "project-science-1",
+    path: filePath,
+    message: "Add my-file.json",
+    content: Buffer.from(fileContent).toString("base64"),
+    branch: branchName,
+  });
+
+  await octokit.pulls.create({
+    owner: "Fellippemfv",
+    repo: "project-science-1",
+    title: "My new pull request",
+    head: branchName,
+    base: "master",
+    body: "This is my new pull request",
+  });
+}
+
+
+
+
   
   return (
     <>
@@ -219,7 +273,9 @@ const handleCopy = () => {
       </>
     )}
 
-    
+<button className="btn btn-primary" onClick={handleSend}>
+              Enviar
+            </button>
     </>
   
   )
