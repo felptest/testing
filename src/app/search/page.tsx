@@ -190,9 +190,23 @@ const currentContent = Buffer.from(fileInfo.content || '', 'base64').toString();
 const currentData = JSON.parse(currentContent);
 const newData = JSON.parse(fileContent);
 
-// combina os objetos e converte de volta para uma string formatada
-const combinedData = JSON.stringify({ ...JSON.parse(currentContent), [JSON.parse(fileContent).slug]: JSON.parse(fileContent) }, null, 2)
+// remove o índice de cada item do JSON
+for (let key in currentData) {
+  const item = currentData[key];
+  const newKey = key.replace(/^\d+/, ''); // remove o índice do início da string
+  currentData[newKey] = item;
+  delete currentData[key];
+}
 
+for (let key in newData) {
+  const item = newData[key];
+  const newKey = key.replace(/^\d+/, ''); // remove o índice do início da string
+  newData[newKey] = item;
+  delete newData[key];
+}
+
+// combina os objetos e converte de volta para uma string formatada
+const combinedData = JSON.stringify({...currentData, ...newData}, null, 2);
 
 // atualiza o conteúdo do arquivo
 
