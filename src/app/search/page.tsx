@@ -138,7 +138,7 @@ interface FileContent {
 
 async function handleSend() {
   const octokit = new Octokit({
-    auth: "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",
+    auth: "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",
   });
 
   const branchName = "master";
@@ -186,11 +186,22 @@ async function handleSend() {
   // decodifica o conteúdo atual para uma string
   const currentContent = Buffer.from(fileInfo.content || '', 'base64').toString();
 
+  //Essa parte ta errado E preciso ver se consigo colocar as imagens em pasta nova
   // combina o conteúdo atual com o novo conteúdo
   const updatedContent = JSON.stringify({
     ...JSON.parse(currentContent),
     ...JSON.parse(fileContent),
   }, null, 2);
+
+  // adiciona os colchetes '{}' caso o arquivo esteja vazio
+  const fileIsEmpty = !currentContent.trim();
+  const fileWithBrackets = fileIsEmpty ? '{}' : updatedContent;
+
+  // adiciona vírgula ao final do arquivo
+  const updatedFileContent = `${fileWithBrackets},`;
+
+
+  
 
   // atualiza o conteúdo do arquivo
   const data = await octokit.repos.createOrUpdateFileContents({
