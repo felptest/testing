@@ -138,7 +138,7 @@ interface FileContent {
 
 async function handleSend() {
   const octokit = new Octokit({
-    auth: "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",
+    auth: "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",
   });
 
   const branchName = "master";
@@ -191,7 +191,8 @@ const currentData = JSON.parse(currentContent);
 const newData = JSON.parse(fileContent);
 
 // combina os objetos e converte de volta para uma string formatada
-const combinedData = JSON.stringify({...currentData, ...newData}, null, 2);
+const combinedData = JSON.stringify({ ...JSON.parse(currentContent), [JSON.parse(fileContent).slug]: JSON.parse(fileContent) }, null, 2)
+
 
 // atualiza o conteúdo do arquivo
 
