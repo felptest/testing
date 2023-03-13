@@ -138,7 +138,7 @@ interface FileContent {
 
 async function handleSend() {
   const octokit = new Octokit({
-    auth: "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",
+    auth: "",
   });
 
   const branchName = "master";
@@ -195,18 +195,35 @@ for (let key in currentData) {
   const item = currentData[key];
   const newKey = key.replace(/^\d+/, ''); // remove o índice do início da string
   currentData[newKey] = item;
-  delete currentData[key];
+  if (key !== newKey) {
+    delete currentData[key];
+  }
 }
 
 for (let key in newData) {
   const item = newData[key];
   const newKey = key.replace(/^\d+/, ''); // remove o índice do início da string
   newData[newKey] = item;
-  delete newData[key];
+  if (key !== newKey) {
+    delete newData[key];
+  }
 }
 
-// combina os objetos e converte de volta para uma string formatada
-const combinedData = JSON.stringify({...currentData, ...newData}, null, 2);
+// remove chaves vazias
+function removeEmpty(obj) {
+  Object.keys(obj).forEach(key => {
+    if (obj[key] && typeof obj[key] === 'object') removeEmpty(obj[key]);
+    else if (obj[key] == null || obj[key] === '') delete obj[key];
+  });
+  return obj;
+}
+
+const combinedData = removeEmpty({...currentData, ...newData});
+
+// converte de volta para uma string formatada
+const formattedData = JSON.stringify(combinedData, null, 2);
+
+
 
 // atualiza o conteúdo do arquivo
 
