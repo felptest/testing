@@ -138,7 +138,7 @@ interface FileContent {
 
 async function handleSend() {
   const octokit = new Octokit({
-    auth: "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",
+    auth: "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",
   });
 
   const branchName = "master";
@@ -183,37 +183,45 @@ async function handleSend() {
     ref: branchName,
   });
 
-  // decodifica o conteúdo atual para uma string
-  const currentContent = Buffer.from(fileInfo.content || '', 'base64').toString();
+// decodifica o conteúdo atual para uma string
+const currentContent = Buffer.from(fileInfo.content || '', 'base64').toString();
 
-  //Essa parte ta errado E preciso ver se consigo colocar as imagens em pasta nova
+// converte o conteúdo atual e o novo conteúdo para objetos JSON
+const currentData = JSON.parse(currentContent);
+const newData = JSON.parse(fileContent);
+
+// combina os objetos e converte de volta para uma string formatada
+const combinedData = JSON.stringify({...currentData, ...newData}, null, 2);
+
+// atualiza o conteúdo do arquivo
+
+/*   //Essa parte ta errado E preciso ver se consigo colocar as imagens em pasta nova
   // combina o conteúdo atual com o novo conteúdo
   const updatedContent = JSON.stringify({
     ...JSON.parse(currentContent),
     ...JSON.parse(fileContent),
-  }, null, 2);
+  }, null, 2); */
 
   // adiciona os colchetes '{}' caso o arquivo esteja vazio
-  const fileIsEmpty = !currentContent.trim();
-  const fileWithBrackets = fileIsEmpty ? '{}' : updatedContent;
+/*   const fileIsEmpty = !currentContent.trim();
+  const fileWithBrackets = fileIsEmpty ? '{}' : updatedContent; */
 
   // adiciona vírgula ao final do arquivo
-  const updatedFileContent = `${fileWithBrackets},`;
+/*   const updatedFileContent = `${fileWithBrackets},`; */
 
 
   
 
-  // atualiza o conteúdo do arquivo
-  const data = await octokit.repos.createOrUpdateFileContents({
-    owner: "Fellippemfv",
-    repo: "project-science-1",
-    path: filePath,
-    message: "Update my-file.json",
-    content: Buffer.from(updatedContent).toString("base64"),
-    branch: branchName,
-    sha: fileInfo.sha,
-  });
-
+// atualiza o conteúdo do arquivo
+const data = await octokit.repos.createOrUpdateFileContents({
+  owner: "Fellippemfv",
+  repo: "project-science-1",
+  path: filePath,
+  message: "Update my-file.json",
+  content: Buffer.from(combinedData).toString("base64"),
+  branch: branchName,
+  sha: fileInfo.sha,
+});
 
 
 }
