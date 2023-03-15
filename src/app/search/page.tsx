@@ -186,22 +186,17 @@ async function handleSend() {
   // decodifica o conteúdo atual para uma string
   const currentContent = Buffer.from(fileInfo.content || '', 'base64').toString();
 
-  //Essa parte ta errado E preciso ver se consigo colocar as imagens em pasta nova
-  // combina o conteúdo atual com o novo conteúdo
-  const updatedContent = JSON.stringify({
-    ...JSON.parse(currentContent),
-    ...JSON.parse(fileContent),
-  }, null, 2);
+  // converte o conteúdo atual em um array de objetos JSON
+  const currentArray = JSON.parse(currentContent);
 
-  // adiciona os colchetes '{}' caso o arquivo esteja vazio
-  const fileIsEmpty = !currentContent.trim();
-  const fileWithBrackets = fileIsEmpty ? '{}' : updatedContent;
+  // converte o novo conteúdo em um objeto JSON
+  const newObject = JSON.parse(fileContent);
 
-  // adiciona vírgula ao final do arquivo
-  const updatedFileContent = `${fileWithBrackets},`;
+  // adiciona o novo objeto ao array existente
+  currentArray.push(newObject);
 
-
-  
+  // converte o array atualizado de volta em uma string JSON
+  const updatedContent = JSON.stringify(currentArray, null, 2);  
 
   // atualiza o conteúdo do arquivo
   const data = await octokit.repos.createOrUpdateFileContents({
@@ -214,13 +209,8 @@ async function handleSend() {
     sha: fileInfo.sha,
   });
 
-
-
 }
 
-
-
-  
   return (
     <>
     <form onSubmit={handleSubmit}>
