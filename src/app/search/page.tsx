@@ -138,7 +138,7 @@ interface FileContent {
 
 async function handleSend() {
   const octokit = new Octokit({
-    auth: "",
+    auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN
   });
 
   const branchName = "master";
@@ -186,25 +186,12 @@ async function handleSend() {
   // decodifica o conteúdo atual para uma string
   const currentContent = Buffer.from(fileInfo.content || '', 'base64').toString();
 
-  // converte a string em um objeto JSON
-  const currentJson = JSON.parse(currentContent);
-
-   // adiciona o novo JSON ao array existente
-   currentJson.push({
-    // adicione aqui os novos dados
-    ...JSON.parse(currentContent),
-    ...JSON.parse(fileContent),
-  });
-
-  // converte o objeto JSON atualizado em uma string novamente
-  const updatedContent = JSON.stringify(currentJson, null, 2);
-
-/*   //Essa parte ta errado E preciso ver se consigo colocar as imagens em pasta nova
+  //Essa parte ta errado E preciso ver se consigo colocar as imagens em pasta nova
   // combina o conteúdo atual com o novo conteúdo
   const updatedContent = JSON.stringify({
     ...JSON.parse(currentContent),
     ...JSON.parse(fileContent),
-  }, null, 2); */
+  }, null, 2);
 
   // adiciona os colchetes '{}' caso o arquivo esteja vazio
   const fileIsEmpty = !currentContent.trim();
