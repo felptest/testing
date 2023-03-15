@@ -13,9 +13,34 @@ import { FaCopy } from "react-icons/fa";
 import { Octokit } from "@octokit/rest";
 
 
+interface FileInfo<T> {
+  type: "file";
+  encoding: "base64";
+  size: number;
+  name: string;
+  path: string;
+  content: T;
+  sha: string;
+  url: string;
+  git_url: string;
+  html_url: string;
+  download_url: string;
+  _links: any;
+}
+
+
+interface FileResponse<T> {
+  status: number;
+  headers: any;
+  data: T;
+}
+
+
+type OctokitResponse<T> = Octokit.Response<T>;
+
 //Preciso colocar essa logica no home!
 
-export default function SendExperiment() {  
+export default function Experiment() {  
  
   const [experimentData, setExperimentData] = useState({
     id: '',
@@ -99,7 +124,7 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
   const handleGenerateId = () => {
     const date = new Date();
-    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm", { locale: ptBR });
+    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário de Brasília'", { locale: ptBR });
     setExperimentData({
       ...experimentData,
       id: Date.now().toString(),
@@ -123,21 +148,8 @@ const handleCopy = () => {
   setTimeout(() => setCopied(false), 2000); // limpa o estado após 2 segundos
 };
 
-type FileType = "file" | "dir" | "symlink" | "submodule";
-
-interface FileContent {
-  type: FileType;
-  size: number;
-  name: string;
-  path: string;
-  content: string | null;
-  sha: string;
-  url: string;
-}
-
-
 async function handleSend() {
-  const octokit = new Octokit({
+  const octokitClient = new Octokit({
     auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN
   });
 
@@ -145,7 +157,7 @@ async function handleSend() {
   const filePath = "src/app/api/data/experimentos.json";
   const fileContent = JSON.stringify(experimentData, null, 2);
 
-  const { data: branch } = await octokit.git.getRef({
+  const { data: branch } = await octokitClient.git.getRef({
     owner: "Fellippemfv",
     repo: "project-science-1",
     ref: `heads/master`,
@@ -156,7 +168,7 @@ async function handleSend() {
 
     if (!branch) {
     // a branch não existe, então crie-a
-    const { data: newBranch } = await octokit.git.createRef({
+    const { data: newBranch } = await octokitClient.git.createRef({
       owner: "Fellippemfv",
       repo: "project-science-1",
       ref: `heads/master`,
@@ -168,47 +180,49 @@ async function handleSend() {
   }
   
 
-  await octokit.git.updateRef({
+  await octokitClient.git.updateRef({
     owner: "Fellippemfv",
     repo: "project-science-1",
     ref: `heads/master`,
     sha,
   });
 
-  // busca o conteúdo atual do arquivo
-  const { data: fileInfo } = await octokit.repos.getContent({
-    owner: "Fellippemfv",
-    repo: "project-science-1",
-    path: filePath,
-    ref: branchName,
-  });
+// busca o conteúdo atual do arquivo
+const { data: fileInfo }: OctokitResponse<FileResponse<FileInfo<string>>> = await octokitClient.repos.getContent({
 
-  // decodifica o conteúdo atual para uma string
-  const currentContent = Buffer.from(fileInfo.content || '', 'base64').toString();
+  owner: "Fellippemfv",
+  repo: "project-science-1",
+  path: filePath,
+  ref: branchName,
+});
 
-  // converte o conteúdo atual em um array de objetos JSON
-  const currentArray = JSON.parse(currentContent);
+// decodifica o conteúdo atual para uma string
+const currentContent: string | undefined = Array.isArray(fileInfo)
+  ? undefined
+  : fileInfo.content && Buffer.from(fileInfo.content, "base64").toString();
 
-  // converte o novo conteúdo em um objeto JSON
-  const newObject = JSON.parse(fileContent);
+// converte o conteúdo atual em um array de objetos JSON
+const currentArray = currentContent ? JSON.parse(currentContent) : [];
 
-  // adiciona o novo objeto ao array existente
-  currentArray.push(newObject);
+// converte o novo conteúdo em um objeto JSON
+const newObject = JSON.parse(fileContent);
 
-  // converte o array atualizado de volta em uma string JSON
-  const updatedContent = JSON.stringify(currentArray, null, 2);  
+// adiciona o novo objeto ao array existente
+currentArray.push(newObject);
 
-  // atualiza o conteúdo do arquivo
-  const data = await octokit.repos.createOrUpdateFileContents({
-    owner: "Fellippemfv",
-    repo: "project-science-1",
-    path: filePath,
-    message: "Update my-file.json",
-    content: Buffer.from(updatedContent).toString("base64"),
-    branch: branchName,
-    sha: fileInfo.sha,
-  });
+// converte o array atualizado de volta em uma string JSON
+const updatedContent = JSON.stringify(currentArray, null, 2);  
 
+// atualiza o conteúdo do arquivo
+const data = await octokitClient.repos.createOrUpdateFileContents({
+  owner: "Fellippemfv",
+  repo: "project-science-1",
+  path: filePath,
+  message: "Update my-file.json",
+  content: Buffer.from(updatedContent).toString("base64"),
+  branch: branchName,
+  sha: fileInfo.sha,
+});
 }
 
   return (
