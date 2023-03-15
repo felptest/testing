@@ -15,7 +15,7 @@ import { Octokit } from "@octokit/rest";
 
 //Preciso colocar essa logica no home!
 
-export default function Experiment() {  
+export default function SendExperiment() {  
  
   const [experimentData, setExperimentData] = useState({
     id: '',
@@ -99,7 +99,7 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
   const handleGenerateId = () => {
     const date = new Date();
-    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário de Brasília'", { locale: ptBR });
+    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm", { locale: ptBR });
     setExperimentData({
       ...experimentData,
       id: Date.now().toString(),

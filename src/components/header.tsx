@@ -12,8 +12,9 @@ export const Header = () => {
                 <div className={styles.headerContentRight}>
                     <ul>
                         <li><Link href="/">Início</Link></li>
-                        <li><Link href="/">Sobre</Link></li>
-                        <li><Link href="/">Contato</Link></li>
+                        <li><Link href="/sobre">Sobre</Link></li>
+                        <li><Link href="/contato">Contato</Link></li>
+                        <li><Link href="/enviar-experimento">Envie seu experimento</Link></li>
                     </ul>
                 </div>
             </div>
