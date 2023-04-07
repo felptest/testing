@@ -48,15 +48,19 @@
 
 }
 
-.headerContentRight ul li:last-of-type:hover a{
+.headerContentRight ul li:last-of-type:hover{
     background-color: rgb(66, 49, 152);
     color: rgb(232, 230, 227);
 }
 
-
 .headerContentRight ul li a{
-    text-decoration: none;
     color: black;
+    text-decoration: none;
+}
+
+.headerContentRight ul li:hover a{
+    text-decoration: none;
+    color: white;
 }
 
 .headerContentLeft {

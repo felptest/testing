@@ -98,7 +98,7 @@ export default function Home() {
 
       <main className={styles.main}>
 
-      <div>
+      <div className={styles.filterContainer}>
         <h1>Experiment data</h1>
 
         <select
