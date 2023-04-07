@@ -1,142 +1,76 @@
-.mainWrapper {
-    min-height: 100vh;
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .content {
     display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    background-color: rgba(221,235,241,.3);
-    padding: 2rem;
-}
-
-.mainContent {
-    display: flex;
-    flex-direction: column;
-    max-width: 121.6rem;    
-    background-color: rgb(255 255 255/1);
-    border-radius: 1.5rem;
-    border: 1px solid #E5E7EB;
-    padding: 5rem;
-
-}
-
-.mainHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-}
-
-.imagePreview {
-    position: relative !important;
-    width: 100% !important;
-    max-height: 22rem;
-    object-fit: cover;
-}
-
-.mainHeaderProfileImageContainer {
-    max-width: 4rem;
-
-}
-
-.mainHeaderProfileImageContainer img {
-    width: 100%;
-    border-radius: 999px;
-    position: relative !important;
-}
-
-.mainHeaderProfileNameContainer {
-    font-weight: 600;
-}
-
-
-.ContentPost {
-    display: flex;
-    flex-direction: column;
-    justify-content:flex-start ;
-    padding: 2rem;
-}
-
-.ContentPost p span {
-    font-weight: 700;
-}
-
-.ContentPost h2 {
-    font-size: 2.875rem;
-}
-
-.ContentPost h3 {
+    flex-wrap: wrap;
+  }
+  
+  .description {
+    flex-basis: 60%;
+    padding-right: 2rem;
+  }
+  
+  .description h2 {
     font-size: 2rem;
-}
-
-.ContentPost h2, .ContentPost h3 {
+    font-weight: bold;
     margin-bottom: 1rem;
-}
-
-.ContentPost p, .ContentPost ul, .ContentPost ol {
-    margin-bottom: 3rem;
-    text-align: justify;
-}
-
-.ContentPost .themesParagraph {
+  }
+  
+  .description p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  
+  .image {
+    flex-basis: 40%;
+  }
+  
+  .image img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .cta {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  
+  .cta h2 {
+    font-size: 2rem;
+    font-weight: bold;
     margin-bottom: 1rem;
-}
-
-.ContentPost .themesParagraphLast {
-    margin-bottom: 3rem;
-}
-
-.ContentPost ul, .ContentPost ol {
-    margin-left: 2rem;
-}
-  .parallax {
-
-     
-    /* Defina uma altura para a visão que o usuário terá da imagem */
-    min-height: 200px;
-     
-    /* defina o background como fixo e posicione a imagem */
-    background-attachment: fixed;
-    background-position: bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-    }
-
-    
-
-    .mainHeaderContentLeft {
-        display: flex;
-        align-items: center;
-    }
-
-    .mainHeaderContentRight {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        background: rgb(98, 70, 234);
-        color: white;
-        padding: 1rem;
-    }
-
-    .mainHeaderContentRight svg{
-        color: red;
-    }
-
-    .blockListReference {
-        margin-left: 0!important;
-    }
-    .listReference {
-        list-style: none;
-    }
-
-    .methodImageContent {
-        max-width: 40rem;
-        margin: 2rem 0rem;
-    }
-
-    .methodImageContent img {
-        width: 40rem !important;
-        height: auto !important;
-        position: relative !important;
-
-    }
+  }
+  
+  .cta p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+  
+  .button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0062cc;
+  }
+  
+  
