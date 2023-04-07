@@ -82,7 +82,9 @@ export default function Home() {
 
   return (
     <>
-      <div className={styles.header}>
+
+    <div>
+    <div className={styles.header}>
     <div className={styles.content}>
       <div className={styles.top}>
         <p>find your experiment</p>
@@ -94,9 +96,9 @@ export default function Home() {
       </div>
 
     </div>
-      </div>
+      </div> 
 
-      <main className={styles.main}>
+       <main className={styles.main}>
 
       <div className={styles.filterContainer}>
         <h1>Experiment data</h1>
@@ -214,7 +216,9 @@ export default function Home() {
           )}
         </section>
       </div> 
-    </main>
+    </main> 
+    </div>
+
 
     </>
    
