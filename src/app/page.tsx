@@ -30,12 +30,21 @@ export default function Home() {
     topicBncc: searchParams.get('topicBncc') || '',
   });
   
-  const filteredData = experimentData.filter(
-    (experiment) =>
-      (!selectedValues.topicGeneral || experiment.topicGeneral === selectedValues.topicGeneral) &&
-      (!selectedValues.topicSpecific || experiment.topicSpecific === selectedValues.topicSpecific) &&
-      (!selectedValues.topicBncc || experiment.topicBncc === selectedValues.topicBncc)
-  );
+  const [filteredData, setFilteredData] = useState(experimentData);
+
+  const handleFilterData = () => {
+    const filteredData = experimentData.filter(
+      (experiment) =>
+        (!selectedValues.topicGeneral || experiment.topicGeneral.toLowerCase() === selectedValues.topicGeneral.toLowerCase()) &&
+        (!selectedValues.topicSpecific || experiment.topicSpecific.toLowerCase() === selectedValues.topicSpecific.toLowerCase()) &&
+        (!selectedValues.topicBncc || experiment.topicBncc.toLowerCase() === selectedValues.topicBncc.toLowerCase())
+    );
+    setFilteredData(filteredData);
+    setNumToShow(6);
+    router.push(`/?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${selectedValues.topicSpecific}&topicBncc=${selectedValues.topicBncc}`);
+
+  }
+  
 
   const handleResetFilter = () => {
     setSelectedValues({
@@ -43,6 +52,7 @@ export default function Home() {
       topicSpecific: '',
       topicBncc: '',
     });
+    setFilteredData(experimentData);
     setNumToShow(6);
     router.push('/');
   }
@@ -100,8 +110,8 @@ export default function Home() {
 
        <main className={styles.main}>
 
-      <div className={styles.filterContainer}>
-        <h1>Experiment data</h1>
+       <div className={styles.filterContainer}>
+        <h1>Filtro de pesquisa</h1>
 
         <select
           value={selectedValues.topicGeneral}
@@ -159,6 +169,8 @@ export default function Home() {
             </option>
           ))}
         </select>
+
+        <button onClick={handleFilterData}>Pesquisar</button>
  
         <button onClick={handleResetFilter}>Reset Filter</button>       
 
