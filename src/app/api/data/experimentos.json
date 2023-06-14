@@ -2,7 +2,7 @@
 
     {
       "id": "1",
-      "topicGeneral": "Física",
+      "topicGeneral": "fisica",
       "topicSpecific": "Termodinâmica",
       "topicBncc": "Matéria e energia - Propriedades físicas dos materiais",
       "profileImage": "https://avatars.githubusercontent.com/u/67835741?v=4",
@@ -40,7 +40,7 @@
   },
   {
       "id": "2",
-      "topicGeneral": "Biologia",
+      "topicGeneral": "biologia",
       "topicSpecific": "Células",
       "topicBncc": "Vida e evolução - Célula como unidade da vida",
       "profileImage": "https://avatars.githubusercontent.com/u/67835741?v=4",
@@ -78,7 +78,7 @@
   },
   {
       "id": "3",
-      "topicGeneral": "Química",
+      "topicGeneral": "biologia",
       "topicSpecific": "Misturas e soluções",
       "topicBncc": "Terra e Universo - Observação do céu",
       "profileImage": "https://avatars.githubusercontent.com/u/67835741?v=4",
@@ -116,7 +116,7 @@
   },
   {
       "id": "4",
-      "topicGeneral": "Física",
+      "topicGeneral": "quimica",
       "topicSpecific": "Termodinâmica",
       "topicBncc": "Matéria e energia - Propriedades físicas dos materiais",
       "profileImage": "https://avatars.githubusercontent.com/u/67835741?v=4",

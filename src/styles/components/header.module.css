@@ -3,7 +3,6 @@
     color: white; */
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid #E5E7EB;
 
 }
 
@@ -14,6 +13,14 @@
     padding: 2rem;
     justify-content: space-between;
 }
+
+@media screen and (min-width: 1048px) {
+    .headerContent {
+       
+        max-width: 112.4rem;
+        
+    }
+  }
 
 .headerTextLogo {
     font-size: 2rem;

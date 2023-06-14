@@ -5,7 +5,7 @@
     margin: 2rem;
     background-color: var(--first-color);
     /* padding: 9rem 0 2rem; */
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
   }
   
