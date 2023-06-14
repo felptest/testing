@@ -10,9 +10,14 @@
 .headerContent {
     display: flex;
     width: 100%;
-    max-width: 121.6rem;
-    margin: 0rem 2rem;
+    max-width: 152.6rem;
+    padding: 2rem;
     justify-content: space-between;
+}
+
+.headerTextLogo {
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .headerContentRight {
@@ -28,19 +33,20 @@
     list-style: none;
     margin: 1rem;
     margin-left: 1rem;
-    padding: 1rem;
+    padding: 1.3rem;
 }
 
 .headerContentRight ul li:hover {
-    border-radius: 0.5rem;
-    background: #6246ea;
-    color: #ffffff;
+    border-radius: 15px;
+    background-color: #3498db;
+    color: rgb(232, 230, 227);
+    
     cursor: pointer;
 }
 
 .headerContentRight ul li:last-of-type {
-    border-radius: 0.5rem;
-    background: #6246ea;
+    border-radius: 15px;
+    background: #03a9f4;;
 }
 
 .headerContentRight ul li:last-of-type a {
@@ -49,12 +55,12 @@
 }
 
 .headerContentRight ul li:last-of-type:hover{
-    background-color: rgb(66, 49, 152);
+    background-color: #3498db;
     color: rgb(232, 230, 227);
 }
 
 .headerContentRight ul li a{
-    color: black;
+    color: gray;
     text-decoration: none;
 }
 

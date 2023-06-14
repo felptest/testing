@@ -3,7 +3,7 @@ import styles from './page.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 
-
+import imageHome from "../../public/images/img-fogo2.jpg"
 import experimentData from "../app/api/data/experimentos.json"
 import { useState } from 'react'
 
@@ -93,88 +93,34 @@ export default function Home() {
   return (
     <>
 
-    <div>
-    <div className={styles.header}>
-    <div className={styles.content}>
-      <div className={styles.top}>
-        <p>find your experiment</p>
-        <h1>Encontre os <span>melhores experimentos</span> de ciências</h1>
-      </div>
+    <section className={styles.home}>
+                    <div className={`${styles.home__container} ${styles.container}`}>
+                        <div className={styles.home__data}>
+                            {/* <span className={styles.home__subtitle}>Error 404</span> */}
+                            <h1 className={styles.home__title}>O maior repositório de experimentos do mundo!</h1>
 
-      <div>
-        <h2>nessa div vai ficcar uma introdução</h2>
-      </div>
+                            <p className={styles.home__description}>
+                               
+Desbrave todos os tipos de experimentos, separados por tema, eixo da bncc ou local apropriado, fácil de usar e repleto de novos experimentos toda semana!
+                            </p>
 
-    </div>
-      </div> 
+                            <a href="/application" className={styles.home__button}>
+                                Clique aqui e começe a pesquisar
+                            </a>
+                        </div>
+
+                        <div className={styles.home__img}>
+                          <img width={350} src="https://png.pngtree.com/png-clipart/20210205/ourlarge/pngtree-chemistry-teacher-doing-experiment-png-image_2872088.jpg" alt="" />
+                            <div className={styles.home__shadow}></div>
+                        </div>
+                    </div>
+
+
+                </section>
 
        <main className={styles.main}>
 
-       <div className={styles.filterContainer}>
-        <h1>Filtro de pesquisa</h1>
-
-        <select
-          value={selectedValues.topicGeneral}
-          onChange={(e) => {
-            const newTopicGeneral = e.target.value;
-            setSelectedValues({
-              ...selectedValues,
-              topicGeneral: newTopicGeneral,
-            });
-            router.push(`/?topicGeneral=${newTopicGeneral}&topicSpecific=${selectedValues.topicSpecific}&topicBncc=${selectedValues.topicBncc}`);
-          }}
-        >
-          <option value="">Select a general topic</option>
-          {experimentGeneralData.map((topic) => (
-            <option key={topic.id} value={topic.title}>
-              {topic.title}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={selectedValues.topicSpecific}
-          onChange={(e) => {
-            const newTopicSpecific = e.target.value;
-            setSelectedValues({
-              ...selectedValues,
-              topicSpecific: newTopicSpecific,
-            });
-            router.push(`/?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${newTopicSpecific}&topicBncc=${selectedValues.topicBncc}`);
-          }}
-        >
-          <option value="">Select a specific topic</option>
-          {experimentSpecificData.map((topic) => (
-            <option key={topic.id} value={topic.title}>
-              {topic.title}
-            </option>
-          ))}
-        </select>
-
-         <select
-          value={selectedValues.topicBncc}
-          onChange={(e) => {
-            const newTopicBncc = e.target.value;
-            setSelectedValues({
-              ...selectedValues,
-              topicBncc: newTopicBncc,
-            });
-            router.push(`/?topicGeneral=${selectedValues.topicGeneral}&topicSpecific=${selectedValues.topicSpecific}&topicBncc=${newTopicBncc}`);
-          }}
-        >
-          <option value="">Select a BNCC topic</option>
-          {experimentBnccData.map((topic) => (
-            <option key={topic.id} value={topic.title}>
-              {topic.title}
-            </option>
-          ))}
-        </select>
-
-        <button onClick={handleFilterData}>Pesquisar</button>
  
-        <button onClick={handleResetFilter}>Reset Filter</button>       
-
-      </div>
 
 
 
@@ -229,7 +175,6 @@ export default function Home() {
         </section>
       </div> 
     </main> 
-    </div>
 
 
     </>
