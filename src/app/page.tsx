@@ -101,7 +101,7 @@ export default function Home() {
 
                             <p className={styles.home__description}>
                                
-Desbrave todos os tipos de experimentos, separados por tema, eixo da bncc ou local apropriado, fácil de usar e repleto de novos experimentos toda semana!
+Desbrave todos os tipos de experimentos, separados por tema, eixo da bncc ou local apropriado, fácil de usar, revisadas por professores e repleto de novos experimentos toda semana!
                             </p>
 
                             <a href="/application" className={styles.home__button}>
@@ -110,7 +110,7 @@ Desbrave todos os tipos de experimentos, separados por tema, eixo da bncc ou loc
                         </div>
 
                         <div className={styles.home__img}>
-                          <img width={350} src="https://png.pngtree.com/png-clipart/20210205/ourlarge/pngtree-chemistry-teacher-doing-experiment-png-image_2872088.jpg" alt="" />
+                          <img width={400} src="https://png.pngtree.com/png-clipart/20210205/ourlarge/pngtree-chemistry-teacher-doing-experiment-png-image_2872088.jpg" alt="" />
                             <div className={styles.home__shadow}></div>
                         </div>
                     </div>

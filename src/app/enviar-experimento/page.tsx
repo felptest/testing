@@ -3,6 +3,7 @@ import React, { ChangeEvent, useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import styles from './page.module.css'
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -227,6 +228,8 @@ const data = await octokitClient.repos.createOrUpdateFileContents({
 
   return (
     <>
+
+    <div className={styles.container}>
     <form onSubmit={handleSubmit}>
       <label>
         ID:
@@ -326,6 +329,9 @@ const data = await octokitClient.repos.createOrUpdateFileContents({
 <button className="btn btn-primary" onClick={handleSend}>
               Enviar
             </button>
+    </div>
+    
+  
     </>
   
   )
