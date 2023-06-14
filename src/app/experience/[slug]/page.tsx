@@ -33,7 +33,7 @@ export default function Experiment({ params }: {
          
           
            <div className={styles.mainHeader}>
-             <div className={styles.mainHeaderContentLeft}>
+            {/*  <div className={styles.mainHeaderContentLeft}>
                <div className={styles.mainHeaderProfileImageContainer}>
                   <Image fill alt='' src={experimentInfo.profileImage}></Image>
                </div>
@@ -41,7 +41,7 @@ export default function Experiment({ params }: {
                <p>Postado em: </p>
                <span><p>{experimentInfo.postDate}</p></span>
          
-             </div>
+             </div> */}
              
              <div className={styles.mainHeaderContentRight}>
                <p>Download em PDF</p>
