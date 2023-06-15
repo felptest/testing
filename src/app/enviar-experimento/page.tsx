@@ -51,7 +51,7 @@ export default function Experiment() {
     id: '',
     topicGeneral: [], // Alterado para uma lista
     topicSpecific: '',
-    topicBncc: '',
+    topicBncc: [],
     profileName: '',
     postDate: '',
     title: '',
@@ -94,6 +94,33 @@ export default function Experiment() {
           ...prevData,
           topicGeneral: [
             ...prevData.topicGeneral,
+            {
+              id: selectedTopic.id,
+              title: selectedTopic.title,
+              slug: selectedTopic.slug,
+            },
+          ],
+        }));
+      }
+    }
+  
+    event.target.value = ""; // Limpa o valor selecionado
+  };
+
+  const handleSelectBnccChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    const selectedTopic = experimentBnccData.find((topic) => topic.slug === value);
+  
+    if (selectedTopic) {
+      const isTopicAlreadySelected = experimentData.topicBncc.some(
+        (topic) => topic.title === selectedTopic.title
+      );
+  
+      if (!isTopicAlreadySelected) {
+        setExperimentData((prevData) => ({
+          ...prevData,
+          topicBncc: [
+            ...prevData.topicBncc,
             {
               id: selectedTopic.id,
               title: selectedTopic.title,
@@ -278,6 +305,17 @@ const handleRemoveDiv = (id) => {
   }));
 };
 
+const handleRemoveDivBncc = (id) => {
+  setExperimentData((prevData) => ({
+    ...prevData,
+    topicBncc: prevData.topicBncc.filter((topic) => topic.id !== id), // Remove a div com o id correspondente
+  }));
+};
+
+const isTopicSelectedBncc = (slug) => {
+  return experimentData.topicBncc.some((topic) => topic.slug === slug);
+};
+
 
 const isTopicSelected = (slug) => {
   return experimentData.topicGeneral.some((topic) => topic.slug === slug);
@@ -354,23 +392,35 @@ const isTopicSelected = (slug) => {
 
 
 
+
 <label className={styles.label}>
-  BNCC Topic:
   <div className={styles.filter}>
-    <label htmlFor="topicBncc">Tópico BNCC:</label>
+    <label htmlFor="topicBncc">BNCC Topic</label>
     <select
       id="topicBncc"
-      onChange={handleSelectChange}
+      onChange={handleSelectBnccChange}
       name="topicBncc"
       className={styles.select}
+      defaultValue=""
     >
-      <option value="">Todos</option>
+      <option value="">Selecione um tópico</option>
       {experimentBnccData.map((topic) => (
-        <option key={topic.id} value={topic.slug}>
+        <option
+          key={topic.id}
+          value={topic.slug}
+          disabled={isTopicSelected(topic.slug)}
+        >
           {topic.title}
         </option>
       ))}
     </select>
+
+    {experimentData.topicBncc.map((topic) => (
+      <div key={topic.id} className={styles.topicDiv}>
+        {topic.title} - {topic.slug}
+        <button onClick={() => handleRemoveDivBncc(topic.id)}>X</button>
+      </div>
+    ))}
   </div>
 </label>
 
