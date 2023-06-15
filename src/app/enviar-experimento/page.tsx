@@ -14,6 +14,10 @@ import { FaCopy } from "react-icons/fa";
 import { Octokit } from "@octokit/rest";
 
 
+import bnccData from "../../app/api/data/bncc.json"
+import topicGeneralData from "../../app/api/data/experimentGeneralData.json"
+import topicSpecificData from "../../app/api/data/materias.json"
+
 interface FileInfo<T> {
   type: "file";
   encoding: "base64";
@@ -48,7 +52,6 @@ export default function Experiment() {
     topicGeneral: '',
     topicSpecific: '',
     topicBncc: '',
-    profileImage: '',
     profileName: '',
     postDate: '',
     title: '',
@@ -74,6 +77,19 @@ export default function Experiment() {
       [name]: value,
     });
   };
+
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+  
+    setExperimentData({
+      ...experimentData,
+      [name]: value,
+    });
+  };
+  
+
+
+  
 
   const handleArrayInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -125,7 +141,7 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
   const handleGenerateId = () => {
     const date = new Date();
-    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário de Brasília'", { locale: ptBR });
+    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário local'", { locale: ptBR });
     setExperimentData({
       ...experimentData,
       id: Date.now().toString(),
@@ -226,88 +242,140 @@ const data = await octokitClient.repos.createOrUpdateFileContents({
 });
 }
 
+const [experimentBnccData] = useState(bnccData);
+const [experimentGeneralData] = useState(topicGeneralData);
+const [experimentSpecificData] = useState(topicSpecificData);
   return (
     <>
 
     <div className={styles.container}>
-    <form onSubmit={handleSubmit}>
-      <label>
-        ID:
-        <button onClick={handleGenerateId}>Generate ID</button>
-      </label>
-      <label>
-        General Topic:
-        <input type="text" name="topicGeneral" onChange={handleInputChange} />
-      </label>
-      <label>
-        Specific Topic:
-        <input type="text" name="topicSpecific" onChange={handleInputChange} />
-      </label>
-      <label>
-        BNCC Topic:
-        <input type="text" name="topicBncc" onChange={handleInputChange} />
-      </label>
-      <label>
-        Profile Image:
-        <input type="text" name="profileImage" onChange={handleInputChange} />
-      </label>
-      <label>
-        Profile Name:
-        <input type="text" name="profileName" onChange={handleInputChange} />
-      </label>
-      <label>
-        Post Date:
-        <input type="text" name="postDate" value={experimentData.postDate} onChange={handleInputChange} disabled />
-      </label>
-      <label>
-        Title:
-        <input type="text" name="title" onChange={handleInputChange} />
-      </label>
-      <label>
-        Slug:
-        <input type="text" name="slug" value={generateSlug()} onChange={handleInputChange} disabled />
-      </label>
-      <label>
-        Image Preview:
-        <input type="text" name="imagePreview" onChange={handleInputChange} />
-      </label>
-      <label>
-        Description:
-        <textarea name="description" onChange={handleInputChange} />
-      </label>
-      <label>
-        Literature:
-        <textarea name="literature" onChange={handleInputChange} />
-      </label>
-      <label>
-        Objectives:
-        <input type="text" name="objectives" onChange={handleArrayInputChange} />
-      </label>
-      <label>
-        Materials:
-        <input type="text" name="materials" onChange={handleArrayInputChange} />
-      </label>
-      <label>
-        Methods:
-        <input type="text" name="methods" onChange={handleArrayInputChange} />
-      </label>
-      <label>
-      MethodsImages:
-        <input type="text" name="methodsImages" onChange={handleArrayInputChange} />
-      </label>
-      <label>
-      Results:
-        <textarea name="results" onChange={handleInputChange} />
-      </label>
-      <label>
-      ScientificExplanation:
-        <textarea name="scientificExplanation" onChange={handleInputChange} />
-      </label>
-      <label>
-      References:
-        <input type="text" name="references" onChange={handleArrayInputChange} />
-      </label>
-    </form>
+
+    <form className={styles.form} onSubmit={handleSubmit}>
+        <label className={styles.label}>
+          ID:
+          <button className={styles.button} onClick={handleGenerateId}>Generate ID</button>
+        </label>
+       
+
+        <label className={styles.label}>
+  General Topic:
+  <div className={styles.filter}>
+    <label htmlFor="topicGeneral">Tópico Geral:</label>
+    <select
+      id="topicGeneral"
+      onChange={handleSelectChange}
+      name="topicGeneral"
+      className={styles.select}
+    >
+      <option value="">Todos</option>
+      {experimentGeneralData.map((topic) => (
+        <option key={topic.id} value={topic.slug}>
+          {topic.title}
+        </option>
+      ))}
+    </select>
+  </div>
+</label>
+<label className={styles.label}>
+  Specific Topic:
+  <div className={styles.filter}>
+    <label htmlFor="topicSpecific">Tópico Específico:</label>
+    <select
+      id="topicSpecific"
+      onChange={handleSelectChange}
+      name="topicSpecific"
+      className={styles.select}
+    >
+      <option value="">Todos</option>
+      {experimentSpecificData.map((topic) => (
+        <option key={topic.id} value={topic.slug}>
+          {topic.title}
+        </option>
+      ))}
+    </select>
+  </div>
+</label>
+<label className={styles.label}>
+  BNCC Topic:
+  <div className={styles.filter}>
+    <label htmlFor="topicBncc">Tópico BNCC:</label>
+    <select
+      id="topicBncc"
+      onChange={handleSelectChange}
+      name="topicBncc"
+      className={styles.select}
+    >
+      <option value="">Todos</option>
+      {experimentBnccData.map((topic) => (
+        <option key={topic.id} value={topic.slug}>
+          {topic.title}
+        </option>
+      ))}
+    </select>
+  </div>
+</label>
+
+
+
+     
+        <label className={styles.label}>
+          Profile Name:
+          <input className={styles.input} type="text" name="profileName" onChange={handleInputChange} />
+        </label>
+        <label className={styles.label}>
+          Post Date:
+          <input className={styles.input} type="text" name="postDate" value={experimentData.postDate} onChange={handleInputChange} disabled />
+        </label>
+        <label className={styles.label}>
+          Title:
+          <input className={styles.input} type="text" name="title" onChange={handleInputChange} />
+        </label>
+        <label className={styles.label}>
+          Slug:
+          <input className={styles.input} type="text" name="slug" value={generateSlug()} onChange={handleInputChange} disabled />
+        </label>
+        <label className={styles.label}>
+          Image Preview:
+          <input className={styles.input} type="text" name="imagePreview" onChange={handleInputChange} />
+        </label>
+        <label className={styles.label}>
+          Description:
+          <textarea className={styles.textarea} name="description" onChange={handleInputChange} />
+        </label>
+        <label className={styles.label}>
+          Literature:
+          <textarea className={styles.textarea} name="literature" onChange={handleInputChange} />
+        </label>
+        <label className={styles.label}>
+          Objectives:
+          <input className={styles.input} type="text" name="objectives" onChange={handleArrayInputChange} />
+        </label>
+        <label className={styles.label}>
+          Materials:
+          <input className={styles.input} type="text" name="materials" onChange={handleArrayInputChange} />
+        </label>
+        <label className={styles.label}>
+          Methods:
+          <input className={styles.input} type="text" name="methods" onChange={handleArrayInputChange} />
+        </label>
+        <label className={styles.label}>
+          MethodsImages:
+          <input className={styles.input} type="text" name="methodsImages" onChange={handleArrayInputChange} />
+        </label>
+        <label className={styles.label}>
+          Results:
+          <textarea className={styles.textarea} name="results" onChange={handleInputChange} />
+        </label>
+        <label className={styles.label}>
+          ScientificExplanation:
+          <textarea className={styles.textarea} name="scientificExplanation" onChange={handleInputChange} />
+        </label>
+        <label className={styles.label}>
+          References:
+          <input className={styles.input} type="text" name="references" onChange={handleArrayInputChange} />
+        </label>
+      </form>
+
 
 
     {Object.keys(experimentData).length > 0 && (

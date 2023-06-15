@@ -33,15 +33,13 @@ export default function Experiment({ params }: {
          
           
            <div className={styles.mainHeader}>
-            {/*  <div className={styles.mainHeaderContentLeft}>
-               <div className={styles.mainHeaderProfileImageContainer}>
-                  <Image fill alt='' src={experimentInfo.profileImage}></Image>
-               </div>
-               <span className={styles.mainHeaderProfileNameContainer}><p>{experimentInfo.profileName}</p></span>
-               <p>Postado em: </p>
-               <span><p>{experimentInfo.postDate}</p></span>
+            <div className={styles.mainHeaderContentLeft}>
+             
+               <p>Enviado por: </p>
+                <p>{experimentInfo.profileName}</p>
+                <p>em: {experimentInfo.postDate}</p>
          
-             </div> */}
+             </div> 
              
              <div className={styles.mainHeaderContentRight}>
                <p>Download em PDF</p>
@@ -56,7 +54,7 @@ export default function Experiment({ params }: {
              <h2>{experimentInfo.title}</h2>
              <p>{experimentInfo.description}</p>
 
-             <h3>Assuntos abordados</h3>
+             <h3>Em quais assuntos e temas este experimento se encaixa?</h3>
              <p  className={styles.themesParagraph}><span>Tema geral:</span>{experimentInfo.topicGeneral}</p>
              <p  className={styles.themesParagraph}><span>Tema específico:</span>{experimentInfo.topicSpecific}</p>
              <p  className={styles.themesParagraphLast}><span>Unidade temática e objeto de conhecimento da BNCC:</span>{experimentInfo.topicBncc}</p>
