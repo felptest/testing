@@ -7,7 +7,20 @@
     {
     "id": 2,
     "title": "Biologia",
-    "slug": "biologia"
+    "slug": "biologia",
+    "topicSpecific": [
+        {
+            "id": 1,
+            "title": "Biologia - Anatomia humana",
+            "slug": "biologia-anatomia-humana"
+            },
+            {
+            "id": 2,
+            "title": "Biologia - Fisiologia humana",
+            "slug": "biologia-fisiologia-humana"
+            }
+          
+    ]
     },
     {
     "id": 3,

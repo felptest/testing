@@ -13,7 +13,7 @@ import { FaCopy } from "react-icons/fa";
 
 import { Octokit } from "@octokit/rest";
 
-
+const crypto = require('crypto');
 import bnccData from "../../app/api/data/bncc.json"
 import topicGeneralData from "../../app/api/data/experimentGeneralData.json"
 import topicSpecificData from "../../app/api/data/materias.json"
@@ -49,7 +49,7 @@ export default function Experiment() {
  
   const [experimentData, setExperimentData] = useState({
     id: '',
-    topicGeneral: '',
+    topicGeneral: [], // Alterado para uma lista
     topicSpecific: '',
     topicBncc: '',
     profileName: '',
@@ -67,6 +67,8 @@ export default function Experiment() {
     scientificExplanation: '',
     references: [],
   });
+  
+  const [addedDivs, setAddedDivs] = useState([]);
 
   
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -80,15 +82,32 @@ export default function Experiment() {
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
+    const selectedTopic = experimentGeneralData.find((topic) => topic.slug === value);
   
-    setExperimentData({
-      ...experimentData,
-      [name]: value,
-    });
+    if (selectedTopic) {
+      const isTopicAlreadySelected = experimentData.topicGeneral.some(
+        (topic) => topic.title === selectedTopic.title
+      );
+  
+      if (!isTopicAlreadySelected) {
+        setExperimentData((prevData) => ({
+          ...prevData,
+          topicGeneral: [
+            ...prevData.topicGeneral,
+            {
+              id: selectedTopic.id,
+              title: selectedTopic.title,
+              slug: selectedTopic.slug,
+            },
+          ],
+        }));
+      }
+    }
+  
+    event.target.value = ""; // Limpa o valor selecionado
   };
   
-
-
+  
   
 
   const handleArrayInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,7 +160,7 @@ const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
   const handleGenerateId = () => {
     const date = new Date();
-    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário local'", { locale: ptBR });
+    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário local.'", { locale: ptBR });
     setExperimentData({
       ...experimentData,
       id: Date.now().toString(),
@@ -245,6 +264,26 @@ const data = await octokitClient.repos.createOrUpdateFileContents({
 const [experimentBnccData] = useState(bnccData);
 const [experimentGeneralData] = useState(topicGeneralData);
 const [experimentSpecificData] = useState(topicSpecificData);
+
+
+useEffect(() => {
+  handleGenerateId(); // Chama a função handleGenerateId ao carregar a página
+}, []); // Array de dependências vazio para executar o efeito apenas uma vez
+
+
+const handleRemoveDiv = (id) => {
+  setExperimentData((prevData) => ({
+    ...prevData,
+    topicGeneral: prevData.topicGeneral.filter((topic) => topic.id !== id), // Remove a div com o id correspondente
+  }));
+};
+
+
+const isTopicSelected = (slug) => {
+  return experimentData.topicGeneral.some((topic) => topic.slug === slug);
+};
+
+
   return (
     <>
 
@@ -253,7 +292,8 @@ const [experimentSpecificData] = useState(topicSpecificData);
     <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.label}>
           ID:
-          <button className={styles.button} onClick={handleGenerateId}>Generate ID</button>
+          <input className={styles.input} type="text" name="postDate" value={experimentData.id} onChange={handleInputChange} disabled />
+
         </label>
        
 
@@ -266,16 +306,31 @@ const [experimentSpecificData] = useState(topicSpecificData);
       onChange={handleSelectChange}
       name="topicGeneral"
       className={styles.select}
+      defaultValue=""
     >
-      <option value="">Todos</option>
+      <option value="">Selecione um tópico</option>
       {experimentGeneralData.map((topic) => (
-        <option key={topic.id} value={topic.slug}>
+        <option
+          key={topic.id}
+          value={topic.slug}
+          disabled={isTopicSelected(topic.slug)}
+        >
           {topic.title}
         </option>
       ))}
     </select>
+
+    {experimentData.topicGeneral.map((topic) => (
+      <div key={topic.id} className={styles.topicDiv}>
+        {topic.title} - {topic.slug}
+        <button onClick={() => handleRemoveDiv(topic.id)}>X</button>
+      </div>
+    ))}
   </div>
 </label>
+
+
+
 <label className={styles.label}>
   Specific Topic:
   <div className={styles.filter}>
@@ -287,14 +342,18 @@ const [experimentSpecificData] = useState(topicSpecificData);
       className={styles.select}
     >
       <option value="">Todos</option>
-      {experimentSpecificData.map((topic) => (
-        <option key={topic.id} value={topic.slug}>
-          {topic.title}
+      {experimentSpecificData.find((topic) => topic.slug === "biologia")?.topicSpecific.map((specificTopic) => (
+        <option key={specificTopic.id} value={specificTopic.slug}>
+          {specificTopic.title}
         </option>
       ))}
     </select>
   </div>
 </label>
+
+
+
+
 <label className={styles.label}>
   BNCC Topic:
   <div className={styles.filter}>
