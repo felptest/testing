@@ -50,7 +50,7 @@ export default function Experiment() {
   const [experimentData, setExperimentData] = useState({
     id: '',
     topicGeneral: [], // Alterado para uma lista
-    topicSpecific: '',
+    topicSpecific: [],
     topicBncc: [],
     profileName: '',
     postDate: '',
@@ -68,20 +68,8 @@ export default function Experiment() {
     references: [],
   });
   
-  const [addedDivs, setAddedDivs] = useState([]);
-
-  
-  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const { name, value } = event.target;
-  
-    setExperimentData({
-      ...experimentData,
-      [name]: value,
-    });
-  };
-
-  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
+  const handleGeneralSelectChange = (event) => {
+    const { value } = event.target;
     const selectedTopic = experimentGeneralData.find((topic) => topic.slug === value);
   
     if (selectedTopic) {
@@ -100,11 +88,76 @@ export default function Experiment() {
               slug: selectedTopic.slug,
             },
           ],
+          topicSpecific: {
+            ...prevData.topicSpecific,
+            [selectedTopic.slug]: [],
+          },
         }));
       }
     }
   
-    event.target.value = ""; // Limpa o valor selecionado
+    event.target.value = ''; // Limpa o valor selecionado
+  };
+  
+  const handleSpecificSelectChange = (event, generalTopicSlug) => {
+    const { value } = event.target;
+    const selectedSpecificTopic = experimentGeneralData
+      .find((topic) => topic.slug === generalTopicSlug)
+      ?.topicSpecific.find((topic) => topic.slug === value);
+  
+    if (selectedSpecificTopic) {
+      setExperimentData((prevData) => ({
+        ...prevData,
+        topicSpecific: {
+          ...prevData.topicSpecific,
+          [generalTopicSlug]: [
+            ...prevData.topicSpecific[generalTopicSlug],
+            {
+              id: selectedSpecificTopic.id,
+              title: selectedSpecificTopic.title,
+              slug: selectedSpecificTopic.slug,
+            },
+          ],
+        },
+      }));
+    }
+  
+    event.target.value = ''; // Limpa o valor selecionado
+  };
+  
+  const handleRemoveGeneralTopic = (id, slug) => {
+    setExperimentData((prevData) => {
+      const updatedTopicSpecific = { ...prevData.topicSpecific };
+      delete updatedTopicSpecific[slug];
+  
+      return {
+        ...prevData,
+        topicGeneral: prevData.topicGeneral.filter((topic) => topic.id !== id),
+        topicSpecific: updatedTopicSpecific,
+      };
+    });
+  };
+  
+  const handleRemoveSpecificTopic = (id, generalTopicSlug) => {
+    setExperimentData((prevData) => ({
+      ...prevData,
+      topicSpecific: {
+        ...prevData.topicSpecific,
+        [generalTopicSlug]: prevData.topicSpecific[generalTopicSlug].filter(
+          (topic) => topic.id !== id
+        ),
+      },
+    }));
+  };
+  
+  const isGeneralTopicSelected = (slug) => {
+    return experimentData.topicGeneral.some((topic) => topic.slug === slug);
+  };
+  
+  const isSpecificTopicSelected = (slug) => {
+    return Object.values(experimentData.topicSpecific).some((topics) =>
+      topics.some((topic) => topic.slug === slug)
+    );
   };
 
   const handleSelectBnccChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -135,7 +188,14 @@ export default function Experiment() {
   };
   
   
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const { name, value } = event.target;
   
+    setExperimentData({
+      ...experimentData,
+      [name]: value,
+    });
+  };
 
   const handleArrayInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -335,60 +395,116 @@ const isTopicSelected = (slug) => {
         </label>
        
 
-        <label className={styles.label}>
-  General Topic:
-  <div className={styles.filter}>
-    <label htmlFor="topicGeneral">Tópico Geral:</label>
-    <select
-      id="topicGeneral"
-      onChange={handleSelectChange}
-      name="topicGeneral"
-      className={styles.select}
-      defaultValue=""
-    >
-      <option value="">Selecione um tópico</option>
-      {experimentGeneralData.map((topic) => (
-        <option
-          key={topic.id}
-          value={topic.slug}
-          disabled={isTopicSelected(topic.slug)}
-        >
+
+        <div>
+  <label className={styles.label}>
+    <div>
+      <label htmlFor="topicGeneral">Tópico Geral:</label>
+      <select
+        id="topicGeneral"
+        onChange={handleGeneralSelectChange}
+        name="topicGeneral"
+        defaultValue=""
+        className={styles.select}
+      >
+        <option value="">Selecione um tópico</option>
+        {experimentGeneralData.map((topic) => (
+          <option
+            key={topic.id}
+            value={topic.slug}
+            disabled={isGeneralTopicSelected(topic.slug)}
+            className={styles.option}
+          >
+            {topic.title}
+          </option>
+        ))}
+      </select>
+      <div  className={styles.topicDivContainer}>
+      {experimentData.topicGeneral.map((topic) => (
+        <div key={topic.id} className={styles.topicDiv}>
           {topic.title}
-        </option>
+          <button
+            onClick={() => handleRemoveGeneralTopic(topic.id, topic.slug)}
+            className={styles.closeButton}
+          >
+            X
+          </button>
+        </div>
       ))}
-    </select>
+      </div >
+     
+    </div>
+  </label>
 
-    {experimentData.topicGeneral.map((topic) => (
-      <div key={topic.id} className={styles.topicDiv}>
-        {topic.title} - {topic.slug}
-        <button onClick={() => handleRemoveDiv(topic.id)}>X</button>
-      </div>
-    ))}
-  </div>
-</label>
+  {experimentData.topicGeneral.length > 0 && (
+    <>
+      {experimentData.topicGeneral.map((generalTopic) => {
+        const specificTopics = experimentGeneralData.find(
+          (topic) => topic.slug === generalTopic.slug
+        )?.topicSpecific;
 
+        const selectedSpecificTopics =
+          experimentData.topicSpecific[generalTopic.slug] || [];
 
+        return (
+          <div key={generalTopic.slug}>
+            <label>
+              <div>
+                <label htmlFor={`topicSpecific-${generalTopic.slug}`} className={styles.subLabel}>
+                  Tópico Específico de {generalTopic.title}:
+                </label>
+                <select
+                  id={`topicSpecific-${generalTopic.slug}`}
+                  onChange={(event) =>
+                    handleSpecificSelectChange(event, generalTopic.slug)
+                  }
+                  name="topicSpecific"
+                  defaultValue=""
+                  disabled={isSpecificTopicSelected(generalTopic.slug)}
+                  className={styles.select}
+                >
+                  <option value="">Selecione um tópico</option>
+                  {specificTopics &&
+                    specificTopics.map((specificTopic) => {
+                      const isTopicSelected = selectedSpecificTopics.some(
+                        (topic) => topic.slug === specificTopic.slug
+                      );
 
-<label className={styles.label}>
-  Specific Topic:
-  <div className={styles.filter}>
-    <label htmlFor="topicSpecific">Tópico Específico:</label>
-    <select
-      id="topicSpecific"
-      onChange={handleSelectChange}
-      name="topicSpecific"
-      className={styles.select}
-    >
-      <option value="">Todos</option>
-      {experimentSpecificData.find((topic) => topic.slug === "biologia")?.topicSpecific.map((specificTopic) => (
-        <option key={specificTopic.id} value={specificTopic.slug}>
-          {specificTopic.title}
-        </option>
-      ))}
-    </select>
-  </div>
-</label>
+                      return (
+                        <option
+                          key={specificTopic.id}
+                          value={specificTopic.slug}
+                          disabled={isSpecificTopicSelected(specificTopic.slug) || isTopicSelected}
+                          className={styles.option}
+                        >
+                          {specificTopic.title}
+                        </option>
+                      );
+                    })}
+                </select>
 
+      <div  className={styles.topicDivContainer}>
+      {selectedSpecificTopics.map((topic) => (
+                  <div key={topic.id} className={styles.topicDiv}>
+                    {topic.title}
+                    <button
+                      onClick={() => handleRemoveSpecificTopic(topic.id, generalTopic.slug)}
+                      className={styles.closeButton}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+</div>
+               
+              </div>
+            </label>
+          </div>
+        );
+      })}
+    </>
+  )}
+</div>
 
 
 

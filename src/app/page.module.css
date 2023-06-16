@@ -343,7 +343,7 @@ main > .content {
 
 
 .home__container {
-  width: 100%;
+  max-width: 112.4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -492,7 +492,7 @@ main > .content {
 
 @media screen and (min-width: 1600px) {
   .container {
-      zoom: 1.5;
+      zoom: 1.35;
 
   }
 }

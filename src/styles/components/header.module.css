@@ -10,17 +10,10 @@
     display: flex;
     width: 100%;
     max-width: 152.6rem;
-    padding: 2rem;
+    padding: 2remc 0rem;
     justify-content: space-between;
 }
 
-@media screen and (min-width: 1048px) {
-    .headerContent {
-       
-        max-width: 112.4rem;
-        
-    }
-  }
 
 .headerTextLogo {
     font-size: 2rem;
@@ -81,3 +74,21 @@
     justify-content: center;
     align-items: center;
 }
+
+@media screen and (min-width: 1048px) {
+    .headerContent {
+       
+        max-width: 112.4rem;
+        
+    }
+  }
+
+
+
+@media screen and (min-width: 1600px) {
+    .headerContent {
+       
+        max-width: 152.6rem !important;
+       
+    }
+  }

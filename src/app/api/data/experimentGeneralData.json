@@ -2,7 +2,20 @@
     {
     "id": 1,
     "title": "Física",
-    "slug": "fisica"
+    "slug": "fisica",
+    "topicSpecific": [
+        {
+            "id": 1,
+            "title": "Física - Anatomia humana",
+            "slug": "fisica-anatomia-humana"
+            },
+            {
+            "id": 2,
+            "title": "Física - Fisiologia humana",
+            "slug": "fisica-fisiologia-humana"
+            }
+          
+    ]
     },
     {
     "id": 2,
@@ -25,6 +38,19 @@
     {
     "id": 3,
     "title": "Química",
-    "slug": "quimica"
+    "slug": "quimica",
+    "topicSpecific": [
+        {
+            "id": 1,
+            "title": "Química - Anatomia humana",
+            "slug": "quimica-anatomia-humana"
+            },
+            {
+            "id": 2,
+            "title": "Química - Fisiologia humana",
+            "slug": "quimica-fisiologia-humana"
+            }
+          
+    ]
     }
 ]

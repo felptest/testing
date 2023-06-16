@@ -33,6 +33,23 @@
   .footerBlock ul li {
     font-size: 11.8px;
   }
+
+  @media screen and (min-width: 1048px) {
+    .footerContainer {
+    
+      max-width: 121.6rem;
+    }
+  }
+
+
+
+@media screen and (min-width: 1600px) {
+  .footerContainer {
+    
+    max-width: 152.6rem !important;
+  }
+
+  }
   
 @media (max-width: 660px) {
 
