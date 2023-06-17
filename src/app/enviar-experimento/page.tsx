@@ -13,10 +13,9 @@ import { FaCopy } from "react-icons/fa";
 
 import { Octokit } from "@octokit/rest";
 
-const crypto = require('crypto');
 import bnccData from "../../app/api/data/bncc.json"
 import topicGeneralData from "../../app/api/data/experimentGeneralData.json"
-import topicSpecificData from "../../app/api/data/materias.json"
+import axios from 'axios';
 
 interface FileInfo<T> {
   type: "file";
@@ -350,20 +349,12 @@ const data = await octokitClient.repos.createOrUpdateFileContents({
 
 const [experimentBnccData] = useState(bnccData);
 const [experimentGeneralData] = useState(topicGeneralData);
-const [experimentSpecificData] = useState(topicSpecificData);
 
 
 useEffect(() => {
   handleGenerateId(); // Chama a função handleGenerateId ao carregar a página
 }, []); // Array de dependências vazio para executar o efeito apenas uma vez
 
-
-const handleRemoveDiv = (id) => {
-  setExperimentData((prevData) => ({
-    ...prevData,
-    topicGeneral: prevData.topicGeneral.filter((topic) => topic.id !== id), // Remove a div com o id correspondente
-  }));
-};
 
 const handleRemoveDivBncc = (id) => {
   setExperimentData((prevData) => ({
@@ -377,8 +368,42 @@ const isTopicSelectedBncc = (slug) => {
 };
 
 
-const isTopicSelected = (slug) => {
-  return experimentData.topicGeneral.some((topic) => topic.slug === slug);
+async function testApiToken(apiToken) {
+  try {
+    const response = await axios.get('https://api.github.com/user', {
+      headers: {
+        Authorization: `token ${apiToken}`,
+      },
+    }); 
+    return response.data.login;
+  } catch (error) {
+    console.error('Erro ao testar a chave da API:', error);
+    return null;
+  }
+}
+
+const [apiToken, setApiToken] = useState(
+  typeof localStorage !== 'undefined' ? localStorage.getItem('githubApiToken') || '' : ''
+);
+
+const [username, setUsername] = useState('');
+
+const handleApiTokenChange = (event) => {
+  const token = event.target.value; 
+  setApiToken(token);
+  localStorage.setItem('githubApiToken', token);
+};
+
+const handleFormSubmit = async (event) => {
+  event.preventDefault();
+  const user = await testApiToken(apiToken);
+  if (user) {
+    setUsername(user);
+  }
+};
+
+const handleBackToHome = (event) => {
+ setUsername('')
 };
 
 
@@ -387,7 +412,13 @@ const isTopicSelected = (slug) => {
 
     <div className={styles.container}>
 
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <div>
+    {username && <p>Agora voce esta habilitado para enviar seu experimento!</p>}
+    {username && <p>Nome de usuário: {username}</p>}
+    {username && <button onClick={handleBackToHome} >Volte o teste</button>}
+
+
+      {username && <p>Nome de usuário: {username}</p> &&     <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.label}>
           ID:
           <input className={styles.input} type="text" name="postDate" value={experimentData.id} onChange={handleInputChange} disabled />
@@ -622,7 +653,27 @@ const isTopicSelected = (slug) => {
           References:
           <input className={styles.input} type="text" name="references" onChange={handleArrayInputChange} />
         </label>
-      </form>
+      </form>}
+
+      
+      {!username && (
+        <form onSubmit={handleFormSubmit}>
+          <div>
+            <label htmlFor="apiTokenInput">Insira sua chave API do GitHub</label>
+            <input
+              type="text"
+              id="apiTokenInput"
+              value={apiToken}
+              onChange={handleApiTokenChange}
+            />
+          </div>
+          <button type="submit">Testar chave</button>
+        </form>
+      )}
+      {/* Resto do código... */}
+    </div>
+
+
 
 
 
