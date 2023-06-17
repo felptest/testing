@@ -397,29 +397,29 @@ const isTopicSelected = (slug) => {
 
 
         <div>
-  <label className={styles.label}>
-    <div>
-      <label htmlFor="topicGeneral">Tópico Geral:</label>
-      <select
-        id="topicGeneral"
-        onChange={handleGeneralSelectChange}
-        name="topicGeneral"
-        defaultValue=""
-        className={styles.select}
-      >
-        <option value="">Selecione um tópico</option>
-        {experimentGeneralData.map((topic) => (
-          <option
-            key={topic.id}
-            value={topic.slug}
-            disabled={isGeneralTopicSelected(topic.slug)}
-            className={styles.option}
-          >
-            {topic.title}
-          </option>
-        ))}
-      </select>
-      <div  className={styles.topicDivContainer}>
+        <label className={styles.label}>
+  <div>
+    <label htmlFor="topicGeneral">Tópico Geral:</label>
+    <select
+      id="topicGeneral"
+      onChange={handleGeneralSelectChange}
+      name="topicGeneral"
+      defaultValue=""
+      className={styles.select}
+    >
+      <option value="">Selecione um tópico</option>
+      {experimentGeneralData.map((topic) => (
+        <option
+          key={topic.id}
+          value={topic.slug}
+          disabled={isGeneralTopicSelected(topic.slug)}
+          className={styles.option}
+        >
+          {topic.title}
+        </option>
+      ))}
+    </select>
+    <div className={styles.topicDivContainer}>
       {experimentData.topicGeneral.map((topic) => (
         <div key={topic.id} className={styles.topicDiv}>
           {topic.title}
@@ -431,10 +431,16 @@ const isTopicSelected = (slug) => {
           </button>
         </div>
       ))}
-      </div >
-     
     </div>
-  </label>
+
+    {experimentData.topicGeneral.length === 0 && (
+      <div className={`${styles.errorMessage} ${styles.errorMessageContainer}`}>
+        Selecione pelo menos um tópico geral
+      </div>
+    )}
+  </div>
+</label>
+
 
   {experimentData.topicGeneral.length > 0 && (
   <>
@@ -515,7 +521,7 @@ const isTopicSelected = (slug) => {
 
 
 
-<label className={styles.label}>
+      <label className={styles.label}>
   <div className={styles.filter}>
     <label htmlFor="topicBncc">BNCC Topic</label>
     <select
@@ -537,22 +543,25 @@ const isTopicSelected = (slug) => {
       ))}
     </select>
 
-    
-    <div  className={styles.topicDivContainer}>
+    <div className={styles.topicDivContainer}>
+      {experimentData.topicBncc.map((topic) => (
+        <div key={topic.id} className={styles.topicDiv}>
+          {topic.title}
+          <button onClick={() => handleRemoveDivBncc(topic.id)} className={styles.closeButton}>
+            X
+          </button>
+        </div>
+      ))}
 
-    {experimentData.topicBncc.map((topic) => (
-      <div key={topic.id} className={styles.topicDiv}>
-        {topic.title}
-        <button onClick={() => handleRemoveDivBncc(topic.id)} className={styles.closeButton}>X</button>
-      </div>
-    ))}
-
-    
-</div>
-
-   
+      {experimentData.topicBncc.length === 0 && (
+        <div className={`${styles.errorMessage} ${styles.errorMessageContainer}`}>
+          Selecione pelo menos um tópico BNCC
+        </div>
+      )}
+    </div>
   </div>
 </label>
+
 
 
 
