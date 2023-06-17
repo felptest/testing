@@ -437,54 +437,52 @@ const isTopicSelected = (slug) => {
   </label>
 
   {experimentData.topicGeneral.length > 0 && (
-    <>
-      {experimentData.topicGeneral.map((generalTopic) => {
-        const specificTopics = experimentGeneralData.find(
-          (topic) => topic.slug === generalTopic.slug
-        )?.topicSpecific;
+  <>
+    {experimentData.topicGeneral.map((generalTopic) => {
+      const specificTopics = experimentGeneralData.find(
+        (topic) => topic.slug === generalTopic.slug
+      )?.topicSpecific;
 
-        const selectedSpecificTopics =
-          experimentData.topicSpecific[generalTopic.slug] || [];
+      const selectedSpecificTopics =
+        experimentData.topicSpecific[generalTopic.slug] || [];
 
-        return (
-          <div key={generalTopic.slug}>
-            <label>
-              <div>
-                <label htmlFor={`topicSpecific-${generalTopic.slug}`} className={styles.subLabel}>
-                  Tópico Específico de {generalTopic.title}:
-                </label>
-                <select
-                  id={`topicSpecific-${generalTopic.slug}`}
-                  onChange={(event) =>
-                    handleSpecificSelectChange(event, generalTopic.slug)
-                  }
-                  name="topicSpecific"
-                  defaultValue=""
-                  disabled={isSpecificTopicSelected(generalTopic.slug)}
-                  className={styles.select}
-                >
-                  <option value="">Selecione um tópico</option>
-                  {specificTopics &&
-                    specificTopics.map((specificTopic) => {
-                      const isTopicSelected = selectedSpecificTopics.some(
-                        (topic) => topic.slug === specificTopic.slug
-                      );
+      return (
+        <div key={generalTopic.slug}>
+          <label>
+            <div>
+              <label htmlFor={`topicSpecific-${generalTopic.slug}`} className={styles.subLabel}>
+                Tópico Específico de {generalTopic.title}:
+              </label>
+              <select
+                id={`topicSpecific-${generalTopic.slug}`}
+                onChange={(event) => handleSpecificSelectChange(event, generalTopic.slug)}
+                name="topicSpecific"
+                defaultValue=""
+                disabled={isSpecificTopicSelected(generalTopic.slug)}
+                className={styles.select}
+              >
+                <option value="">Selecione um tópico</option>
+                {specificTopics &&
+                  specificTopics.map((specificTopic) => {
+                    const isTopicSelected = selectedSpecificTopics.some(
+                      (topic) => topic.slug === specificTopic.slug
+                    );
 
-                      return (
-                        <option
-                          key={specificTopic.id}
-                          value={specificTopic.slug}
-                          disabled={isSpecificTopicSelected(specificTopic.slug) || isTopicSelected}
-                          className={styles.option}
-                        >
-                          {specificTopic.title}
-                        </option>
-                      );
-                    })}
-                </select>
+                    return (
+                      <option
+                        key={specificTopic.id}
+                        value={specificTopic.slug}
+                        disabled={isSpecificTopicSelected(specificTopic.slug) || isTopicSelected}
+                        className={styles.option}
+                      >
+                        {specificTopic.title}
+                      </option>
+                    );
+                  })}
+              </select>
 
-      <div  className={styles.topicDivContainer}>
-      {selectedSpecificTopics.map((topic) => (
+              <div className={styles.topicDivContainer}>
+                {selectedSpecificTopics.map((topic) => (
                   <div key={topic.id} className={styles.topicDiv}>
                     {topic.title}
                     <button
@@ -495,16 +493,24 @@ const isTopicSelected = (slug) => {
                     </button>
                   </div>
                 ))}
-</div>
-               
+
+                {selectedSpecificTopics.length === 0 && (
+                  <div className={`${styles.errorMessage} ${styles.errorMessageContainer}`}>
+                    Escolha pelo menos um tópico de {generalTopic.title}
+                  </div>
+                )}
               </div>
-            </label>
-          </div>
-        );
-      })}
-    </>
-  )}
-</div>
+            </div>
+          </label>
+        </div>
+      );
+    })}
+  </>
+)}
+
+
+
+      </div>
 
 
 
@@ -524,19 +530,27 @@ const isTopicSelected = (slug) => {
         <option
           key={topic.id}
           value={topic.slug}
-          disabled={isTopicSelected(topic.slug)}
+          disabled={isTopicSelectedBncc(topic.slug)}
         >
           {topic.title}
         </option>
       ))}
     </select>
 
+    
+    <div  className={styles.topicDivContainer}>
+
     {experimentData.topicBncc.map((topic) => (
       <div key={topic.id} className={styles.topicDiv}>
-        {topic.title} - {topic.slug}
-        <button onClick={() => handleRemoveDivBncc(topic.id)}>X</button>
+        {topic.title}
+        <button onClick={() => handleRemoveDivBncc(topic.id)} className={styles.closeButton}>X</button>
       </div>
     ))}
+
+    
+</div>
+
+   
   </div>
 </label>
 

@@ -249,21 +249,22 @@
     color: white;
     background: #3498db;
     padding: 1rem;
-    max-width: 25rem;
     border-radius: 15px;
     margin-right: 2rem;
+    font-size: 1.2rem;
   }
-
+  
   .topicDiv:first-of-type {
     margin-top: 2rem;
   }
-
+  
   .topicDivContainer {
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
-    
+    flex-wrap: wrap; /* Adicionado para quebrar a linha quando necessário */
   }
+  
   
   .topicText {
     background-color: #007bff;
@@ -278,9 +279,19 @@
     color: #fff;
     border: none;
     padding: 5px 10px;
-    border-radius: 4px;
+    border-radius: 999px;
     cursor: pointer;
     margin-left: 1rem;
 
+  }
+  
+  .errorMessageContainer {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
   }
   
