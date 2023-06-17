@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useCallback, useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useMemo } from 'react';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -12,40 +12,46 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaCopy } from "react-icons/fa";
 
 import { Octokit } from "@octokit/rest";
+/* import Octokit from "@octokit/rest"; */
 
 import bnccData from "../../app/api/data/bncc.json"
 import topicGeneralData from "../../app/api/data/experimentGeneralData.json"
 import axios from 'axios';
 
-interface FileInfo<T> {
-  type: "file";
-  encoding: "base64";
-  size: number;
-  name: string;
-  path: string;
-  content: T;
-  sha: string;
-  url: string;
-  git_url: string;
-  html_url: string;
-  download_url: string;
-  _links: any;
+// Crie uma instância do Octokit
+const octokit = new Octokit();
+
+//Preciso colocar essa logica no home
+
+interface Topic {
+  id: number;
+  title: string;
+  slug: string;
 }
 
-
-interface FileResponse<T> {
-  status: number;
-  headers: any;
-  data: T;
+interface SpecificTopic {
+  id: number;
+  title: string;
+  slug: string;
 }
 
+interface BnccTopic {
+  id: number;
+  title: string;
+  slug: string;
+}
 
-type OctokitResponse<T> = Octokit.Response<T>;
-
-//Preciso colocar essa logica no home!
-
-export default function Experiment() {  
- 
+export default function Experiment() { 
+  
+  const [experimentBnccData] = useState(bnccData);
+  const [experimentGeneralData] = useState(topicGeneralData);
+  const [copied, setCopied] = useState(false); 
+  const [apiToken, setApiToken] = useState(
+    typeof localStorage !== 'undefined' ? localStorage.getItem('githubApiToken') || '' : ''
+  );
+  
+  const [username, setUsername] = useState('');
+  
   const [experimentData, setExperimentData] = useState({
     id: '',
     topicGeneral: [], // Alterado para uma lista
@@ -67,17 +73,17 @@ export default function Experiment() {
     references: [],
   });
   
-  const handleGeneralSelectChange = (event) => {
+  const handleGeneralSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
     const selectedTopic = experimentGeneralData.find((topic) => topic.slug === value);
   
     if (selectedTopic) {
       const isTopicAlreadySelected = experimentData.topicGeneral.some(
-        (topic) => topic.title === selectedTopic.title
+        (topic: any) => topic.title === selectedTopic.title
       );
   
       if (!isTopicAlreadySelected) {
-        setExperimentData((prevData) => ({
+        setExperimentData((prevData: any) => ({
           ...prevData,
           topicGeneral: [
             ...prevData.topicGeneral,
@@ -98,78 +104,47 @@ export default function Experiment() {
     event.target.value = ''; // Limpa o valor selecionado
   };
   
-  const handleSpecificSelectChange = (event, generalTopicSlug) => {
+  const handleSpecificSelectChange = (event: ChangeEvent<HTMLSelectElement>, generalTopicSlug: any) => {
     const { value } = event.target;
     const selectedSpecificTopic = experimentGeneralData
       .find((topic) => topic.slug === generalTopicSlug)
       ?.topicSpecific.find((topic) => topic.slug === value);
   
     if (selectedSpecificTopic) {
-      setExperimentData((prevData) => ({
-        ...prevData,
-        topicSpecific: {
+      setExperimentData((prevData: any) => {
+        const updatedTopicSpecific = {
           ...prevData.topicSpecific,
           [generalTopicSlug]: [
-            ...prevData.topicSpecific[generalTopicSlug],
+            ...(prevData.topicSpecific[generalTopicSlug] as any || []),
             {
               id: selectedSpecificTopic.id,
               title: selectedSpecificTopic.title,
               slug: selectedSpecificTopic.slug,
             },
           ],
-        },
-      }));
+        };
+  
+        return {
+          ...prevData,
+          topicSpecific: updatedTopicSpecific,
+        };
+      });
     }
   
     event.target.value = ''; // Limpa o valor selecionado
   };
-  
-  const handleRemoveGeneralTopic = (id, slug) => {
-    setExperimentData((prevData) => {
-      const updatedTopicSpecific = { ...prevData.topicSpecific };
-      delete updatedTopicSpecific[slug];
-  
-      return {
-        ...prevData,
-        topicGeneral: prevData.topicGeneral.filter((topic) => topic.id !== id),
-        topicSpecific: updatedTopicSpecific,
-      };
-    });
-  };
-  
-  const handleRemoveSpecificTopic = (id, generalTopicSlug) => {
-    setExperimentData((prevData) => ({
-      ...prevData,
-      topicSpecific: {
-        ...prevData.topicSpecific,
-        [generalTopicSlug]: prevData.topicSpecific[generalTopicSlug].filter(
-          (topic) => topic.id !== id
-        ),
-      },
-    }));
-  };
-  
-  const isGeneralTopicSelected = (slug) => {
-    return experimentData.topicGeneral.some((topic) => topic.slug === slug);
-  };
-  
-  const isSpecificTopicSelected = (slug) => {
-    return Object.values(experimentData.topicSpecific).some((topics) =>
-      topics.some((topic) => topic.slug === slug)
-    );
-  };
 
   const handleSelectBnccChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    const selectedTopic = experimentBnccData.find((topic) => topic.slug === value);
+    const selectedTopic = experimentBnccData.find((topic: BnccTopic) => topic.slug === value);
   
     if (selectedTopic) {
       const isTopicAlreadySelected = experimentData.topicBncc.some(
-        (topic) => topic.title === selectedTopic.title
+        (topic: any) => topic.title === selectedTopic.title
       );
   
       if (!isTopicAlreadySelected) {
-        setExperimentData((prevData) => ({
+        setExperimentData((prevData: any) => ({
           ...prevData,
           topicBncc: [
             ...prevData.topicBncc,
@@ -185,7 +160,6 @@ export default function Experiment() {
   
     event.target.value = ""; // Limpa o valor selecionado
   };
-  
   
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -205,72 +179,97 @@ export default function Experiment() {
     });
   };
   
-
-  const generateSlug = useCallback(() => {
-    const specialCharsMap: {[key: string]: string} = {
-      á: 'a',
-      à: 'a',
-      ã: 'a',
-      â: 'a',
-      é: 'e',
-      ê: 'e',
-      í: 'i',
-      ó: 'o',
-      õ: 'o',
-      ô: 'o',
-      ú: 'u',
-      ü: 'u',
-      ç: 'c',
-    };
+  const handleRemoveGeneralTopic = (id: number, generalTopicSlug: any) => {
+    setExperimentData((prevData) => {
+      const updatedTopicSpecific = { ...prevData.topicSpecific };
+      delete updatedTopicSpecific[generalTopicSlug];
   
-    const titleWithoutSpecialChars = experimentData.title
-      .toLowerCase()
-      .replace(/[^\w\s]/gi, (match: string) => {
-        const replacement = specialCharsMap[match];
-        return replacement ? replacement : '';
-      });
-  
-    return titleWithoutSpecialChars
-      .replace(/\s+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  }, [experimentData.title]);
-  
-const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  const experimentJson = JSON.stringify({
-    ...experimentData,
-  });
-  console.log(experimentJson);
-};
-
-
-  const handleGenerateId = () => {
-    const date = new Date();
-    const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário local.'", { locale: ptBR });
-    setExperimentData({
-      ...experimentData,
-      id: Date.now().toString(),
-      postDate: formattedDate,
+      return {
+        ...prevData,
+        topicGeneral: prevData.topicGeneral.filter((topic: Topic) => topic.id !== id),
+        topicSpecific: updatedTopicSpecific,
+      };
     });
   };
+  
+  const handleRemoveSpecificTopic = (id: number, generalTopicSlug: any) => {
+    setExperimentData((prevData: any) => ({
+      ...prevData,
+      topicSpecific: {
+        ...prevData.topicSpecific,
+        [generalTopicSlug]: prevData.topicSpecific[generalTopicSlug].filter(
+          (topic: SpecificTopic) => topic.id !== id
+        ),
+      },
+    }));
+  };
 
-
-  useEffect(() => {
+  const handleRemoveDivBncc = (id: number) => {
     setExperimentData((prevData) => ({
       ...prevData,
-      slug: generateSlug(),
+      topicBncc: prevData.topicBncc.filter((topic: Topic) => topic.id !== id), // Remove a div com o id correspondente
     }));
-  }, [experimentData.title, generateSlug]);
+  };
+  
+  const isGeneralTopicSelected = (slug: any) => {
+    return experimentData.topicGeneral.some((topic: Topic) => topic.slug === slug);
+  };
+  
+  const isSpecificTopicSelected = (slug: any) => {
+    return Object.values(experimentData.topicSpecific).some((topics: SpecificTopic[]) =>
+      topics.some((topic: SpecificTopic) => topic.slug === slug)
+    );
+  };
 
+  const isTopicSelectedBncc = (slug: any) => {
+    return experimentData.topicBncc.some((topic: BnccTopic) => topic.slug === slug);
+  };
 
-  const [copied, setCopied] = useState(false);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const experimentJson = JSON.stringify({
+      ...experimentData,
+    });
+    console.log(experimentJson);
+  };
 
-const handleCopy = () => {
-  setCopied(true);
-  setTimeout(() => setCopied(false), 2000); // limpa o estado após 2 segundos
+  const handleGenerateId = useMemo(() => {
+    return () => {
+      const date = new Date();
+      const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário local.'", { locale: ptBR });
+      setExperimentData((prevData) => ({
+        ...prevData,
+        id: Date.now().toString(),
+        postDate: formattedDate,
+      }));
+    };
+  }, []);
+
+  
+  const handleApiTokenChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const token = event.target.value; 
+  setApiToken(token);
+  localStorage.setItem('githubApiToken', token);
 };
 
-async function handleSend() {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const user = await testApiToken(apiToken);
+    if (user) {
+      setUsername(user);
+    }
+  };
+
+  const handleBackToHome = () => {
+  setUsername('')
+  };
+
+  const handleCopy = () => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000); // limpa o estado após 2 segundos
+  };
+  
+  async function handleSend() {
   const octokitClient = new Octokit({
     auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN
   });
@@ -310,8 +309,7 @@ async function handleSend() {
   });
 
 // busca o conteúdo atual do arquivo
-const { data: fileInfo }: OctokitResponse<FileResponse<FileInfo<string>>> = await octokitClient.repos.getContent({
-
+const fileInfo = await octokitClient.repos.getContent({
   owner: "Fellippemfv",
   repo: "project-science-1",
   path: filePath,
@@ -319,9 +317,12 @@ const { data: fileInfo }: OctokitResponse<FileResponse<FileInfo<string>>> = awai
 });
 
 // decodifica o conteúdo atual para uma string
-const currentContent: string | undefined = Array.isArray(fileInfo)
+const currentContent: string | undefined = Array.isArray(fileInfo.data)
   ? undefined
-  : fileInfo.content && Buffer.from(fileInfo.content, "base64").toString();
+  : fileInfo.data.type === "file" && fileInfo.data.content
+    ? Buffer.from(fileInfo.data.content, "base64").toString()
+    : undefined;
+
 
 // converte o conteúdo atual em um array de objetos JSON
 const currentArray = currentContent ? JSON.parse(currentContent) : [];
@@ -336,6 +337,8 @@ currentArray.push(newObject);
 const updatedContent = JSON.stringify(currentArray, null, 2);  
 
 // atualiza o conteúdo do arquivo
+// atualiza o conteúdo do arquivo
+
 const data = await octokitClient.repos.createOrUpdateFileContents({
   owner: "Fellippemfv",
   repo: "project-science-1",
@@ -343,68 +346,65 @@ const data = await octokitClient.repos.createOrUpdateFileContents({
   message: "Update my-file.json",
   content: Buffer.from(updatedContent).toString("base64"),
   branch: branchName,
-  sha: fileInfo.sha,
+  sha: branch.object.sha, // Acessando o campo "sha"
 });
-}
-
-const [experimentBnccData] = useState(bnccData);
-const [experimentGeneralData] = useState(topicGeneralData);
-
-
-useEffect(() => {
-  handleGenerateId(); // Chama a função handleGenerateId ao carregar a página
-}, []); // Array de dependências vazio para executar o efeito apenas uma vez
-
-
-const handleRemoveDivBncc = (id) => {
-  setExperimentData((prevData) => ({
-    ...prevData,
-    topicBncc: prevData.topicBncc.filter((topic) => topic.id !== id), // Remove a div com o id correspondente
-  }));
-};
-
-const isTopicSelectedBncc = (slug) => {
-  return experimentData.topicBncc.some((topic) => topic.slug === slug);
-};
-
-
-async function testApiToken(apiToken) {
-  try {
-    const response = await axios.get('https://api.github.com/user', {
-      headers: {
-        Authorization: `token ${apiToken}`,
-      },
-    }); 
-    return response.data.login;
-  } catch (error) {
-    console.error('Erro ao testar a chave da API:', error);
-    return null;
   }
-}
 
-const [apiToken, setApiToken] = useState(
-  typeof localStorage !== 'undefined' ? localStorage.getItem('githubApiToken') || '' : ''
-);
+  const generateSlug = useCallback(() => {
+    const specialCharsMap: {[key: string]: string} = {
+      á: 'a',
+      à: 'a',
+      ã: 'a',
+      â: 'a',
+      é: 'e',
+      ê: 'e',
+      í: 'i',
+      ó: 'o',
+      õ: 'o',
+      ô: 'o',
+      ú: 'u',
+      ü: 'u',
+      ç: 'c',
+    };
+  
+    const titleWithoutSpecialChars = experimentData.title
+      .toLowerCase()
+      .replace(/[^\w\s]/gi, (match: string) => {
+        const replacement = specialCharsMap[match];
+        return replacement ? replacement : '';
+      });
+  
+    return titleWithoutSpecialChars
+      .replace(/\s+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }, [experimentData.title]);
+  
+  useEffect(() => {
+    setExperimentData((prevData) => ({
+      ...prevData,
+      slug: generateSlug(),
+    }));
+  }, [experimentData.title, generateSlug]);
 
-const [username, setUsername] = useState('');
-
-const handleApiTokenChange = (event) => {
-  const token = event.target.value; 
-  setApiToken(token);
-  localStorage.setItem('githubApiToken', token);
-};
-
-const handleFormSubmit = async (event) => {
-  event.preventDefault();
-  const user = await testApiToken(apiToken);
-  if (user) {
-    setUsername(user);
+  useEffect(() => {
+    handleGenerateId();
+  }, [handleGenerateId]);
+  
+  async function testApiToken(apiToken: string) {
+    try {
+      const response = await axios.get('https://api.github.com/user', {
+        headers: {
+          Authorization: `token ${apiToken}`,
+        },
+      }); 
+      return response.data.login;
+    } catch (error) {
+      console.error('Erro ao testar a chave da API:', error);
+      return null;
+    }
   }
-};
 
-const handleBackToHome = (event) => {
- setUsername('')
-};
+
 
 
   return (
@@ -451,18 +451,19 @@ const handleBackToHome = (event) => {
       ))}
     </select>
     <div className={styles.topicDivContainer}>
-      {experimentData.topicGeneral.map((topic) => (
-        <div key={topic.id} className={styles.topicDiv}>
-          {topic.title}
-          <button
-            onClick={() => handleRemoveGeneralTopic(topic.id, topic.slug)}
-            className={styles.closeButton}
-          >
-            X
-          </button>
-        </div>
-      ))}
+  {experimentData.topicGeneral.map((topic: Topic) => (
+    <div key={topic.id} className={styles.topicDiv}>
+      {topic.title}
+      <button
+        onClick={() => handleRemoveGeneralTopic(topic.id, topic.slug)}
+        className={styles.closeButton}
+      >
+        X
+      </button>
     </div>
+  ))}
+</div>
+
 
     {experimentData.topicGeneral.length === 0 && (
       <div className={`${styles.errorMessage} ${styles.errorMessageContainer}`}>
@@ -475,13 +476,15 @@ const handleBackToHome = (event) => {
 
   {experimentData.topicGeneral.length > 0 && (
   <>
-    {experimentData.topicGeneral.map((generalTopic) => {
+    {experimentData.topicGeneral.map((generalTopic: any) => {
       const specificTopics = experimentGeneralData.find(
         (topic) => topic.slug === generalTopic.slug
       )?.topicSpecific;
 
-      const selectedSpecificTopics =
-        experimentData.topicSpecific[generalTopic.slug] || [];
+      const selectedSpecificTopics = (
+        experimentData.topicSpecific[generalTopic.slug] || []
+      ) as SpecificTopic[];
+      
 
       return (
         <div key={generalTopic.slug}>
@@ -519,7 +522,7 @@ const handleBackToHome = (event) => {
               </select>
 
               <div className={styles.topicDivContainer}>
-                {selectedSpecificTopics.map((topic) => (
+                {selectedSpecificTopics.map((topic: SpecificTopic) => (
                   <div key={topic.id} className={styles.topicDiv}>
                     {topic.title}
                     <button
@@ -575,7 +578,7 @@ const handleBackToHome = (event) => {
     </select>
 
     <div className={styles.topicDivContainer}>
-      {experimentData.topicBncc.map((topic) => (
+      {experimentData.topicBncc.map((topic: BnccTopic) => (
         <div key={topic.id} className={styles.topicDiv}>
           {topic.title}
           <button onClick={() => handleRemoveDivBncc(topic.id)} className={styles.closeButton}>
