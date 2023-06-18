@@ -308,9 +308,7 @@ export default function Experiment() {
       path: filePath,
       ref: baseBranchName,
     });
-  
-    console.log(fileInfo);
-  
+    
     // Decodifica o conteúdo atual para uma string
     const currentContent = Array.isArray(fileInfo.data)
       ? undefined
@@ -368,6 +366,9 @@ if (fileInfoArray.length > 0 && 'sha' in fileInfoArray[0]) {
     branch: newBranchName,
     sha: sha
   });
+
+  console.log("Dados adicionados a nova branch com sucesso!");
+
 } else {
   // Trata o caso em que a propriedade 'sha' não está presente
   console.error("A propriedade 'sha' não está presente no objeto fileInfo.");
@@ -394,8 +395,7 @@ const pullRequest = await octokitClient.pulls.create({
   base: baseBranchName,
 });
 
-console.log("Pull request criada:");
-console.log(pullRequest);
+console.log("Pull request criada com sucesso!");
 
   }
   
