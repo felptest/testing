@@ -271,7 +271,7 @@ export default function Experiment() {
   
   async function handleSend() {
   const octokitClient = new Octokit({
-    auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN
+    auth: apiToken
   });
 
   const branchName = "test";
@@ -281,7 +281,7 @@ export default function Experiment() {
   const { data: branch } = await octokitClient.git.getRef({
     owner: "Fellippemfv",
     repo: "project-science-1",
-    ref: `heads/master`,
+    ref: `heads/test`,
   });
 
 
@@ -292,7 +292,7 @@ export default function Experiment() {
     const { data: newBranch } = await octokitClient.git.createRef({
       owner: "Fellippemfv",
       repo: "project-science-1",
-      ref: `heads/master`,
+      ref: `heads/test`,
       sha
     });
   } else {
@@ -304,7 +304,7 @@ export default function Experiment() {
   await octokitClient.git.updateRef({
     owner: "Fellippemfv",
     repo: "project-science-1",
-    ref: `heads/master`,
+    ref: `heads/test`,
     sha,
   });
 
