@@ -271,7 +271,7 @@ export default function Experiment() {
   
   async function handleSend() {
   const octokitClient = new Octokit({
-    auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN
+    auth: apiToken
   });
 
   const branchName = "master";
