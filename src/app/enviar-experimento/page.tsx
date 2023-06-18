@@ -281,7 +281,7 @@ export default function Experiment() {
   const { data: branch } = await octokitClient.git.getRef({
     owner: "Fellippemfv",
     repo: "project-science-1",
-    ref: `heads/test`,
+    ref: `/heads/test`,
   });
 
 
@@ -292,19 +292,18 @@ export default function Experiment() {
     const { data: newBranch } = await octokitClient.git.createRef({
       owner: "Fellippemfv",
       repo: "project-science-1",
-      ref: `heads/test`,
+      ref: `/heads/test`,
       sha
     });
   } else {
     // a branch já existe, então use sua referência
-    const sha = branch.object.sha;
   }
   
 
   await octokitClient.git.updateRef({
     owner: "Fellippemfv",
     repo: "project-science-1",
-    ref: `heads/test`,
+    ref: `/heads/test`,
     sha,
   });
 
