@@ -281,33 +281,22 @@ export default function Experiment() {
     const filePath = "src/app/api/data/experimentos.json";
     const fileContent = JSON.stringify(experimentData, null, 2);
   
-    const { data: branch } = await octokitClient.git.getRef({
+    // Cria a nova branch
+    const { data: newBranch } = await octokitClient.git.createRef({
       owner: "Fellippemfv",
       repo: "project-science-1",
-      ref: `heads/test`,
+      ref: `refs/heads/${branchName}`,
+      sha: "master" // Pode ser substituído por outra referência adequada
     });
   
-    let sha;
-  
-    if (branch) {
-      sha = branch.object.sha;
-    } else {
-      const { data: newBranch } = await octokitClient.git.createRef({
-        owner: "Fellippemfv",
-        repo: "project-science-1",
-        ref: `heads/test`,
-        sha: "master" // Pode ser substituído por outra referência adequada
-      });
-  
-      sha = newBranch.object.sha;
-    }
+    const sha = newBranch.object.sha;
   
     // Busca o conteúdo atual do arquivo
     const fileInfo = await octokitClient.repos.getContent({
       owner: "Fellippemfv",
       repo: "project-science-1",
       path: filePath,
-      ref: "test",
+      ref: branchName,
     });
   
     console.log(fileInfo);
@@ -339,7 +328,7 @@ export default function Experiment() {
       message: `Send experiment N° ${experimentId}`,
       content: Buffer.from(updatedContent).toString("base64"),
       branch: branchName,
-      sha: (fileInfo.data && 'sha' in fileInfo.data) ? fileInfo.data.sha : sha,
+      sha: (fileInfo.data && "sha" in fileInfo.data) ? fileInfo.data.sha : sha,
     });
   
     console.log(data);
@@ -350,12 +339,13 @@ export default function Experiment() {
       repo: "project-science-1",
       title: `Pull request - Send experiment N° ${experimentId}`,
       head: branchName,
-      base: "test", // Ou outra branch de destino adequada
+      base: "test",
       body: "Please review and approve this pull request.",
     });
   
     console.log(prData);
   }
+  
   
   
   
