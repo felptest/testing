@@ -234,17 +234,18 @@ export default function Experiment() {
   };
 
   // Declaração da constante fora da função handleGenerateId
-  const [formattedDate, setFormattedDate] = useState('');
+  const [experimentId, setExperimentId] = useState('');
 
   const handleGenerateId = useCallback(() => {
     const date = new Date();
     const formattedDate = format(date, "dd 'de' MMMM 'de' yyyy 'às' HH:mm 'horário local.'", { locale: ptBR });
+    const generatedId = Date.now().toString();
     setExperimentData((prevData) => ({
       ...prevData,
-      id: Date.now().toString(),
+      id: generatedId,
       postDate: formattedDate,
     }));
-    setFormattedDate(formattedDate); // Atualiza o valor de formattedDate no estado
+    setExperimentId(generatedId); // Atualiza o valor do ID no estado
   }, []);
 
   
@@ -332,13 +333,13 @@ export default function Experiment() {
   
     // atualiza o conteúdo do arquivo
     const data = await octokitClient.repos.createOrUpdateFileContents({
-    owner: "Fellippemfv",
-    repo: "project-science-1",
-    path: filePath,
-    message: `Send experiment N° ${formattedDate}`,
-    content: Buffer.from(updatedContent).toString("base64"),
-    branch: branchName,
-    sha: (fileInfo.data && 'sha' in fileInfo.data) ? fileInfo.data.sha : sha,
+      owner: "Fellippemfv",
+      repo: "project-science-1",
+      path: filePath,
+      message: `Send experiment N° ${experimentId}`,
+      content: Buffer.from(updatedContent).toString("base64"),
+      branch: branchName,
+      sha: (fileInfo.data && 'sha' in fileInfo.data) ? fileInfo.data.sha : sha,
     });
 
   
