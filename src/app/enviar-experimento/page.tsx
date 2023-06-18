@@ -315,6 +315,8 @@ const fileInfo = await octokitClient.repos.getContent({
   ref: branchName,
 });
 
+console.log(fileInfo )
+
 // decodifica o conteúdo atual para uma string
 const currentContent: string | undefined = Array.isArray(fileInfo.data)
   ? undefined
@@ -345,7 +347,7 @@ const data = await octokitClient.repos.createOrUpdateFileContents({
   message: "Update my-file.json",
   content: Buffer.from(updatedContent).toString("base64"),
   branch: branchName,
-  sha: branch.object.sha, // Acessando o campo "sha"
+  sha: sha, // Acessando o campo "sha"
 });
   }
 
