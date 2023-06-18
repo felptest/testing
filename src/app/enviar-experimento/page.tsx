@@ -281,14 +281,14 @@ export default function Experiment() {
     const filePath = "src/app/api/data/experimentos.json";
     const fileContent = JSON.stringify(experimentData, null, 2);
   
-    // Cria a nova branch
-    const { data: newBranch } = await octokitClient.git.createRef({
-      owner: "Fellippemfv",
-      repo: "project-science-1",
-      ref: `refs/heads/${branchName}`,
-      sha: "master" // Pode ser substituído por outra referência adequada
-    });
-  
+ // Cria a nova branch
+ const { data: newBranch } = await octokitClient.git.createRef({
+  owner: "Fellippemfv",
+  repo: "project-science-1",
+  ref: `refs/heads/${branchName}`,
+  sha: "master" // Pode ser substituído por outra referência adequada
+});
+
     const sha = newBranch.object.sha;
   
     // Busca o conteúdo atual do arquivo
@@ -333,20 +333,18 @@ export default function Experiment() {
   
     console.log(data);
   
-    // Cria a pull request
-    const prData = await octokitClient.pulls.create({
-      owner: "Fellippemfv",
-      repo: "project-science-1",
-      title: `Pull request - Send experiment N° ${experimentId}`,
-      head: branchName,
-      base: "test",
-      body: "Please review and approve this pull request.",
-    });
+ // Cria a pull request
+ const prData = await octokitClient.pulls.create({
+  owner: "Fellippemfv",
+  repo: "project-science-1",
+  title: `Pull request - Send experiment N° ${experimentId}`,
+  head: branchName,
+  base: "test",
+  body: "Please review and approve this pull request.",
+});
   
     console.log(prData);
   }
-  
-  
   
   
 
