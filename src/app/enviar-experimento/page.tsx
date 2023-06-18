@@ -274,7 +274,7 @@ export default function Experiment() {
     auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN
   });
 
-  const branchName = "master";
+  const branchName = "test";
   const filePath = "src/app/api/data/experimentos.json";
   const fileContent = JSON.stringify(experimentData, null, 2);
 
