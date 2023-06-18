@@ -331,30 +331,21 @@ export default function Experiment() {
     // converte o array atualizado de volta em uma string JSON
     const updatedContent = JSON.stringify(currentArray, null, 2);
   
-    // Cria uma nova branch com base no experimentId
-    const newBranchName = `experiment_${experimentId}`;
-    await octokitClient.git.createRef({
-      owner: "Fellippemfv",
-      repo: "project-science-1",
-      ref: `refs/heads/${newBranchName}`,
-      sha: sha,
-    });
-  
-    // Atualiza o conteúdo do arquivo na nova branch
+    // atualiza o conteúdo do arquivo
     const data = await octokitClient.repos.createOrUpdateFileContents({
       owner: "Fellippemfv",
       repo: "project-science-1",
       path: filePath,
       message: `Send experiment N° ${experimentId}`,
       content: Buffer.from(updatedContent).toString("base64"),
-      branch: newBranchName,
+      branch: branchName,
+      sha: (fileInfo.data && 'sha' in fileInfo.data) ? fileInfo.data.sha : sha,
     });
-  
-    console.log("Atualizado");
+
+    console.log("Atualizado com sucesso!");
   
     console.log(data);
   }
-  
   
 
   const generateSlug = useCallback(() => {
