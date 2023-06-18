@@ -277,34 +277,26 @@ export default function Experiment() {
       auth: apiToken
     });
   
-    const branchName = `branch-to-send-experiment-n-${experimentId}`;
-    const baseBranch = 'test';
+    const branchName = "test";
     const filePath = "src/app/api/data/experimentos.json";
     const fileContent = JSON.stringify(experimentData, null, 2);
   
-    // Verifica se a nova branch já existe
-    const { data: branchExists } = await octokitClient.repos.getBranch({
-      owner: "Fellippemfv",
-      repo: "project-science-1",
-      branch: branchName,
-    });
-  
     let sha;
   
-    if (branchExists) {
-      const { data: branch } = await octokitClient.git.getRef({
-        owner: "Fellippemfv",
-        repo: "project-science-1",
-        ref: `heads/${branchName}`,
-      });
+    const { data: branch } = await octokitClient.git.getRef({
+      owner: "Fellippemfv",
+      repo: "project-science-1",
+      ref: `heads/${branchName}`,
+    });
   
+    if (branch) {
       sha = branch.object.sha;
     } else {
       const { data: newBranch } = await octokitClient.git.createRef({
         owner: "Fellippemfv",
         repo: "project-science-1",
-        ref: `refs/heads/${branchName}`,
-        sha: baseBranch // Use a referência correta da branch base
+        ref: `heads/${branchName}`,
+        sha: "master" // Pode ser substituído por outra referência adequada
       });
   
       sha = newBranch.object.sha;
@@ -315,7 +307,7 @@ export default function Experiment() {
       owner: "Fellippemfv",
       repo: "project-science-1",
       path: filePath,
-      ref: baseBranch, // Obtenha o conteúdo do arquivo na branch base
+      ref: branchName,
     });
   
     console.log(fileInfo);
@@ -339,30 +331,28 @@ export default function Experiment() {
     // converte o array atualizado de volta em uma string JSON
     const updatedContent = JSON.stringify(currentArray, null, 2);
   
-    // atualiza o conteúdo do arquivo na nova branch
+    // Cria uma nova branch com base no experimentId
+    const newBranchName = `experiment_${experimentId}`;
+    await octokitClient.git.createRef({
+      owner: "Fellippemfv",
+      repo: "project-science-1",
+      ref: `refs/heads/${newBranchName}`,
+      sha: sha,
+    });
+  
+    // Atualiza o conteúdo do arquivo na nova branch
     const data = await octokitClient.repos.createOrUpdateFileContents({
       owner: "Fellippemfv",
       repo: "project-science-1",
       path: filePath,
       message: `Send experiment N° ${experimentId}`,
       content: Buffer.from(updatedContent).toString("base64"),
-      branch: branchName,
-      sha: (fileInfo.data && 'sha' in fileInfo.data) ? fileInfo.data.sha : sha,
+      branch: newBranchName,
     });
   
-    console.log("Atualizado com sucesso!");
+    console.log("Atualizado");
   
-    // Cria a pull request
-    const prData = await octokitClient.pulls.create({
-      owner: "Fellippemfv",
-      repo: "project-science-1",
-      title: `Pull request - Send experiment N° ${experimentId}`,
-      head: branchName,
-      base: baseBranch,
-      body: "Please review and approve this pull request.",
-    });
-  
-    console.log(prData);
+    console.log(data);
   }
   
   
