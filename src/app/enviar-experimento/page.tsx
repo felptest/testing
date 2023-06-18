@@ -277,21 +277,32 @@ export default function Experiment() {
       auth: apiToken
     });
   
-    const branchName = `branch-to-send-experiment-n-${experimentId}`;
+    const branchName = "test";
     const filePath = "src/app/api/data/experimentos.json";
     const fileContent = JSON.stringify(experimentData, null, 2);
   
- // Cria a nova branch
- const { data: newBranch } = await octokitClient.git.createRef({
-  owner: "Fellippemfv",
-  repo: "project-science-1",
-  ref: `refs/heads/${branchName}`,
-  sha: "master" // Pode ser substituído por outra referência adequada
-});
-
-    const sha = newBranch.object.sha;
+    let sha;
   
-    // Busca o conteúdo atual do arquivo
+    const { data: branch } = await octokitClient.git.getRef({
+      owner: "Fellippemfv",
+      repo: "project-science-1",
+      ref: `heads/${branchName}`,
+    });
+  
+    if (branch) {
+      sha = branch.object.sha;
+    } else {
+      const { data: newBranch } = await octokitClient.git.createRef({
+        owner: "Fellippemfv",
+        repo: "project-science-1",
+        ref: `heads/${branchName}`,
+        sha: "master" // Pode ser substituído por outra referência adequada
+      });
+  
+      sha = newBranch.object.sha;
+    }
+  
+    // busca o conteúdo atual do arquivo
     const fileInfo = await octokitClient.repos.getContent({
       owner: "Fellippemfv",
       repo: "project-science-1",
@@ -301,26 +312,26 @@ export default function Experiment() {
   
     console.log(fileInfo);
   
-    // Decodifica o conteúdo atual para uma string
+    // decodifica o conteúdo atual para uma string
     const currentContent = Array.isArray(fileInfo.data)
       ? undefined
       : fileInfo.data.type === "file" && fileInfo.data.content
       ? Buffer.from(fileInfo.data.content, "base64").toString()
       : undefined;
   
-    // Converte o conteúdo atual em um array de objetos JSON
+    // converte o conteúdo atual em um array de objetos JSON
     const currentArray = currentContent ? JSON.parse(currentContent) : [];
   
-    // Converte o novo conteúdo em um objeto JSON
+    // converte o novo conteúdo em um objeto JSON
     const newObject = JSON.parse(fileContent);
   
-    // Adiciona o novo objeto ao array existente
+    // adiciona o novo objeto ao array existente
     currentArray.push(newObject);
   
-    // Converte o array atualizado de volta em uma string JSON
+    // converte o array atualizado de volta em uma string JSON
     const updatedContent = JSON.stringify(currentArray, null, 2);
   
-    // Atualiza o conteúdo do arquivo na nova branch
+    // atualiza o conteúdo do arquivo
     const data = await octokitClient.repos.createOrUpdateFileContents({
       owner: "Fellippemfv",
       repo: "project-science-1",
@@ -328,24 +339,13 @@ export default function Experiment() {
       message: `Send experiment N° ${experimentId}`,
       content: Buffer.from(updatedContent).toString("base64"),
       branch: branchName,
-      sha: (fileInfo.data && "sha" in fileInfo.data) ? fileInfo.data.sha : sha,
+      sha: (fileInfo.data && 'sha' in fileInfo.data) ? fileInfo.data.sha : sha,
     });
+
+    console.log("Atualizado com sucesso!");
   
     console.log(data);
-  
- // Cria a pull request
- const prData = await octokitClient.pulls.create({
-  owner: "Fellippemfv",
-  repo: "project-science-1",
-  title: `Pull request - Send experiment N° ${experimentId}`,
-  head: branchName,
-  base: "test",
-  body: "Please review and approve this pull request.",
-});
-  
-    console.log(prData);
   }
-  
   
 
   const generateSlug = useCallback(() => {
