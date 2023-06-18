@@ -3,7 +3,7 @@ import React, { ChangeEvent, useCallback, useEffect, useMemo } from 'react';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import styles from './page.module.css'
+import styles from './page.module.css' 
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -271,81 +271,138 @@ export default function Experiment() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000); // limpa o estado após 2 segundos
   };
-  
+
   async function handleSend() {
     const octokitClient = new Octokit({
       auth: apiToken
     });
   
-    const branchName = "test";
+    const baseBranchName = "test";
+    const newBranchName = `experiment-update-${experimentId}`;
     const filePath = "src/app/api/data/experimentos.json";
     const fileContent = JSON.stringify(experimentData, null, 2);
   
-    let sha;
-  
-    const { data: branch } = await octokitClient.git.getRef({
+    // Busca o último commit da branch "test"
+    const { data: baseBranch } = await octokitClient.repos.getBranch({
       owner: "Fellippemfv",
       repo: "project-science-1",
-      ref: `heads/${branchName}`,
+      branch: baseBranchName
     });
   
-    if (branch) {
-      sha = branch.object.sha;
-    } else {
-      const { data: newBranch } = await octokitClient.git.createRef({
-        owner: "Fellippemfv",
-        repo: "project-science-1",
-        ref: `heads/${branchName}`,
-        sha: "master" // Pode ser substituído por outra referência adequada
-      });
+    const baseCommitSha = baseBranch.commit.sha;
   
-      sha = newBranch.object.sha;
-    }
+    // Cria a nova branch com base na branch "test"
+    const { data: newBranch } = await octokitClient.git.createRef({
+      owner: "Fellippemfv",
+      repo: "project-science-1",
+      ref: `refs/heads/${newBranchName}`,
+      sha: baseCommitSha
+    });
   
-    // busca o conteúdo atual do arquivo
+    const newBranchSha = newBranch.object.sha;
+  
+    // Busca o conteúdo atual do arquivo na branch "test"
     const fileInfo = await octokitClient.repos.getContent({
       owner: "Fellippemfv",
       repo: "project-science-1",
       path: filePath,
-      ref: branchName,
+      ref: baseBranchName,
     });
   
     console.log(fileInfo);
   
-    // decodifica o conteúdo atual para uma string
+    // Decodifica o conteúdo atual para uma string
     const currentContent = Array.isArray(fileInfo.data)
       ? undefined
       : fileInfo.data.type === "file" && fileInfo.data.content
       ? Buffer.from(fileInfo.data.content, "base64").toString()
       : undefined;
   
-    // converte o conteúdo atual em um array de objetos JSON
+    // Converte o conteúdo atual em um array de objetos JSON
     const currentArray = currentContent ? JSON.parse(currentContent) : [];
   
-    // converte o novo conteúdo em um objeto JSON
+    // Converte o novo conteúdo em um objeto JSON
     const newObject = JSON.parse(fileContent);
   
-    // adiciona o novo objeto ao array existente
+    // Adiciona o novo objeto ao array existente
     currentArray.push(newObject);
   
-    // converte o array atualizado de volta em uma string JSON
+    // Converte o array atualizado de volta em uma string JSON
     const updatedContent = JSON.stringify(currentArray, null, 2);
   
-    // atualiza o conteúdo do arquivo
-    const data = await octokitClient.repos.createOrUpdateFileContents({
+    // Cria um novo commit com os dados atualizados
+    const { data: newCommit } = await octokitClient.git.createCommit({
       owner: "Fellippemfv",
       repo: "project-science-1",
-      path: filePath,
       message: `Send experiment N° ${experimentId}`,
-      content: Buffer.from(updatedContent).toString("base64"),
-      branch: branchName,
-      sha: (fileInfo.data && 'sha' in fileInfo.data) ? fileInfo.data.sha : sha,
+      tree: baseBranch.commit.commit.tree.sha,
+      parents: [baseCommitSha],
+      author: {
+        name: "Your Name",
+        email: "your.email@example.com"
+      },
+      committer: {
+        name: "Your Name",
+        email: "your.email@example.com"
+      },
+      content: Buffer.from(updatedContent).toString("base64")
     });
-
-    console.log("Atualizado com sucesso!");
   
-    console.log(data);
+    const newCommitSha = newCommit.sha;
+  
+// Verifica se fileInfo é um objeto único ou uma matriz de objetos
+const fileInfoArray = Array.isArray(fileInfo.data) ? fileInfo.data : [fileInfo.data];
+
+// Verifica se o primeiro elemento do array possui a propriedade 'sha'
+if (fileInfoArray.length > 0 && 'sha' in fileInfoArray[0]) {
+  // Acessa a propriedade 'sha' do primeiro elemento do array
+  const sha = fileInfoArray[0].sha;
+
+  // Atualiza o conteúdo do arquivo na nova branch
+  await octokitClient.repos.createOrUpdateFileContents({
+    owner: "Fellippemfv",
+    repo: "project-science-1",
+    path: filePath,
+    message: `Update experiment data for experiment N° ${experimentId}`,
+    content: Buffer.from(updatedContent).toString("base64"),
+    branch: newBranchName,
+    sha: sha
+  });
+} else {
+  // Trata o caso em que a propriedade 'sha' não está presente
+  console.error("A propriedade 'sha' não está presente no objeto fileInfo.");
+}
+
+  
+    // Mescla os commits da branch de destino na nova branch
+const mergeResponse = await octokitClient.repos.merge({
+  owner: "Fellippemfv",
+  repo: "project-science-1",
+  base: newBranchName,
+  head: baseBranchName
+});
+
+console.log("Commits mesclados com sucesso!");
+
+// Cria uma pull request para mesclar as alterações da nova branch na branch "test"
+const pullRequest = await octokitClient.pulls.create({
+  owner: "Fellippemfv",
+  repo: "project-science-1",
+  title: `Update experiment data for experiment N° ${experimentId}`,
+  body: "Please review and approve this update to the experiment data.",
+  head: newBranchName,
+  base: baseBranchName,
+});
+
+console.log("Pull request criada:");
+console.log(pullRequest);
+
   }
+  
+
+  
+  
+  
   
 
   const generateSlug = useCallback(() => {
