@@ -343,7 +343,20 @@ export default function Experiment() {
     });
   
     console.log(data);
+  
+    // Cria a pull request
+    const prData = await octokitClient.pulls.create({
+      owner: "Fellippemfv",
+      repo: "project-science-1",
+      title: `Pull request - Send experiment N° ${experimentId}`,
+      head: branchName,
+      base: "test", // Ou outra branch de destino adequada
+      body: "Please review and approve this pull request.",
+    });
+  
+    console.log(prData);
   }
+  
   
   
 
