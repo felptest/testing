@@ -233,6 +233,9 @@ export default function Experiment() {
     console.log(experimentJson);
   };
 
+  // Declaração da constante fora da função handleGenerateId
+let formattedDate: string = '';
+
   const handleGenerateId = useMemo(() => {
     return () => {
       const date = new Date();
@@ -329,15 +332,18 @@ export default function Experiment() {
     const updatedContent = JSON.stringify(currentArray, null, 2);
   
     // atualiza o conteúdo do arquivo
-    const data = await octokitClient.repos.createOrUpdateFileContents({
-      owner: "Fellippemfv",
-      repo: "project-science-1",
-      path: filePath,
-      message: "Update my-file.json",
-      content: Buffer.from(updatedContent).toString("base64"),
-      branch: branchName,
-      sha: fileInfo.data ? fileInfo.data.sha : sha // Utiliza o SHA do fileInfo.data se estiver disponível, caso contrário, usa o SHA obtido anteriormente
-    });
+// atualiza o conteúdo do arquivo
+const data = await octokitClient.repos.createOrUpdateFileContents({
+  owner: "Fellippemfv",
+  repo: "project-science-1",
+  path: filePath,
+  message: `Send experiment N° ${formattedDate}`,
+  content: Buffer.from(updatedContent).toString("base64"),
+  branch: branchName,
+  sha: (fileInfo.data && 'sha' in fileInfo.data) ? fileInfo.data.sha : sha,
+});
+
+
   
     console.log(data);
   }
